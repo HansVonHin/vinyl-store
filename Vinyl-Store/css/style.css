@@ -107,11 +107,11 @@ section{
 
 .header .flex .logo {
    font-size: 3rem;
-   color: var(--white); /* Change 'Plaka' to white */
+   color: var(--white); /* Ensure 'Plaka' is visible */
 }
 
 .header .flex .logo span {
-   color: var(--red); /* Keep 'Express' in red */
+   color: var(--red); /* 'Express' in red */
 }
 
 .header .flex .navbar a {
@@ -123,12 +123,6 @@ section{
 .header .flex .navbar a:hover {
    color: var(--red);
    text-decoration: underline;
-}
-
-.header {
-   background-color: var(--black); /* Maintain a dark background */
-   box-shadow: var(--box-shadow);
-   z-index: 1000;
 }
 
 .header .flex .icons > * {
@@ -167,6 +161,75 @@ section{
    margin-bottom: 1rem;
 }
 
+/* Navbar Adjustments */
+.navbar .nav-2 ul {
+   list-style: none;
+   margin: 0;
+   padding: 0;
+   display: flex;
+   align-items: center;
+}
+
+.navbar .nav-2 ul li {
+   position: relative;
+}
+
+.navbar .nav-2 ul li a {
+   padding: 1rem 1.5rem;
+   display: block;
+   color: var(--white); /* Ensure the text is white by default */
+   font-size: 1.6rem;
+   white-space: nowrap; /* Prevent text wrapping */
+   transition: background-color 0.3s, color 0.3s;
+}
+
+.navbar .nav-2 ul li:hover > a,
+.navbar .nav-2 ul li a:focus, /* Ensure text color remains white on focus */
+.navbar .nav-2 ul li a:active { /* Ensure text color remains white on active */
+   background-color: var(--white);
+   color: var(--black); /* Text color should remain white */
+}
+
+.navbar .nav-2 ul li ul {
+   display: none;
+   position: absolute;
+   top: 100%;
+   left: 0;
+   background-color: var(--black);
+   padding: 1rem;
+   border-radius: .5rem;
+   z-index: 100;
+}
+
+.navbar .nav-2 ul li:hover ul {
+   display: block;
+}
+
+.navbar .nav-2 ul li ul li {
+   display: block;
+   padding: .5rem 1.5rem;
+}
+
+.navbar .nav-2 ul li ul li a {
+   padding: .5rem 1.5rem;
+   color: var(--white); /* Text color remains white */
+   background-color: var(--black);
+   transition: background-color 0.3s, color 0.3s;
+}
+
+.navbar .nav-2 ul li ul li a:hover,
+.navbar .nav-2 ul li ul li a:focus, /* Ensure text color remains white on focus */
+.navbar .nav-2 ul li ul li a:active { /* Ensure text color remains white on active */
+   background-color: var(--black);
+   color: var(--white); /* Text color should remain white */
+}
+
+.navbar .nav-2 ul li ul li a:hover {
+   background-color: var(--white);
+   color: var(--black);
+}
+
+/* Footer */
 .footer {
    background-color: var(--black);
    color: var(--white);
@@ -210,53 +273,6 @@ section{
 
 .footer .credit span {
    color: var(--red);
-}
-
-.navbar .nav-2 ul {
-   list-style: none;
-   margin: 0;
-   padding: 0;
-   display: flex;
-   align-items: center;
-}
-
-.navbar .nav-2 ul li {
-   position: relative;
-}
-
-.navbar .nav-2 ul li ul {
-   display: none;
-   position: absolute;
-   top: 100%;
-   left: 0;
-   background-color: var(--black);
-   padding: 1rem;
-   border-radius: .5rem;
-   z-index: 100;
-}
-
-.navbar .nav-2 ul li:hover ul {
-   display: block;
-}
-
-.navbar .nav-2 ul li ul li {
-   display: block;
-   padding: .5rem 0;
-}
-
-.navbar .nav-2 ul li ul li a {
-   padding: .5rem 1rem;
-   color: var(--white);
-}
-
-.navbar .nav-2 ul li ul li a:hover {
-   background-color: var(--red);
-}
-
-#menu-btn{
-   font-size: 2.5rem;
-   color: var(--white);
-   display: none;
 }
 
 /* Home Page (home.php) Styles */
