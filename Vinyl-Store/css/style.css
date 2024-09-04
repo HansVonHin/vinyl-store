@@ -1,0 +1,520 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600&display=swap');
+
+:root{
+   --main-color: #1a1a1a; /* A deep, vinyl-black color */
+   --orange: #d35400; /* Rich orange for highlights */
+   --red: #c0392b; /* A deep red */
+   --black: #111; /* Slightly darker black */
+   --white: #f9f9f9; /* A soft white */
+   --light-color: #7f8c8d; /* Muted gray */
+   --light-bg: #ecf0f1; /* Light gray background */
+   --border: .2rem solid var(--black);
+   --box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
+}
+
+*{
+   font-family: 'Oswald', sans-serif;
+   margin:0; padding:0;
+   box-sizing: border-box;
+   outline: none; border:none;
+   text-decoration: none;
+}
+
+*::selection{
+   background-color: var(--main-color);
+   color: var(--white);
+}
+
+::-webkit-scrollbar{
+   height: .5rem;
+   width: 1rem;
+}
+
+::-webkit-scrollbar-track{
+   background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb{
+   background-color: var(--main-color);
+}
+
+html{
+   font-size: 62.5%;
+   overflow-x: hidden;
+}
+
+body{
+   background-color: var(--light-bg);
+}
+
+section{
+   padding: 2rem;
+   max-width: 1200px;
+   margin: 0 auto;
+}
+
+.heading{
+   font-size: 4rem;
+   color: var(--black);
+   margin-bottom: 2rem;
+   text-align: center;
+   text-transform: uppercase;
+}
+
+.btn, .delete-btn, .option-btn{
+   display: block;
+   width: 100%;
+   margin-top: 1rem;
+   border-radius: .5rem;
+   padding: 1rem 3rem;
+   font-size: 1.7rem;
+   text-transform: capitalize;
+   color: var(--white);
+   cursor: pointer;
+   text-align: center;
+}
+
+.btn:hover, .delete-btn:hover, .option-btn:hover{
+   background-color: var(--black);
+}
+
+.btn{
+   background-color: var(--red);
+}
+
+.option-btn{
+   background-color: var(--orange);
+}
+
+.delete-btn{
+   background-color: var(--red);
+}
+
+.header{
+   position: sticky;
+   top: 0; left: 0; right: 0;
+   background-color: var(--black);
+   box-shadow: var(--box-shadow);
+   z-index: 1000;
+}
+
+.header .flex{
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   position: relative;
+}
+
+.header .flex .logo {
+   font-size: 3rem;
+   color: var(--white); /* Change 'Plaka' to white */
+}
+
+.header .flex .logo span {
+   color: var(--red); /* Keep 'Express' in red */
+}
+
+.header .flex .navbar a {
+   margin: 0 1.5rem;
+   font-size: 2rem;
+   color: var(--white); /* Ensure the nav links are visible */
+}
+
+.header .flex .navbar a:hover {
+   color: var(--red);
+   text-decoration: underline;
+}
+
+.header {
+   background-color: var(--black); /* Maintain a dark background */
+   box-shadow: var(--box-shadow);
+   z-index: 1000;
+}
+
+.header .flex .icons > * {
+   margin-left: 1rem;
+   font-size: 2.5rem;
+   cursor: pointer;
+   color: var(--white); /* Icons should also be white */
+}
+
+.header .flex .icons a span {
+   font-size: 2rem;
+}
+
+.header .flex .profile {
+   position: absolute;
+   top: 120%;
+   right: 2rem;
+   background-color: var(--white);
+   border-radius: .5rem;
+   box-shadow: var(--box-shadow);
+   border: var(--border);
+   padding: 2rem;
+   width: 30rem;
+   padding-top: 1.2rem;
+   display: none;
+}
+
+.header .flex .profile.active {
+   display: inline-block;
+}
+
+.header .flex .profile p {
+   text-align: center;
+   color: var(--black);
+   font-size: 2rem;
+   margin-bottom: 1rem;
+}
+
+.footer {
+   background-color: var(--black);
+   color: var(--white);
+   padding: 2rem 0;
+   text-align: center;
+}
+
+.footer .grid {
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: space-between;
+   gap: 2rem;
+}
+
+.footer .grid .box {
+   flex: 1 1 20rem;
+}
+
+.footer .grid .box h3 {
+   font-size: 2rem;
+   color: var(--red);
+   margin-bottom: 1rem;
+}
+
+.footer .grid .box a {
+   display: block;
+   font-size: 1.5rem;
+   color: var(--light-color);
+   margin-bottom: .5rem;
+}
+
+.footer .grid .box a:hover {
+   color: var(--red);
+}
+
+.footer .credit {
+   font-size: 1.5rem;
+   color: var(--light-color);
+   margin-top: 2rem;
+}
+
+.footer .credit span {
+   color: var(--red);
+}
+
+.navbar .nav-2 ul {
+   list-style: none;
+   margin: 0;
+   padding: 0;
+   display: flex;
+   align-items: center;
+}
+
+.navbar .nav-2 ul li {
+   position: relative;
+}
+
+.navbar .nav-2 ul li ul {
+   display: none;
+   position: absolute;
+   top: 100%;
+   left: 0;
+   background-color: var(--black);
+   padding: 1rem;
+   border-radius: .5rem;
+   z-index: 100;
+}
+
+.navbar .nav-2 ul li:hover ul {
+   display: block;
+}
+
+.navbar .nav-2 ul li ul li {
+   display: block;
+   padding: .5rem 0;
+}
+
+.navbar .nav-2 ul li ul li a {
+   padding: .5rem 1rem;
+   color: var(--white);
+}
+
+.navbar .nav-2 ul li ul li a:hover {
+   background-color: var(--red);
+}
+
+#menu-btn{
+   font-size: 2.5rem;
+   color: var(--white);
+   display: none;
+}
+
+/* Home Page (home.php) Styles */
+.home-bg{
+   background: url('../images/vinyl-bg.png') no-repeat;
+   background-size: cover;
+   background-position: center;
+}
+
+.home-bg .home .slide{
+   display: flex;
+   align-items: center;
+   flex-wrap: wrap;
+   gap: 1.5rem;
+   padding-bottom: 6rem;
+   padding-top: 2rem;
+   user-select: none;
+}
+
+.home-bg .home .slide .image{
+   flex: 1 1 40rem;
+}
+
+.home-bg .home .slide .image img{
+   height: 40rem;
+   width: 100%;
+   object-fit: contain;
+}
+
+.home-bg .home .slide .content{
+   flex: 1 1 40rem;
+}
+
+.home-bg .home .slide .content span{
+   font-size: 2rem;
+   color: var(--red);
+}
+
+.home-bg .home .slide .content h3{
+   margin-top: 1rem;
+   font-size: 4rem;
+   color: var(--white);
+   text-transform: uppercase;
+}
+
+.home-bg .home .slide .content .btn{
+   display: inline-block;
+   width: auto;
+}
+
+/* Category Slider (category.php) */
+.category .slide{
+   margin-bottom: 5rem;
+   box-shadow: var(--box-shadow);
+   border: var(--border);
+   text-align: center;
+   padding: 2rem;
+   background: var(--black);
+   border-radius: .5rem;
+}
+
+.category .slide:hover{
+   background-color: var(--red);
+}
+
+.category .slide img{
+   height: 7rem;
+   width: 100%;
+   object-fit: contain;
+   margin-bottom: 1rem;
+   user-select: none;
+}
+
+.category .slide h3{
+   font-size: 2rem;
+   color: var(--white);
+   user-select: none;
+}
+
+/* Shop Page (shop.php) Styles */
+.products .box-container{
+   display: grid;
+   grid-template-columns: repeat(auto-fit, 33rem);
+   gap: 1.5rem;
+   justify-content: center;
+   align-items: flex-start;
+}
+
+.products .box-container .box{
+   position: relative;
+   background-color: var(--white);
+   box-shadow: var(--box-shadow);
+   border-radius: .5rem;
+   border: var(--border);
+   padding: 2rem;
+   overflow: hidden;
+}
+
+.products .box-container .box img{
+   height: 20rem;
+   width: 100%;
+   object-fit: contain;
+   margin-bottom: 1rem;
+}
+
+.products .box-container .box .name{
+   font-size: 2rem;
+   color: var(--black);
+}
+
+.products .box-container .box .flex{
+   display: flex;
+   align-items: center;
+   gap: 1rem;
+}
+
+.products .box-container .box .flex .price{
+   font-size: 2rem;
+   color: var(--red);
+   margin-right: auto;
+}
+
+/* Orders Page (orders.php) */
+.orders .box-container{
+   display: flex;
+   flex-wrap: wrap;
+   gap: 1.5rem;
+   align-items: flex-start;
+}
+
+.orders .box-container .box{
+   padding: 1rem 2rem;
+   flex: 1 1 40rem;
+   border: var(--border);
+   background-color: var(--white);
+   box-shadow: var(--box-shadow);
+   border-radius: .5rem;
+}
+
+.orders .box-container .box p{
+   margin: .5rem 0;
+   line-height: 1.8;
+   font-size: 2rem;
+   color: var(--light-color);
+}
+
+.orders .box-container .box p span{
+   color: var(--main-color);
+}
+
+/* About Page (about.php) */
+.about .row{
+   display: flex;
+   align-items: center;
+   flex-wrap: wrap;
+   gap: 1.5rem;
+}
+
+.about .row .image{
+   flex: 1 1 40rem;
+}
+
+.about .row .image img{
+   width: 100%;
+}
+
+.about .row .content{
+   flex: 1 1 40rem;
+}
+
+.about .row .content h3{
+   font-size: 3rem;
+   color: var(--black);
+}
+
+.about .row .content p{
+   line-height: 2;
+   font-size: 1.5rem;
+   color: var(--light-color);
+   padding: 1rem 0;
+}
+
+.about .row .content .btn{
+   display: inline-block;
+   width: auto;
+}
+
+/* Contact Page (contact.php) */
+.contact form{
+   padding: 2rem;
+   text-align: center;
+   background-color: var(--white);
+   box-shadow: var(--box-shadow);
+   border-radius: .5rem;
+   border: var(--border);
+   max-width: 50rem;
+   margin: 0 auto;
+}
+
+.contact form h3{
+   margin-bottom: 1rem;
+   text-transform: capitalize;
+   font-size: 2.5rem;
+   color: var(--black);
+}
+
+.contact form .box{
+   margin: 1rem 0;
+   width: 100%;
+   background-color: var(--light-bg);
+   padding: 1.4rem;
+   font-size: 1.8rem;
+   color: var(--black);
+   border-radius: .5rem;
+}
+
+.contact form textarea{
+   height: 15rem;
+   resize: none;
+}
+
+/* Responsive Design */
+@media (max-width:991px){
+   html{
+      font-size: 55%;
+   }
+}
+
+@media (max-width:768px){
+   #menu-btn{
+      display: inline-block;
+   }
+
+   .header .flex .navbar a{
+      display: block;
+      margin: 2rem;
+   }
+
+   .home-bg .home .slide .content{
+      text-align: center;
+   }
+
+   .home-bg .home .slide .content h3{
+      font-size: 3rem;
+   }
+}
+
+@media (max-width:450px){
+   html{
+      font-size: 50%;
+   }
+
+   .heading{
+      font-size: 3rem;
+   }
+
+   .flex-btn{
+      flex-flow: column;
+      gap: 0;
+   }
+}
