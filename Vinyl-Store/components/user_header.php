@@ -5,42 +5,45 @@
 
       <nav class="navbar">
          <section class="navbar nav-2">
-
             <div class="menu">
                <ul>
-                  <li><a href="home.php">Home</a></li>
-                  <li><a href="#">About <i class="fas fa-angle-down"></i></a>
-                     <ul>
+                <li><a href="home.php">Home</a></li>
+                <li><a href="#">About <i class="fas fa-angle-down"></i></a>
+                    <ul>
                         <li><a href="about.php">Our Story</a></li>
                         <li><a href="faq.php">FAQ</a></li>
                         <li><a href="team.php">Our Team</a></li>
                         <li><a href="contact.php">Contact Us</a></li>
-                     </ul>
-                  </li>
-                  <li><a href="shop.php">Shop</a></li>
-                  <?php if (isset($user_id)) { ?>
-                     <li><a href="orders.php">Orders</a></li>
-                  <?php } else { ?>
-                     <li><a href="user_login.php">Orders</a></li>
-                  <?php } ?>
-                  <li><a href="#">Categories <i class="fas fa-angle-down"></i></a>
-                     <ul>
-                        <li><a href="shop.php?category=vinyl">Vinyl Records</a></li>
-                        <li><a href="shop.php?category=exclusive">Exclusive Editions</a></li>
-                        <li><a href="shop.php?category=new">New Releases</a></li>
-                        <li><a href="shop.php?category=merch">Merchandise</a></li>
-                     </ul>
+                    </ul>
+                </li>
+                <li><a href="shop.php">Shop</a></li>
+                <?php if (isset($user_id)) { ?>
+                    <li><a href="orders.php">Orders</a></li>
+                <?php } else { ?>
+                    <li><a href="user_login.php">Orders</a></li>
+                <?php } ?>
+                <li><a href="#">Categories <i class="fas fa-angle-down"></i></a>
+                    <ul>
+                        <li><a href="category.php?category=new-releases">New Releases</a></li>
+                        <li><a href="category.php?category=best-sellers">Best Sellers</a></li>
+                        <li><a href="category.php?category=featured-artists">Featured Artists</a></li>
+                        <li><a href="category.php?category=genre-highlights">Genre Highlights</a></li>
+                        <li><a href="category.php?category=exclusive-editions">Exclusive Editions</a></li>
+                        <li><a href="category.php?category=seasonal-promotions">Seasonal Promotions</a></li>
+                        <li><a href="category.php?category=vinyl-accessories">Vinyl Accessories</a></li>
+                        <li><a href="category.php?category=artist-spotlights">Artist Spotlights</a></li>
+                    </ul>
                   </li>
                </ul>
-            </div>
+         </div>
          </section>
       </nav>
 
       <div class="icons">
-         <a href="search_page.php"><i class="fas fa-search"></i></a>
-         <a href="wishlist.php"><i class="fas fa-heart"></i><span>(0)</span></a>
-         <a href="cart.php"><i class="fas fa-shopping-cart"></i><span>(0)</span></a>
-         <div id="user-btn" class="fas fa-user"></div>
+         <a href="search_page.php"><i class="fas fa-search"></i> </a>
+         <a href="wishlist.php"><i class="fas fa-heart"></i><span> 0 </span></a>
+         <a href="cart.php"><i class="fas fa-shopping-cart"></i><span> 0 </span></a>
+         <div id="user-btn" class="fas fa-user"> </div>
       </div>
 
       <div class="profile">

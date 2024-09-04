@@ -107,17 +107,17 @@ section{
 
 .header .flex .logo {
    font-size: 3rem;
-   color: var(--white); /* Ensure 'Plaka' is visible */
+   color: var(--white);
 }
 
 .header .flex .logo span {
-   color: var(--red); /* 'Express' in red */
+   color: var(--red);
 }
 
 .header .flex .navbar a {
    margin: 0 1.5rem;
    font-size: 2rem;
-   color: var(--white); /* Ensure the nav links are visible */
+   color: var(--white);
 }
 
 .header .flex .navbar a:hover {
@@ -129,7 +129,7 @@ section{
    margin-left: 1rem;
    font-size: 2.5rem;
    cursor: pointer;
-   color: var(--white); /* Icons should also be white */
+   color: var(--white);
 }
 
 .header .flex .icons a span {
@@ -177,21 +177,22 @@ section{
 .navbar .nav-2 ul li a {
    padding: 1rem 1.5rem;
    display: block;
-   color: var(--white); /* Ensure the text is white by default */
+   color: var(--white);
    font-size: 1.6rem;
-   white-space: nowrap; /* Prevent text wrapping */
+   white-space: nowrap;
    transition: background-color 0.3s, color 0.3s;
 }
 
 .navbar .nav-2 ul li:hover > a,
-.navbar .nav-2 ul li a:focus, /* Ensure text color remains white on focus */
-.navbar .nav-2 ul li a:active { /* Ensure text color remains white on active */
+.navbar .nav-2 ul li a:focus,
+.navbar .nav-2 ul li a:active {
    background-color: var(--white);
-   color: var(--black); /* Text color should remain white */
+   color: var(--black);
 }
 
+/* Navbar Dropdown Multi-Column */
 .navbar .nav-2 ul li ul {
-   display: none;
+   display: none; /* Hide dropdown by default */
    position: absolute;
    top: 100%;
    left: 0;
@@ -199,32 +200,114 @@ section{
    padding: 1rem;
    border-radius: .5rem;
    z-index: 100;
+   width: 400px; /* Adjust width to fit multiple columns */
+   grid-template-columns: repeat(2, 1fr); /* Create 2 columns */
+   gap: 1rem;
 }
 
+/* Show dropdown on hover */
 .navbar .nav-2 ul li:hover ul {
-   display: block;
+   display: grid; /* Show the dropdown menu when hovering over the parent */
 }
 
+/* Dropdown item styles */
 .navbar .nav-2 ul li ul li {
    display: block;
-   padding: .5rem 1.5rem;
+   padding: .5rem 0;
 }
 
 .navbar .nav-2 ul li ul li a {
-   padding: .5rem 1.5rem;
-   color: var(--white); /* Text color remains white */
+   color: var(--white);
    background-color: var(--black);
    transition: background-color 0.3s, color 0.3s;
+   padding-left: 1rem;
 }
 
 .navbar .nav-2 ul li ul li a:hover,
-.navbar .nav-2 ul li ul li a:focus, /* Ensure text color remains white on focus */
-.navbar .nav-2 ul li ul li a:active { /* Ensure text color remains white on active */
-   background-color: var(--black);
-   color: var(--white); /* Text color should remain white */
+.navbar .nav-2 ul li ul li a:focus,
+.navbar .nav-2 ul li ul li a:active {
+   background-color: var(--white);
+   color: var(--black);
 }
 
-.navbar .nav-2 ul li ul li a:hover {
+/* Home Page Categories Section */
+.category .swiper-slide {
+   margin-bottom: 5rem;
+   box-shadow: var(--box-shadow);
+   border: var(--border);
+   text-align: center;
+   padding: 2rem;
+   background: var(--black);
+   border-radius: .5rem;
+}
+
+.category .swiper-slide:hover {
+   background-color: var(--red);
+}
+
+.category .swiper-slide img {
+   height: 7rem;
+   width: 100%;
+   object-fit: contain;
+   margin-bottom: 1rem;
+   user-select: none;
+}
+
+.category .swiper-slide h3 {
+   font-size: 2rem;
+   color: var(--white);
+   user-select: none;
+}
+
+/* Category and Shop Page Styles */
+.products-container, .product-box-container {
+   padding: 2rem;
+   max-width: 1200px;
+   margin: 0 auto;
+}
+
+.products-grid, .product-box-container {
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+   gap: 2rem;
+}
+
+.product-item, .product-box {
+   background-color: var(--white);
+   border-radius: .5rem;
+   box-shadow: var(--box-shadow);
+   text-align: center;
+   padding: 1.5rem;
+}
+
+.product-item img, .product-box img {
+   max-width: 100%;
+   border-radius: .5rem;
+   margin-bottom: 1rem;
+}
+
+.product-item h3, .product-box h3 {
+   font-size: 2rem;
+   color: var(--black);  /* Ensuring contrast with black background */
+   margin-bottom: .5rem;
+}
+
+.product-item p, .product-box p {
+   font-size: 1.8rem;
+   color: var(--red);
+   margin-bottom: 1rem;
+}
+
+.product-item .btn, .product-box .btn {
+   background-color: var(--red);
+   color: var(--white);
+   padding: 1rem 2rem;
+   border-radius: .5rem;
+   text-transform: uppercase;
+   transition: background-color 0.3s;
+}
+
+.product-item .btn:hover, .product-box .btn:hover {
    background-color: var(--white);
    color: var(--black);
 }

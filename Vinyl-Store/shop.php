@@ -2,14 +2,13 @@
 <html lang="en">
 <head>
    <meta charset="UTF-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>shop</title>
+   <title>Plaka Express - Shop</title>
    
-   <!-- font awesome cdn link  -->
+   <!-- Font Awesome CDN Link -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
-   <!-- custom css file link  -->
+   <!-- Custom CSS File Link -->
    <link rel="stylesheet" href="css/style.css">
 
 </head>
@@ -19,9 +18,19 @@
 
 <section class="products">
 
-   <h1 class="heading">latest products</h1>
+   <h1 class="heading">Browse Our Vinyl Collection</h1>
 
-   <div class="box-container">
+   <div class="product-box-container">
+
+      <!-- Example of a product item -->
+      <div class="product-box">
+         <img src="images/product-placeholder.png" alt="Vinyl Record">
+         <h3>Album Name</h3>
+         <p>$Price</p>
+         <a href="#" class="btn">Add to Cart</a>
+      </div>
+
+      <!-- Repeat similar blocks for other products -->
 
    </div>
 
