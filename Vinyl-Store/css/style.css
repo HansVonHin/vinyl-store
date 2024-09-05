@@ -83,7 +83,7 @@ section{
 }
 
 .option-btn{
-   background-color: var(--orange);
+   background-color: var(--red);
 }
 
 .delete-btn{
@@ -257,6 +257,38 @@ section{
    font-size: 2rem;
    color: var(--white);
    user-select: none;
+}
+
+/* Search Bar Styles*/
+.search-bar {
+   display: flex;
+   align-items: center;
+   margin-left: auto;
+   margin-right: 2rem;
+}
+
+.search-bar input {
+   padding: 1rem;
+   font-size: 1.6rem;
+   border-radius: .5rem;
+   border: var(--border);
+   background-color: var(--white);
+   color: var(--black);
+   width: 250px;
+}
+
+.search-bar button {
+   font-size: 2rem;
+   padding: 1.2rem;
+   background-color: var(--red);
+   color: var(--white);
+   border-radius: .5rem;
+   margin-left: 1rem;
+   cursor: pointer;
+}
+
+.search-bar button:hover {
+   background-color: var(--black);
 }
 
 /* Category and Shop Page Styles */
@@ -506,41 +538,158 @@ section{
    color: var(--main-color);
 }
 
-/* About Page (about.php) */
-.about .row{
+/* About Page Styles */
+.about .row {
    display: flex;
    align-items: center;
    flex-wrap: wrap;
    gap: 1.5rem;
+   margin-bottom: 2rem;
 }
 
-.about .row .image{
-   flex: 1 1 40rem;
-}
-
-.about .row .image img{
+.about .image img {
    width: 100%;
+   max-width: 500px;
+   border-radius: .5rem;
 }
 
-.about .row .content{
-   flex: 1 1 40rem;
+.about .content {
+   flex: 1;
+   max-width: 600px;
 }
 
-.about .row .content h3{
+.about .content h3 {
    font-size: 3rem;
+   color: var(--black);
+   margin-bottom: 1rem;
+}
+
+.about .content p {
+   line-height: 1.8;
+   font-size: 1.6rem;
+   color: var(--light-color);
+   margin-bottom: 2rem;
+}
+
+.reviews .heading {
+   font-size: 4rem;
+   margin-bottom: 2rem;
+   color: var(--black);
+   text-align: center;
+}
+
+.reviews .swiper-slide {
+   padding: 2rem;
+   background-color: var(--white);
+   border-radius: .5rem;
+   box-shadow: var(--box-shadow);
+   text-align: center;
+}
+
+.reviews .swiper-slide img {
+   width: 100px;
+   height: 100px;
+   object-fit: cover;
+   border-radius: 50%;
+   margin-bottom: 1rem;
+}
+
+.reviews .stars {
+   margin: 1rem 0;
+}
+
+.reviews .stars i {
+   color: var(--orange);
+}
+
+.reviews .swiper-slide h3 {
+   font-size: 2rem;
    color: var(--black);
 }
 
-.about .row .content p{
-   line-height: 2;
-   font-size: 1.5rem;
-   color: var(--light-color);
-   padding: 1rem 0;
+/* FAQ Section Styles */
+.faq-container {
+   max-width: 800px;
+   margin: 0 auto;
+   padding: 2rem;
+   background-color: var(--white);
+   border-radius: .5rem;
+   box-shadow: var(--box-shadow);
 }
 
-.about .row .content .btn{
-   display: inline-block;
-   width: auto;
+.faq-item {
+   margin-bottom: 1.5rem;
+}
+
+.faq-item h3 {
+   font-size: 2rem;
+   color: var(--black);
+   margin-bottom: .5rem;
+}
+
+.faq-item p {
+   font-size: 1.6rem;
+   color: var(--light-color);
+}
+
+/* Our Team Section Styles */
+.team-container {
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: space-around;
+   gap: 2rem;
+}
+
+.team-member {
+   text-align: center;
+   background-color: var(--white);
+   border-radius: .5rem;
+   box-shadow: var(--box-shadow);
+   padding: 2rem;
+   width: 300px;
+}
+
+.team-member img {
+   border-radius: 50%;
+   width: 150px;
+   height: 150px;
+   object-fit: cover;
+   margin-bottom: 1rem;
+}
+
+.team-member h3 {
+   font-size: 2rem;
+   color: var(--black);
+   margin-bottom: .5rem;
+}
+
+.team-member p {
+   font-size: 1.6rem;
+   color: var(--light-color);
+}
+
+/* Contact Section Styles */
+.contact .box {
+   width: 100%;
+   margin-bottom: 1rem;
+   background-color: var(--light-bg);
+   padding: 1.4rem;
+   font-size: 1.8rem;
+   color: var(--black);
+   border-radius: .5rem;
+}
+
+.contact .box::placeholder {
+   color: var(--light-color);
+}
+
+.contact .box:focus {
+   border: 2px solid var(--red);
+}
+
+.contact textarea {
+   height: 15rem;
+   resize: none;
 }
 
 /* Contact Page (contact.php) */

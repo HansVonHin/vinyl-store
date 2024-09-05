@@ -23,7 +23,7 @@
     <section class="home">
         <div class="swiper home-slider">
             <div class="swiper-wrapper">
-
+               
                 <!-- Slide 1: Promotional Deals -->
                 <div class="swiper-slide slide">
                     <div class="image">
