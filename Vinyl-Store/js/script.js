@@ -1,3 +1,4 @@
+// Navbar and profile menu toggle
 let navbar = document.querySelector('.header .flex .navbar');
 let profile = document.querySelector('.header .flex .profile');
 
@@ -25,12 +26,14 @@ document.addEventListener("DOMContentLoaded", function() {
 let mainImage = document.querySelector('.quick-view .box .row .image-container .main-image img');
 let subImages = document.querySelectorAll('.quick-view .box .row .image-container .sub-image img');
 
-subImages.forEach(images => {
-   images.onclick = () => {
-      let src = images.getAttribute('src');
+subImages.forEach(image => {
+   image.onclick = () => {
+      let src = image.getAttribute('src');
       mainImage.src = src;
    };
-   
+});
+
+// Initialize Swiper for reviews slider
 var swiper = new Swiper(".reviews-slider", {
    loop: true,
    spaceBetween: 20,
@@ -56,7 +59,7 @@ let logoSection = document.querySelector('.top-section');
 let lastScrollTop = 0;
 
 window.addEventListener('scroll', () => {
-    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    let scrollTop = window.scrollY || document.documentElement.scrollTop;
     
     if (scrollTop > lastScrollTop && scrollTop > 100) {
         // Scrolling down and past 100px, hide the logo
@@ -67,6 +70,4 @@ window.addEventListener('scroll', () => {
     }
     
     lastScrollTop = scrollTop;
-});
-
 });

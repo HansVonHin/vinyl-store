@@ -455,10 +455,12 @@ section{
    font-size: 1.5rem;
    color: var(--light-color);
    margin-bottom: .5rem;
+   transition: background-color 0.3s, color 0.3s;
 }
 
 .footer .grid .box a:hover {
-   color: var(--red);
+   background-color: var(--white);
+   color: var(--black);
 }
 
 .footer .credit {
@@ -468,6 +470,77 @@ section{
 }
 
 .footer .credit span {
+   color: var(--red);
+}
+
+.footer-logo {
+   width: 150px;  /* Adjust size as needed */
+   margin-bottom: 1rem;
+}
+
+.social-links {
+   display: flex;
+   gap: 1rem;
+   justify-content: center;
+   margin-top: 1rem;
+}
+
+.social-links a {
+   font-size: 2rem;
+   color: var(--light-color);
+   transition: color 0.3s;
+}
+
+.social-links a:hover {
+   color: var(--red);
+}
+
+.links-column {
+   display: flex;
+   flex-direction: column;
+   align-items: flex-start;
+   gap: 0.5rem;
+}
+
+.newsletter {
+   margin-top: 1.5rem;
+}
+
+.newsletter h3 {
+   font-size: 1.8rem;
+   color: var(--red);
+   margin-bottom: 0.5rem;
+}
+
+.newsletter form {
+   display: flex;
+   flex-direction: column;
+   align-items: flex-start;
+}
+
+.newsletter input {
+   padding: 0.8rem;
+   width: 100%;
+   max-width: 250px;
+   margin-bottom: 0.5rem;
+   border: 1px solid var(--light-color);
+   border-radius: 4px;
+   background-color: var(--white);
+   color: var(--black);
+}
+
+.newsletter button {
+   padding: 0.8rem 1.5rem;
+   border: none;
+   background-color: var(--red);
+   color: var(--white);
+   border-radius: 4px;
+   cursor: pointer;
+   transition: background-color 0.3s, color 0.3s;
+}
+
+.newsletter button:hover {
+   background-color: var(--black);
    color: var(--red);
 }
 
@@ -878,5 +951,18 @@ section{
    .flex-btn{
       flex-flow: column;
       gap: 0;
+   }
+}
+
+@media (max-width: 768px) {
+   .footer .grid {
+      flex-direction: column;
+      align-items: center;
+   }
+   .footer .grid .box {
+      text-align: center;
+   }
+   .links-column {
+      align-items: center;
    }
 }
