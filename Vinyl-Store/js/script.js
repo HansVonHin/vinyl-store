@@ -51,4 +51,22 @@ var swiper = new Swiper(".reviews-slider", {
    },
 });
 
+// JavaScript to hide the logo on scroll
+let logoSection = document.querySelector('.top-section');
+let lastScrollTop = 0;
+
+window.addEventListener('scroll', () => {
+    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    
+    if (scrollTop > lastScrollTop && scrollTop > 100) {
+        // Scrolling down and past 100px, hide the logo
+        logoSection.classList.add('hidden');
+    } else if (scrollTop < lastScrollTop || scrollTop <= 100) {
+        // Scrolling up or near the top of the page, show the logo
+        logoSection.classList.remove('hidden');
+    }
+    
+    lastScrollTop = scrollTop;
+});
+
 });

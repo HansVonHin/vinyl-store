@@ -90,6 +90,68 @@ section{
    background-color: var(--red);
 }
 
+/* Top Section: Logo */
+.top-section {
+   text-align: center;
+   padding: 1rem 0;
+   background-color: var(--black);
+   transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.top-section.hidden {
+   transform: translateY(-100%);
+   opacity: 0;
+   pointer-events: none;
+}
+
+.logo-image img {
+   max-width: 100px; /* Adjust size as needed */
+   height: auto;
+}
+
+/* Middle Section: Brand Name */
+.brand-section {
+   text-align: center;
+   margin-bottom: 1rem;
+}
+
+.brand-section .brand-name {
+   font-size: 2.5rem;
+   color: var(--white);
+}
+
+.brand-section .brand-name span {
+   color: var(--red);
+}
+
+/* Bottom Section: Navbar, Search Bar, and Icons */
+.header .flex {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   position: sticky;
+   top: 0;
+   background-color: var(--black);
+   z-index: 1000;
+   transition: top 0.3s ease-in-out;
+}
+
+/* Other Styles (Navbar, Dropdown, Search Bar, etc.) */
+.header .flex .navbar {
+   flex: 1;
+}
+
+.header .flex .search {
+   flex: 1;
+   text-align: center;
+}
+
+.header .flex .icons {
+   flex: 1;
+   display: flex;
+   justify-content: flex-end;
+}
+
 .header{
    position: sticky;
    top: 0; left: 0; right: 0;
@@ -125,15 +187,35 @@ section{
    text-decoration: underline;
 }
 
-.header .flex .icons > * {
+.header .flex .search > * {
    margin-left: 1rem;
    font-size: 2.5rem;
    cursor: pointer;
    color: var(--white);
 }
 
+.header .flex .search a span {
+   font-size: 2rem;
+}
+
+/* User Icon Alignment */
+.header .flex .icons > * {
+   margin-left: 1rem;
+   font-size: 2.5rem;
+   cursor: pointer;
+   color: var(--white);
+   display: flex;
+   align-items: center; /* Ensure vertical alignment */
+}
+
 .header .flex .icons a span {
    font-size: 2rem;
+}
+
+.header .flex .icons #user-btn {
+   font-size: 2.5rem;
+   display: flex;
+   align-items: center;
 }
 
 .header .flex .profile {
@@ -192,7 +274,7 @@ section{
 
 /* Navbar Dropdown Multi-Column */
 .navbar .nav-2 ul li ul {
-   display: none; /* Hide dropdown by default */
+   display: none;
    position: absolute;
    top: 100%;
    left: 0;
@@ -200,17 +282,16 @@ section{
    padding: 1rem;
    border-radius: .5rem;
    z-index: 100;
-   width: 400px; /* Adjust width to fit multiple columns */
-   grid-template-columns: repeat(2, 1fr); /* Create 2 columns */
+   width: 400px;
+   grid-template-columns: repeat(2, 1fr);
    gap: 1rem;
 }
 
 /* Show dropdown on hover */
 .navbar .nav-2 ul li:hover ul {
-   display: grid; /* Show the dropdown menu when hovering over the parent */
+   display: grid;
 }
 
-/* Dropdown item styles */
 .navbar .nav-2 ul li ul li {
    display: block;
    padding: .5rem 0;
@@ -605,6 +686,39 @@ section{
 .reviews .swiper-slide h3 {
    font-size: 2rem;
    color: var(--black);
+}
+
+/* Our Story Section Styles*/
+.our-story .row {
+   display: flex;
+   align-items: center;
+   flex-wrap: wrap;
+   gap: 1.5rem;
+   margin-bottom: 2rem;
+}
+
+.our-story .image img {
+   width: 100%;
+   max-width: 500px;
+   border-radius: .5rem;
+}
+
+.our-story .content {
+   flex: 1;
+   max-width: 600px;
+}
+
+.our-story .content h3 {
+   font-size: 3rem;
+   color: var(--black);
+   margin-bottom: 1rem;
+}
+
+.our-story .content p {
+   line-height: 1.8;
+   font-size: 1.6rem;
+   color: var(--light-color);
+   margin-bottom: 2rem;
 }
 
 /* FAQ Section Styles */

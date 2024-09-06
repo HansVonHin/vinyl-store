@@ -1,8 +1,20 @@
 <header class="header">
+   <!-- Top Section: Logo -->
+   <section class="top-section">
+      <a href="home.php" class="logo-image">
+         <img src="images/logo.png" alt="Plaka Express Logo">
+      </a>
+   </section>
+
+   <!-- Middle Section: Brand Name -->
+   <!--<section class="brand-section">
+      <a href="home.php" class="brand-name">Plaka<span>Express</span></a>
+      <p>www.plakaexpress.com</p>
+
+   </section>-->
+
+   <!-- Bottom Section: Navbar, Search Bar, and Icons -->
    <section class="flex">
-
-      <a href="home.php" class="logo">Plaka<span>Express</span></a>
-
       <nav class="navbar">
          <section class="navbar nav-2">
             <div id="menu-btn"></div>
@@ -37,14 +49,17 @@
       </nav>
 
       <!-- Search Form -->
-      <div class="icons">
+      <div class="search">
          <form action="search_page.php" method="post" class="search-bar">
          <input type="text" name="search_box" placeholder="Search here..." maxlength="100" required>
          <button type="submit" class="fas fa-search" name="search_btn"></button>
          </form>
-         <a href="wishlist.php"><i class="fas fa-heart"></i><span> </span></a>
-         <a href="cart.php"><i class="fas fa-shopping-cart"></i><span> </span></a>
-         <div id="user-btn" class="fas fa-user"></div>
+      </div>
+
+      <div class="icons">
+         <a href="wishlist.php"><i class="fas fa-heart"></i><span></span></a>
+         <a href="cart.php"><i class="fas fa-shopping-cart"></i><span></span></a>
+         <div id="user-btn" class="fas fa-user"><span></span></div>
       </div>
 
       <div class="profile">
