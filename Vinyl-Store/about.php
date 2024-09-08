@@ -4,7 +4,7 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>About Us | Plaka Express</title>
-
+   <link rel="icon" href="images/favicon.ico" type="images/x-icon">
    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
    
    <!-- Font Awesome CDN Link -->
@@ -72,88 +72,87 @@
 
    <div class="swiper reviews-slider">
 
-   <div class="swiper-wrapper">
+      <div class="swiper-wrapper">
 
-      <div class="swiper-slide slide">
-         <img src="images/pic-1.png" alt="Customer Review 1">
-         <p>"Plaka Express has an amazing selection of vinyl! The exclusive editions are a must-have for any collector. Their customer service is top-notch too!"</p>
-         <div class="stars">
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star-half-alt"></i>
+         <div class="swiper-slide reviews-slider">
+            <img src="images/pic-1.png" alt="Customer Review 1">
+            <p>"Plaka Express has an amazing selection of vinyl! The exclusive editions are a must-have for any collector. Their customer service is top-notch too!"</p>
+            <div class="stars">
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star"></i>
+            </div>
+            <h3>Jane Doe</h3>
          </div>
-         <h3>Jane Doe</h3>
-      </div>
 
-      <div class="swiper-slide slide">
-         <img src="images/pic-2.png" alt="Customer Review 2">
-         <p>"The quality of the records is outstanding, and the staff really know their stuff. It's my go-to place for all things vinyl."</p>
-         <div class="stars">
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star-half-alt"></i>
+         <div class="swiper-slide reviews-slider">
+            <img src="images/pic-2.png" alt="Customer Review 2">
+            <p>"The quality of the records is outstanding, and the staff really know their stuff. It's my go-to place for all things vinyl."</p>
+            <div class="stars">
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star"></i>
+            </div>
+            <h3>John Smith</h3>
          </div>
-         <h3>John Smith</h3>
-      </div>
 
-      <div class="swiper-slide slide">
-         <img src="images/pic-3.png" alt="Customer Review 3">
-         <p>"I found records here that I thought I'd never get my hands on. The atmosphere and selection make it a must-visit for any music lover."</p>
-         <div class="stars">
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star-half-alt"></i>
+         <div class="swiper-slide reviews-slider">
+            <img src="images/pic-3.png" alt="Customer Review 3">
+            <p>"I found records here that I thought I'd never get my hands on. The atmosphere and selection make it a must-visit for any music lover."</p>
+            <div class="stars">
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star-half-alt"></i>
+            </div>
+            <h3>Sarah Lee</h3>
          </div>
-         <h3>Sarah Lee</h3>
-      </div>
-      <div class="swiper-slide slide">
-         <img src="images/pic-4.png" alt="">
-         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia tempore distinctio hic, iusto adipisci a rerum nemo perspiciatis fugiat sapiente.</p>
-         <div class="stars">
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star-half-alt"></i>
+
+         <div class="swiper-slide reviews-slider">
+            <img src="images/pic-4.png" alt="Customer Review 4">
+            <p>"Plaka Express is a hidden gem for vinyl enthusiasts. The vibe is perfect, and I love how organized everything is."</p>
+            <div class="stars">
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star-half-alt"></i>
+            </div>
+            <h3>Emily Brown</h3>
          </div>
-         <h3>john deo</h3>
-      </div>
 
-      <div class="swiper-slide slide">
-         <img src="images/pic-5.png" alt="">
-         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia tempore distinctio hic, iusto adipisci a rerum nemo perspiciatis fugiat sapiente.</p>
-         <div class="stars">
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star-half-alt"></i>
+         <div class="swiper-slide reviews-slider">
+            <img src="images/pic-5.png" alt="Customer Review 5">
+            <p>"Great selection, great prices, and great service! Plaka Express is my go-to for all my vinyl needs."</p>
+            <div class="stars">
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star"></i>
+            </div>
+            <h3>Michael White</h3>
          </div>
-         <h3>john deo</h3>
-      </div>
 
-      <div class="swiper-slide slide">
-         <img src="images/pic-6.png" alt="">
-         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia tempore distinctio hic, iusto adipisci a rerum nemo perspiciatis fugiat sapiente.</p>
-         <div class="stars">
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star-half-alt"></i>
+         <div class="swiper-slide reviews-slider">
+            <img src="images/pic-6.png" alt="Customer Review 6">
+            <p>"As a first-time buyer, I was impressed by how helpful the staff was. I’ll definitely be back for more records!"</p>
+            <div class="stars">
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star-half-alt"></i>
+            </div>
+            <h3>Lisa Green</h3>
          </div>
-         <h3>john deo</h3>
+
       </div>
-
-   </div>
-
-   <div class="swiper-pagination"></div>
 
    </div>
 

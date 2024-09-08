@@ -694,13 +694,13 @@ section{
 }
 
 /* Home Page (home.php) Styles */
-.home-bg{
+.home-bg {
    background: url('../images/vinyl-bg.png') no-repeat;
    background-size: cover;
    background-position: center;
 }
 
-.home-bg .home .slide{
+.home-bg .home .slide {
    display: flex;
    align-items: center;
    flex-wrap: wrap;
@@ -710,39 +710,39 @@ section{
    user-select: none;
 }
 
-.home-bg .home .slide .image{
+.home-bg .home .slide .image {
    flex: 1 1 40rem;
 }
 
-.home-bg .home .slide .image img{
+.home-bg .home .slide .image img {
    height: 40rem;
    width: 100%;
    object-fit: contain;
 }
 
-.home-bg .home .slide .content{
+.home-bg .home .slide .content {
    flex: 1 1 40rem;
 }
 
-.home-bg .home .slide .content span{
+.home-bg .home .slide .content span {
    font-size: 2rem;
    color: var(--red);
 }
 
-.home-bg .home .slide .content h3{
+.home-bg .home .slide .content h3 {
    margin-top: 1rem;
    font-size: 4rem;
    color: var(--white);
    text-transform: uppercase;
 }
 
-.home-bg .home .slide .content .btn{
+.home-bg .home .slide .content .btn {
    display: inline-block;
    width: auto;
 }
 
-.swiper-pagination-bullet-active{
-   background-color: var(--red);
+.swiper-pagination-bullet-active {
+   background-color: var(--red) !important;
 }
 
 /* Category Slider (category.php) */
@@ -946,48 +946,48 @@ section{
    color: var(--white);
 }
 
-.reviews .slide{
-   padding:2rem;
+.reviews .reviews-slider{
+   padding: 2rem;
    text-align: center;
    background-color: var(--white);
    box-shadow: var(--box-shadow);
    border-radius: .5rem;
-   border:var(--border);
-   margin-bottom: 5rem;
+   margin-bottom: 0.5rem;
    user-select: none;
+   height: 36rem;
 }
 
-.reviews .slide img{
+.reviews .reviews-slider img{
    height: 10rem;
    width: 10rem;
    border-radius: 50%;
    margin-bottom: .5rem;
 }
 
-.reviews .slide p{
-   padding:1rem 0;
+.reviews .reviews-slider p{
+   padding: 1rem 0;
    line-height: 2;
    font-size: 1.5rem;
-   color:var(--light-color);
+   color: var(--light-color);
 }
 
-.reviews .slide .stars{
+.reviews .reviews-slider .stars{
    display: inline-block;
    margin-bottom: 1rem;
    background-color: var(--light-bg);
-   padding:1rem 1.5rem;
+   padding: 1rem 1.5rem;
    border-radius: .5rem;
 }
 
-.reviews .slide .stars i{
-   margin:0 .3rem;
+.reviews .reviews-slider .stars i{
+   margin: 0.3rem;
    font-size: 1.7rem;
-   color:var(--orange);
+   color: var(--orange);
 }
 
-.reviews .slide h3{
+.reviews .reviews-slider h3{
    font-size: 2rem;
-   color:var(--black);
+   color: var(--black);
 }
 
 /* Our Story Section Styles*/

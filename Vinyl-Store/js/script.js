@@ -37,9 +37,9 @@ subImages.forEach(image => {
 var swiper = new Swiper(".reviews-slider", {
    loop: true,
    spaceBetween: 20,
-   pagination: {
-      el: ".swiper-pagination",
-      clickable: true,
+   autoplay: {
+      delay: 3000, // 3 seconds delay between slides
+      disableOnInteraction: false,
    },
    breakpoints: {
       0: {
@@ -51,6 +51,16 @@ var swiper = new Swiper(".reviews-slider", {
       991: {
          slidesPerView: 3,
       },
+   },
+});
+
+// Initialize Swiper for Promotional Deals
+var promoSwiper = new Swiper(".home-slider", {
+   loop: true,
+   spaceBetween: 20,
+   autoplay: {
+      delay: 3000, // Adjust the delay as needed
+      disableOnInteraction: false, // Keeps autoplay active after user interaction
    },
 });
 
@@ -71,3 +81,5 @@ window.addEventListener('scroll', () => {
     
     lastScrollTop = scrollTop;
 });
+
+// JavaScript to make navbar appear on scroll
