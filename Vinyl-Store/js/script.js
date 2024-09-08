@@ -54,19 +54,19 @@ var swiper = new Swiper(".reviews-slider", {
    },
 });
 
-// JavaScript to hide the logo on scroll
-let logoSection = document.querySelector('.top-section');
+// JavaScript to hide the header on scroll
+let header = document.querySelector('.header');
 let lastScrollTop = 0;
 
 window.addEventListener('scroll', () => {
     let scrollTop = window.scrollY || document.documentElement.scrollTop;
     
-    if (scrollTop > lastScrollTop && scrollTop > 100) {
-        // Scrolling down and past 100px, hide the logo
-        logoSection.classList.add('hidden');
-    } else if (scrollTop < lastScrollTop || scrollTop <= 100) {
-        // Scrolling up or near the top of the page, show the logo
-        logoSection.classList.remove('hidden');
+    if (scrollTop > lastScrollTop && scrollTop > 250) {
+        // Scrolling down and past 100px, hide the header
+        header.classList.add('hidden');
+    } else if (scrollTop < lastScrollTop && scrollTop <= 250) {
+        // Scrolling up or near the top of the page, show the header
+        header.classList.remove('hidden');
     }
     
     lastScrollTop = scrollTop;
