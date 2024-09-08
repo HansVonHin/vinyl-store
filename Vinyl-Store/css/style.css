@@ -144,7 +144,11 @@ section{
    display: flex;
    align-items: center;
    justify-content: space-between;
-   position: relative;
+   position: sticky;
+   top: 0;
+   background-color: var(--black);
+   z-index: 1000;
+   transition: top 0.3s ease-in-out;
 }
 
 .header .flex .logo {
@@ -186,6 +190,12 @@ section{
    color: var(--white);
    display: flex;
    align-items: center; /* Ensure vertical alignment */
+}
+
+.header .flex .icons {
+   flex: 1;
+   display: flex;
+   justify-content: flex-end;
 }
 
 .header .flex .icons a span {
@@ -522,6 +532,41 @@ section{
 }
 
 /* Footer */
+.footer {
+   background-color: var(--black);
+   color: var(--white);
+   padding: 2rem 0;
+   text-align: center;
+}
+
+.footer .grid {
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: space-between;
+   gap: 2rem;
+}
+
+.footer .grid .box {
+   flex: 1 1 20rem;
+}
+
+.footer .grid .box h3 {
+   font-size: 2rem;
+   color: var(--red);
+   margin-bottom: 1rem;
+}
+
+.footer .grid .box a {
+   display: block;
+   font-size: 1.5rem;
+   color: var(--light-color);
+   margin-bottom: .5rem;
+}
+
+.footer .grid .box a:hover {
+   color: var(--red);
+}
+
 .footer .box-container {
    display: grid;
    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
