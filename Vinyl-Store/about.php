@@ -39,6 +39,33 @@
    </div>
 </section>
 
+<!-- Where We're Located Section -->
+<section class="location">
+   <div class="content">
+      <h3>Where We're Located</h3>
+      <p>Plaka Express is situated in the vibrant heart of Quezon City, a place where music and culture blend seamlessly. Our store is a sanctuary for vinyl enthusiasts, offering a diverse selection of records that span genres and generations.</p>
+      <p>We invite you to visit us, explore our curated collections, and immerse yourself in the rich soundscapes that only vinyl can provide. Whether you’re a seasoned collector or new to the world of records, our knowledgeable staff is here to guide you on your musical journey.</p>
+      <p>Our store is not just a retail space; it’s a community hub where like-minded individuals gather to share their passion for music. Join us for in-store events, exclusive listening sessions, and discover why Plaka Express is the go-to destination for vinyl lovers in the city.</p>
+   </div>
+   <div class="map-embed">
+      <iframe 
+         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d964.9700598001808!2d121.03114946450538!3d14.662737175554316!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397b6e1b31457a9%3A0x123349dfa5a8d5b6!2sPlaka%20Express!5e0!3m2!1sen!2sph!4v1725799028784!5m2!1sen!2sph" 
+         width="100%" 
+         height="350" 
+         style="border:0;" 
+         allowfullscreen="" 
+         loading="lazy"></iframe>
+   </div>
+   <div class="contact-info">
+      <p><strong>Phone:</strong> +123 456 7890</p>
+      <p><strong>Email:</strong> contact@plakaexpress.com</p>
+      <p><strong>Business Hours:</strong></p>
+      <p>Mon-Fri: 10:00 AM - 8:00 PM</p>
+      <p>Sat-Sun: 11:00 AM - 6:00 PM</p>
+      <a href="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d964.9700598001808!2d121.03114946450538!3d14.662737175554316!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397b6e1b31457a9%3A0x123349dfa5a8d5b6!2sPlaka%20Express!5e0!3m2!1sen!2sph!4v1725799028784!5m2!1sen!2sph" target="_blank" class="btn">Get Directions</a>
+   </div>
+</section>
+
 <section class="reviews">
    
    <h1 class="heading">What Our Customers Say</h1>

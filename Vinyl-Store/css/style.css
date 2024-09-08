@@ -641,6 +641,16 @@ section{
    gap: 0.5rem;
 }
 
+.map-embed iframe {
+   width: 100%;  /* Makes the map responsive */
+   max-width: 400px; /* Maximum width */
+   height: 250px; /* Adjust height */
+   border: 0; /* Remove default border */
+   border-radius: 5px; /* Rounded corners */
+   box-shadow: 0 0 10px rgba(0,0,0,0.2); /* Optional shadow */
+   margin-top: 10px; /* Space above the map */
+}
+
 .newsletter {
    margin-top: 1.5rem;
 }
@@ -866,6 +876,74 @@ section{
    font-size: 1.6rem;
    color: var(--light-color);
    margin-bottom: 2rem;
+}
+
+.location {
+   display: flex;
+   align-items: flex-start;
+   justify-content: space-between;
+   padding: 2rem;
+   background-color: var(--red); /* Red background */
+   border-radius: 0.5rem;
+   box-shadow: var(--box-shadow);
+   margin-top: 2rem;
+}
+
+.location .map-embed {
+   flex: 1;
+   height: 350px;
+}
+
+.location .map-embed iframe {
+   border: none;
+   border-radius: 0.5rem;
+   box-shadow: var(--box-shadow);
+   width: 100%;
+   height: 100%;
+}
+
+.location .content {
+   color: var(--white); /* White text */
+   flex: 1.5; /* More space for content */
+   margin-left: 2rem;
+   margin-right: 2rem;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+}
+
+.location .contact-info {
+   margin-top: 2rem;
+   flex: 0.5;
+   margin-left: 2rem;
+}
+
+.location h3 {
+   font-size: 2.5rem;
+   color: var(--white); /* White text for the heading */
+   margin-bottom: 1rem;
+}
+
+.location p {
+   font-size: 1.6rem;
+   color: var(--white); /* White text for the paragraph */
+   margin-bottom: 1.5rem;
+}
+
+.location .btn {
+   padding: 1rem 2rem;
+   background-color: var(--white);
+   color: var(--red);
+   text-align: center;
+   border-radius: 0.5rem;
+   margin-top: 1rem;
+   display: inline-block;
+   transition: background-color 0.3s, color 0.3s;
+}
+
+.location .btn:hover {
+   background-color: var(--black);
+   color: var(--white);
 }
 
 .reviews .slide{
