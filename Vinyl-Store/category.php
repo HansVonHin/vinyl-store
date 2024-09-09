@@ -21,119 +21,120 @@
 <section class="category">
    <h1 class="heading">Explore Our Categories</h1>
 
-   <!-- Highlighted Category: Vinyl Genres -->
-   <div class="highlighted-category">
-      <div class="content">
-         <h3>Vinyl Genres</h3>
-         <p>Explore a vast selection of music genres from rock to classical, jazz to electronic, and everything in between.</p>
-         <a href="shop.php?category=vinyl-genres" class="btn">Browse Genres</a>
-         <div class="sub-categories">
-            <div class="swiper genre-slider">
-               <div class="swiper-wrapper">
-                  <div class="swiper-slide"><a href="shop.php?category=rock">Rock</a></div>
-                  <div class="swiper-slide"><a href="shop.php?category=jazz">Jazz</a></div>
-                  <div class="swiper-slide"><a href="shop.php?category=classical">Classical</a></div>
-                  <div class="swiper-slide"><a href="shop.php?category=electronic">Electronic</a></div>
-                  <div class="swiper-slide"><a href="shop.php?category=hip-hop">Hip-Hop</a></div>
-                  <!-- Add more genres as needed -->
-               </div>
-               <div class="swiper-pagination"></div>
+<!-- Highlighted Category: Vinyl Genres -->
+<div class="highlighted-category">
+    <div class="content">
+        <h3>Vinyl Genres</h3>
+        <p>Explore a vast selection of music genres from rock to classical, jazz to electronic, and everything in between.</p>
+        <div class="dropdown-container">
+            <a href="shop.php?category=vinyl-genres" class="btn">Browse Genres
+            <span class="fas fa-angle-down-toggle">&#9662;</span>
+            </a>
+            <div class="dropdown-menu">
+                  <ul class="genre-list">
+                     <li class="swiper-slide"><a href="shop.php?category=rock">Rock</a></li>
+                     <li class="swiper-slide"><a href="shop.php?category=jazz">Jazz</a></li>
+                     <li class="swiper-slide"><a href="shop.php?category=classical">Classical</a></li>
+                     <li class="swiper-slide"><a href="shop.php?category=electronic">Electronic</a></li>
+                     <li class="swiper-slide"><a href="shop.php?category=hip-hop">Hip-Hop</a></li>
+                     <!-- Add more genres as needed -->
+                </ui>
             </div>
-         </div>
-      </div>
-      <div class="image-slider">
-         <div class="swiper genre-image-slider">
+        </div>
+    </div>
+    <div class="image-slider">
+        <div class="swiper genre-image-slider">
             <div class="swiper-wrapper">
-               <div class="swiper-slide"><img src="images/rock-genre.jpg" alt="Rock"></div>
-               <div class="swiper-slide"><img src="images/jazz-genre.jpg" alt="Jazz"></div>
-               <div class="swiper-slide"><img src="images/classical-genre.jpg" alt="Classical"></div>
-               <div class="swiper-slide"><img src="images/electronic-genre.jpg" alt="Electronic"></div>
-               <div class="swiper-slide"><img src="images/hiphop-genre.jpg" alt="Hip-Hop"></div>
-               <!-- Add more images as needed -->
+                <div class="swiper-slide"><img src="images/rock-genre.jpg" alt="Rock"></div>
+                <div class="swiper-slide"><img src="images/jazz-genre.jpg" alt="Jazz"></div>
+                <div class="swiper-slide"><img src="images/classical-genre.jpg" alt="Classical"></div>
+                <div class="swiper-slide"><img src="images/electronic-genre.jpg" alt="Electronic"></div>
+                <div class="swiper-slide"><img src="images/hiphop-genre.jpg" alt="Hip-Hop"></div>
+                <!-- Add more images as needed -->
             </div>
-         </div>
-      </div>
-   </div>
+        </div>
+    </div>
+</div>
 
-   <!-- Highlighted Category: Vinyl Accessories -->
-   <div class="highlighted-category">
-      <div class="content">
-         <h3>Vinyl Accessories</h3>
-         <p>Complete your setup with high-quality accessories including phono cartridges, record brushes, and more.</p>
-         <a href="shop.php?category=vinyl-accessories" class="btn">Browse Accessories</a>
-         <!-- You can add sub-categories here if needed -->
-      </div>
-      <div class="image-slider">
-         <div class="swiper accessory-image-slider">
+<!-- Highlighted Category: Vinyl Accessories -->
+<div class="highlighted-category">
+    <div class="content">
+        <h3>Vinyl Accessories</h3>
+        <p>Complete your setup with high-quality accessories including phono cartridges, record brushes, and more.</p>
+        <a href="shop.php?category=vinyl-accessories" class="btn">Browse Accessories</a>
+        <!-- You can add sub-categories here if needed -->
+    </div>
+    <div class="image-slider">
+        <div class="swiper accessory-image-slider">
             <div class="swiper-wrapper">
-               <div class="swiper-slide"><img src="images/accessory-1.jpg" alt="Accessory 1"></div>
-               <div class="swiper-slide"><img src="images/accessory-2.jpg" alt="Accessory 2"></div>
-               <div class="swiper-slide"><img src="images/accessory-3.jpg" alt="Accessory 3"></div>
-               <!-- Add more images as needed -->
+                <div class="swiper-slide"><img src="images/accessory-1.jpg" alt="Accessory 1"></div>
+                <div class="swiper-slide"><img src="images/accessory-2.jpg" alt="Accessory 2"></div>
+                <div class="swiper-slide"><img src="images/accessory-3.jpg" alt="Accessory 3"></div>
+                <!-- Add more images as needed -->
             </div>
-         </div>
-      </div>
-   </div>
+        </div>
+    </div>
+</div>
 
-   <!-- Highlighted Category: CDs -->
-   <div class="highlighted-category">
-      <div class="content">
-         <h3>CDs & DVDs</h3>
-         <p>Discover our selection of CDs and DVDs, featuring a variety of genres and artists.</p>
-         <a href="shop.php?category=cds-dvds" class="btn">Browse CDs & DVDs</a>
-         <div class="sub-categories">
+<!-- Highlighted Category: CDs -->
+<div class="highlighted-category">
+    <div class="content">
+        <h3>CDs & DVDs</h3>
+        <p>Discover our selection of CDs and DVDs, featuring a variety of genres and artists.</p>
+        <a href="shop.php?category=cds-dvds" class="btn">Browse CDs & DVDs</a>
+        <div class="dropdown-menu">
             <div class="swiper cd-genre-slider">
-               <div class="swiper-wrapper">
-                  <div class="swiper-slide"><a href="shop.php?category=pop">Pop</a></div>
-                  <div class="swiper-slide"><a href="shop.php?category=rock">Rock</a></div>
-                  <div class="swiper-slide"><a href="shop.php?category=jazz">Jazz</a></div>
-                  <!-- Add more genres as needed -->
-               </div>
-               <div class="swiper-pagination"></div>
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><a href="shop.php?category=pop">Pop</a></div>
+                    <div class="swiper-slide"><a href="shop.php?category=rock">Rock</a></div>
+                    <div class="swiper-slide"><a href="shop.php?category=jazz">Jazz</a></div>
+                    <!-- Add more genres as needed -->
+                </div>
+                <div class="swiper-pagination"></div>
             </div>
-         </div>
-      </div>
-      <div class="image-slider">
-         <div class="swiper cd-image-slider">
+        </div>
+    </div>
+    <div class="image-slider">
+        <div class="swiper cd-image-slider">
             <div class="swiper-wrapper">
-               <div class="swiper-slide"><img src="images/cd-pop.jpg" alt="Pop"></div>
-               <div class="swiper-slide"><img src="images/cd-rock.jpg" alt="Rock"></div>
-               <div class="swiper-slide"><img src="images/cd-jazz.jpg" alt="Jazz"></div>
-               <!-- Add more images as needed -->
+                <div class="swiper-slide"><img src="images/cd-pop.jpg" alt="Pop"></div>
+                <div class="swiper-slide"><img src="images/cd-rock.jpg" alt="Rock"></div>
+                <div class="swiper-slide"><img src="images/cd-jazz.jpg" alt="Jazz"></div>
+                <!-- Add more images as needed -->
             </div>
-         </div>
-      </div>
-   </div>
+        </div>
+    </div>
+</div>
 
-   <!-- Highlighted Category: Tapes -->
-   <div class="highlighted-category">
-      <div class="content">
-         <h3>Cassette Tapes</h3>
-         <p>Explore our collection of cassette tapes from various genres and artists.</p>
-         <a href="shop.php?category=tapes" class="btn">Browse Tapes</a>
-         <div class="sub-categories">
+<!-- Highlighted Category: Tapes -->
+<div class="highlighted-category">
+    <div class="content">
+        <h3>Cassette Tapes</h3>
+        <p>Explore our collection of cassette tapes from various genres and artists.</p>
+        <a href="shop.php?category=tapes" class="btn">Browse Tapes</a>
+        <div class="dropdown-menu">
             <div class="swiper tape-genre-slider">
-               <div class="swiper-wrapper">
-                  <div class="swiper-slide"><a href="shop.php?category=pop">Pop</a></div>
-                  <div class="swiper-slide"><a href="shop.php?category=rock">Rock</a></div>
-                  <div class="swiper-slide"><a href="shop.php?category=jazz">Jazz</a></div>
-                  <!-- Add more genres as needed -->
-               </div>
-               <div class="swiper-pagination"></div>
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><a href="shop.php?category=pop">Pop</a></div>
+                    <div class="swiper-slide"><a href="shop.php?category=rock">Rock</a></div>
+                    <div class="swiper-slide"><a href="shop.php?category=jazz">Jazz</a></div>
+                    <!-- Add more genres as needed -->
+                </div>
+                <div class="swiper-pagination"></div>
             </div>
-         </div>
-      </div>
-      <div class="image-slider">
-         <div class="swiper tape-image-slider">
+        </div>
+    </div>
+    <div class="image-slider">
+        <div class="swiper tape-image-slider">
             <div class="swiper-wrapper">
-               <div class="swiper-slide"><img src="images/tape-pop.jpg" alt="Pop"></div>
-               <div class="swiper-slide"><img src="images/tape-rock.jpg" alt="Rock"></div>
-               <div class="swiper-slide"><img src="images/tape-jazz.jpg" alt="Jazz"></div>
-               <!-- Add more images as needed -->
+                <div class="swiper-slide"><img src="images/tape-pop.jpg" alt="Pop"></div>
+                <div class="swiper-slide"><img src="images/tape-rock.jpg" alt="Rock"></div>
+                <div class="swiper-slide"><img src="images/tape-jazz.jpg" alt="Jazz"></div>
+                <!-- Add more images as needed -->
             </div>
-         </div>
-      </div>
-   </div>
+        </div>
+    </div>
+</div>
 
    <!-- Smaller Categories -->
    <div class="small-categories">

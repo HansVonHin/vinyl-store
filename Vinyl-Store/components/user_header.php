@@ -37,10 +37,12 @@
                   <?php } ?>
                   <li><a href="category.php">Categories <i class="fas fa-angle-down"></i></a>
                      <ul>
-                        <li><a href="shop.php?category=vinyl">Vinyl Records</a></li>
-                        <li><a href="shop.php?category=exclusive">Exclusive Editions</a></li>
-                        <li><a href="shop.php?category=new">New Releases</a></li>
-                        <li><a href="shop.php?category=merch">Merchandise</a></li>
+                        <li><a href="shop.php?category=vinyl-genres">Vinyl Genres</a></li>
+                        <li><a href="shop.php?category=vinyl-accessories">Vinyl Accessories</a></li>
+                        <li><a href="shop.php?category=cds-&-dvds">CDs & DVDs</a></li>
+                        <li><a href="shop.php?category=cassette-tapes">Cassette Tapes</a></li>
+                        <li><a href="shop.php?category=turntables">Turntables</a></li>
+                        <li><a href="shop.php?category=vinyl-sizes">Vinyl Sizes</a></li>
                      </ul>
                   </li>
                </ul>

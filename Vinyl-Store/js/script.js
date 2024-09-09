@@ -54,90 +54,6 @@ var swiper = new Swiper(".reviews-slider", {
    },
 });
 
-// Initialize Swiper for genre image slider
-var genreImageSlider = new Swiper(".genre-image-slider", {
-   loop: true,
-   spaceBetween: 20,
-   autoplay: {
-       delay: 3000, // 3 seconds delay between slides
-       disableOnInteraction: false,
-   },
-   breakpoints: {
-       0: {
-           slidesPerView: 1,
-       },
-       768: {
-           slidesPerView: 2,
-       },
-       991: {
-           slidesPerView: 3,
-       },
-   },
-});
-
-// Initialize Swiper for accessory image slider
-var accessoryImageSlider = new Swiper(".accessory-image-slider", {
-   loop: true,
-   spaceBetween: 20,
-   autoplay: {
-       delay: 3000, // 3 seconds delay between slides
-       disableOnInteraction: false,
-   },
-   breakpoints: {
-       0: {
-           slidesPerView: 1,
-       },
-       768: {
-           slidesPerView: 2,
-       },
-       991: {
-           slidesPerView: 3,
-       },
-   },
-});
-
-// Initialize Swiper for CD image slider
-var cdImageSlider = new Swiper(".cd-image-slider", {
-   loop: true,
-   spaceBetween: 20,
-   autoplay: {
-       delay: 3000, // 3 seconds delay between slides
-       disableOnInteraction: false,
-   },
-   breakpoints: {
-       0: {
-           slidesPerView: 1,
-       },
-       768: {
-           slidesPerView: 2,
-       },
-       991: {
-           slidesPerView: 3,
-       },
-   },
-});
-
-// Initialize Swiper for tape image slider
-var tapeImageSlider = new Swiper(".tape-image-slider", {
-   loop: true,
-   spaceBetween: 20,
-   autoplay: {
-       delay: 3000, // 3 seconds delay between slides
-       disableOnInteraction: false,
-   },
-   breakpoints: {
-       0: {
-           slidesPerView: 1,
-       },
-       768: {
-           slidesPerView: 2,
-       },
-       991: {
-           slidesPerView: 3,
-       },
-   },
-});
-
 // Initialize Swiper for Promotional Deals
 var promoSwiper = new Swiper(".home-slider", {
    loop: true,
@@ -146,6 +62,27 @@ var promoSwiper = new Swiper(".home-slider", {
       delay: 3000, // Adjust the delay as needed
       disableOnInteraction: false, // Keeps autoplay active after user interaction
    },
+});
+
+// Dropdown Menu Toggle for Categories Page
+document.addEventListener('DOMContentLoaded', function() {
+    var dropdownToggle = document.querySelector('.dropdown-toggle');
+    var dropdownMenu = document.querySelector('.dropdown-menu');
+
+    dropdownToggle.addEventListener('click', function() {
+        if (dropdownMenu.style.display === 'block') {
+            dropdownMenu.style.display = 'none';
+        } else {
+            dropdownMenu.style.display = 'block';
+        }
+    });
+
+    // Optional: Close the dropdown if clicking outside
+    document.addEventListener('click', function(event) {
+        if (!dropdownToggle.contains(event.target) && !dropdownMenu.contains(event.target)) {
+            dropdownMenu.style.display = 'none';
+        }
+    });
 });
 
 // JavaScript to hide the header on scroll

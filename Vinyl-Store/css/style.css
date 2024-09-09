@@ -325,11 +325,13 @@ section{
 }
 
 .category .swiper-slide img {
-   height: 7rem;
-   width: 100%;
-   object-fit: contain;
+   max-width: 100%; /* Ensure the image doesn’t exceed the width of its container */
+   max-height: 100px; /* Adjust this value as needed for your design */
    margin-bottom: 1rem;
    user-select: none;
+   object-fit: cover; /* Ensures the image covers the container area without distortion */
+   display: block; /* Removes any extra space below the image */
+   margin: 0 auto; /* Center the image if necessary */
 }
 
 .category .swiper-slide h3 {
@@ -411,6 +413,24 @@ section{
    margin-bottom: 1.5rem;
 }
 
+.highlighted-category .content a.btn {
+   display: inline-flex; /* Make the button size adjust to its content */
+   align-items: center; /* Center content vertically */
+   text-decoration: none; /* Remove underline */
+   color: var(--white); /* Text color */
+   background-color: var(--red); /* Background color */
+   border-radius: 0.5rem; /* Rounded corners */
+   transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+   margin-right: 1rem; /* Space between button and next element */
+   white-space: nowrap; /* Prevent text from wrapping */
+}
+
+/* Button hover effect */
+.highlighted-category .content a.btn:hover {
+   background-color: var(--white); /* Change background on hover */
+   color: var(--black); /* Change text color on hover */
+}
+
 .highlighted-category .image-slider {
    flex: 1;
 }
@@ -428,6 +448,150 @@ section{
 
 .highlighted-category .swiper-pagination {
    bottom: 10px;
+}
+
+/* Dropdown Container Styles */
+.dropdown-container {
+   display: inline-flex; /* Use flexbox to align items horizontally */
+   align-items: center; /* Vertically center items */
+   position: relative; /* Position for dropdown */
+}
+
+/* Style for the button and dropdown icon */
+.dropdown-container .btn {
+   display: inline-flex; /* Use flexbox for button content */
+   align-items: center; /* Vertically center items */
+   text-decoration: none; /* Remove underline */
+   color: var(--white); /* Text color */
+   padding: 1rem 1.5rem; /* Padding for button */
+   background-color: var(--red); /* Button background */
+   border-radius: 0.5rem; /* Rounded corners */
+   transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+   margin-right: 0.5rem; /* Space between button and icon */
+}
+
+.dropdown-container .btn:hover,
+.dropdown-container .btn:focus {
+    background-color: var(--black); /* Background color on hover */
+    color: var(--white); /* Text color on hover */
+}
+
+.dropdown-container .dropdown-toggle {
+   margin-left: 0.5rem; /* Space between text and icon */
+   cursor: pointer; /* Pointer cursor on hover */
+}
+
+/* Dropdown Menu Styles */
+.dropdown-menu {
+   display: none; /* Hide dropdown menu by default */
+   position: absolute; /* Position dropdown menu */
+   top: 100%; /* Below the button */
+   left: 0; /* Align with button */
+   background-color: var(--black); /* Background color */
+   padding: 1rem; /* Padding inside menu */
+   border-radius: 0.5rem; /* Rounded corners */
+   z-index: 100; /* Above other content */
+   width: max-content; /* Adjust to content width */
+   max-height: 300px; /* Max height with scroll */
+   overflow-y: auto; /* Scroll if content exceeds height */
+   transition: opacity 0.3s ease, visibility 0.3s ease; /* Smooth transition */
+   opacity: 0; /* Transparent */
+   visibility: hidden; /* Hidden */
+}
+
+.dropdown-toggle {
+   cursor: pointer; /* Show pointer cursor on hover */
+}
+
+/* Show dropdown on hover or click */
+.dropdown-container:hover .dropdown-menu {
+   display: block; /* Show on hover */
+   opacity: 1; /* Fully opaque */
+   visibility: visible; /* Make visible */
+} dropdown on hover */
+
+
+/* Show dropdown on hover */
+.dropdown-container:hover .dropdown-menu {
+   display: grid;
+}
+
+/* Style for Dropdown Arrow */
+.dropdown-arrow {
+   font-size: 1.2rem;
+   color: var(--white);
+   margin-left: 0.5rem;
+   vertical-align: middle;
+}
+
+/* Swiper Styles */
+.dropdown-menu .swiper {
+   width: 100%;
+   height: auto; /* Adjust height according to content */
+}
+
+.dropdown-menu .swiper-wrapper {
+   display: flex; /* Ensure slides are displayed in a row */
+}
+
+.dropdown-menu .swiper-slide {
+   flex: 0 0 auto; /* Ensure slides take only as much space as needed */
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   min-width: 150px; /* Set a minimum width for each slide */
+}
+
+.dropdown-menu .swiper-slide img {
+   max-width: 100%;
+   height: auto;
+}
+
+/* Additional styling for subcategory links */
+.dropdown-menu .swiper-slide a {
+   display: block;
+   color: var(--white);
+   text-align: center;
+   white-space: nowrap; /* Prevent text from wrapping */
+   text-decoration: none; /* Remove underline */
+}
+
+.dropdown-menu .swiper-slide a:hover,
+.dropdown-menu .swiper-slide a:focus,
+.dropdown-menu .swiper-slide a:active {
+   background-color: var(--black);
+   color: var(--white);
+}
+
+/* Swiper Pagination */
+.dropdown-menu .swiper-pagination {
+   bottom: 10px;
+}
+
+/* Genre List Styles */
+.genre-list {
+   list-style: none;
+   margin: 0;
+   padding: 0;
+}
+
+.genre-list li {
+   margin-bottom: 0rem;
+}
+
+.genre-list li a {
+   display: block;
+   color: var(--white);
+   padding: 0.5rem 1rem; /* Adjust padding to reduce space */
+   text-decoration: none;
+   transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.genre-list li a:hover,
+.genre-list li a:focus,
+.genre-list li a:active {
+   background-color: var(--white);
+   color: var(--black);
 }
 
 /* Smaller Categories */
