@@ -51,7 +51,7 @@
                 <div class="swiper-slide"><img src="images/classical-genre.jpg" alt="Classical"></div>
                 <div class="swiper-slide"><img src="images/electronic-genre.jpg" alt="Electronic"></div>
                 <div class="swiper-slide"><img src="images/hiphop-genre.jpg" alt="Hip-Hop"></div>
-                <div class="swiper-slide"><img src="images/pop-genre.jpg" alt="Hip-Hop"></div>
+                <div class="swiper-slide"><img src="images/pop-genre.jpg" alt="Pop"></div>
                 <!-- Add more images as needed -->
             </div>
         </div>
