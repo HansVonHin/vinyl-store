@@ -468,12 +468,13 @@ section{
    border-radius: 0.5rem; /* Rounded corners */
    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
    margin-right: 0.5rem; /* Space between button and icon */
+   cursor: pointer;
 }
 
 .dropdown-container .btn:hover,
 .dropdown-container .btn:focus {
-    background-color: var(--black); /* Background color on hover */
-    color: var(--white); /* Text color on hover */
+    background-color: var(--white); /* Background color on hover */
+    color: var(--red); /* Text color on hover */
 }
 
 .dropdown-container .dropdown-toggle {
@@ -491,12 +492,13 @@ section{
    padding: 1rem; /* Padding inside menu */
    border-radius: 0.5rem; /* Rounded corners */
    z-index: 100; /* Above other content */
-   width: max-content; /* Adjust to content width */
+   width: 400px; /* Adjust to content width */
    max-height: 300px; /* Max height with scroll */
    overflow-y: auto; /* Scroll if content exceeds height */
    transition: opacity 0.3s ease, visibility 0.3s ease; /* Smooth transition */
    opacity: 0; /* Transparent */
    visibility: hidden; /* Hidden */
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .dropdown-toggle {
@@ -551,16 +553,17 @@ section{
 .dropdown-menu .swiper-slide a {
    display: block;
    color: var(--white);
+   font-size: 1.6rem;
    text-align: center;
    white-space: nowrap; /* Prevent text from wrapping */
-   text-decoration: none; /* Remove underline */
+   text-decoration: underline;
 }
 
 .dropdown-menu .swiper-slide a:hover,
 .dropdown-menu .swiper-slide a:focus,
 .dropdown-menu .swiper-slide a:active {
-   background-color: var(--black);
-   color: var(--white);
+   background-color: var(--white);
+   color: var(--red);
 }
 
 /* Swiper Pagination */
@@ -569,29 +572,32 @@ section{
 }
 
 /* Genre List Styles */
-.genre-list {
+.dropdown-menu .genre-list {
+   display: flex;
+   flex-wrap: wrap;
    list-style: none;
    margin: 0;
    padding: 0;
 }
 
-.genre-list li {
-   margin-bottom: 0rem;
+.dropdown-menu .genre-list li {
+   flex: 1 1 45%;
+   margin-bottom: 0.5rem;
 }
 
-.genre-list li a {
+.dropdown-menu .genre-list ul li a {
    display: block;
-   color: var(--white);
+   color: var(--white)  ;
    padding: 0.5rem 1rem; /* Adjust padding to reduce space */
    text-decoration: none;
    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.genre-list li a:hover,
-.genre-list li a:focus,
-.genre-list li a:active {
-   background-color: var(--white);
-   color: var(--black);
+.dropdown-menu .genre-list li a:hover,
+.dropdown-menu .genre-list li a:focus,
+.dropdown-menu .genre-list li a:active {
+   background-color: var(--red);
+   color: var(--white);
 }
 
 /* Smaller Categories */

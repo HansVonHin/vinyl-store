@@ -66,16 +66,22 @@ var promoSwiper = new Swiper(".home-slider", {
 
 // Dropdown Menu Toggle for Categories Page
 document.addEventListener('DOMContentLoaded', function() {
-    var dropdownToggle = document.querySelector('.dropdown-toggle');
-    var dropdownMenu = document.querySelector('.dropdown-menu');
+   const dropdownToggle = document.querySelector('.dropdown-toggle');
+   const dropdownMenu = document.querySelector('.dropdown-menu');
 
-    dropdownToggle.addEventListener('click', function() {
-        if (dropdownMenu.style.display === 'block') {
-            dropdownMenu.style.display = 'none';
-        } else {
-            dropdownMenu.style.display = 'block';
-        }
-    });
+   dropdownToggle.addEventListener('click', function(e) {
+       e.preventDefault();
+       dropdownMenu.style.display = (dropdownMenu.style.display === 'block') ? 'none' : 'block';
+   });
+
+   // Optionally close the dropdown if clicking outside of it
+   document.addEventListener('click', function(e) {
+       if (!dropdownToggle.contains(e.target) && !dropdownMenu.contains(e.target)) {
+           dropdownMenu.style.display = 'none';
+       }
+   });
+});
+
 
     // Optional: Close the dropdown if clicking outside
     document.addEventListener('click', function(event) {
@@ -83,7 +89,6 @@ document.addEventListener('DOMContentLoaded', function() {
             dropdownMenu.style.display = 'none';
         }
     });
-});
 
 // JavaScript to hide the header on scroll
 let header = document.querySelector('.header');
