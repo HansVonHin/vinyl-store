@@ -13,9 +13,6 @@
    <!-- Custom CSS File Link -->
    <link rel="stylesheet" href="css/style.css">
 
-   <!-- Custom JavaScript File Link -->
-   <script src="js/script.js" defer></script>
-
 </head>
 <body>
 

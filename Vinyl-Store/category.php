@@ -69,12 +69,12 @@
             </a>
             <div class="dropdown-menu">
                   <ul class="genre-list">
-                     <li class="swiper-slide"><a href="genre.php?genre=cartridge">Phono Cartridges</a></li>
-                     <li class="swiper-slide"><a href="genre.php?genre=brushes">Record Brushes</a></li>
-                     <li class="swiper-slide"><a href="genre.php?genre=weights">Record Weights</a></li>
-                     <li class="swiper-slide"><a href="genre.php?genre=sleeves">Protective Sleeves</a></li>
-                     <li class="swiper-slide"><a href="genre.php?genre=storage">Record Storage Boxes</a></li>
-                     <li class="swiper-slide"><a href="genre.php?genre=cleaners">Stylus Cleaners</a></li>
+                     <li class="swiper-slide"><a href="vinyl_accessories.php?accessory=phono-cartridges">Phono Cartridges</a></li>
+                     <li class="swiper-slide"><a href="vinyl_accessories.php?accessory=record-brushes">Record Brushes</a></li>
+                     <li class="swiper-slide"><a href="vinyl_accessories.php?accessory=record-weights">Record Weights</a></li>
+                     <li class="swiper-slide"><a href="vinyl_accessories.php?accessory=protective-sleeves">Protective Sleeves</a></li>
+                     <li class="swiper-slide"><a href="vinyl_accessories.php?accessory=record-storage-boxes">Record Storage Boxes</a></li>
+                     <li class="swiper-slide"><a href="vinyl_accessories.php?accessory=stylus-cleaners">Stylus Cleaners</a></li>
                      <!-- Add more genres as needed -->
                 </ui>
             </div>
@@ -166,14 +166,14 @@
          <img src="images/turntable.jpg" alt="Turntables">
          <h3>Turntables</h3>
          <p>Find the perfect turntable for your listening experience.</p>
-         <a href="genre.php?genre=turntables" class="btn">Explore Turntables</a>
+         <a href="turntables.php" class="btn">Explore Turntables</a>
       </div>
 
       <div class="category-box">
          <img src="images/vinyl-sizes.jpg" alt="Vinyl Sizes">
          <h3>Vinyl Sizes</h3>
          <p>Discover vinyl records in 7", 10", and 12" sizes.</p>
-         <a href="genre.php?genre=vinyl-sizes" class="btn">Explore Sizes</a>
+         <a href="vinyl-sizes.php" class="btn">Explore Sizes</a>
       </div>
    </div>
 
