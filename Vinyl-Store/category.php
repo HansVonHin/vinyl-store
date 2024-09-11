@@ -69,12 +69,12 @@
             </a>
             <div class="dropdown-menu">
                   <ul class="genre-list">
-                     <li class="swiper-slide"><a href="shop.php?category=cartridge">Phono Cartridges</a></li>
-                     <li class="swiper-slide"><a href="shop.php?category=brushes">Record Brushes</a></li>
-                     <li class="swiper-slide"><a href="shop.php?category=weights">Record Weights</a></li>
-                     <li class="swiper-slide"><a href="shop.php?category=sleeves">Protective Sleeves</a></li>
-                     <li class="swiper-slide"><a href="shop.php?category=storage">Record Storage Boxes</a></li>
-                     <li class="swiper-slide"><a href="shop.php?category=cleaners">Stylus Cleaners</a></li>
+                     <li class="swiper-slide"><a href="genre.php?genre=cartridge">Phono Cartridges</a></li>
+                     <li class="swiper-slide"><a href="genre.php?genre=brushes">Record Brushes</a></li>
+                     <li class="swiper-slide"><a href="genre.php?genre=weights">Record Weights</a></li>
+                     <li class="swiper-slide"><a href="genre.php?genre=sleeves">Protective Sleeves</a></li>
+                     <li class="swiper-slide"><a href="genre.php?genre=storage">Record Storage Boxes</a></li>
+                     <li class="swiper-slide"><a href="genre.php?genre=cleaners">Stylus Cleaners</a></li>
                      <!-- Add more genres as needed -->
                 </ui>
             </div>
@@ -92,7 +92,7 @@
     </div>
 </div>
 
-<!-- Highlighted Category: CDs -->
+<!-- Highlighted Category: CDs & DVDs -->
 <div class="highlighted-category">
     <div class="content">
         <h3>CDs & DVDs</h3>
@@ -102,18 +102,18 @@
             <span class="fas fa-angle-down-toggle">&#9662;</span>
             </a>
             <div class="dropdown-menu">
-                  <ul class="genre-list">
-                     <li class="swiper-slide"><a href="shop.php?category=rock">Rock</a></li>
-                     <li class="swiper-slide"><a href="shop.php?category=jazz">Jazz</a></li>
-                     <li class="swiper-slide"><a href="shop.php?category=classical">Classical</a></li>
-                     <li class="swiper-slide"><a href="shop.php?category=electronic">Electronic</a></li>
-                     <li class="swiper-slide"><a href="shop.php?category=hip-hop">Hip-Hop</a></li>
-                     <li class="swiper-slide"><a href="shop.php?category=pop">Pop</a></li>
-                     <!-- Add more genres as needed -->
-                </ui>
+                <ul class="genre-list">
+                    <li class="swiper-slide"><a href="genre.php?media=cd&genre=rock">Rock</a></li>
+                    <li class="swiper-slide"><a href="genre.php?media=cd&genre=jazz">Jazz</a></li>
+                    <li class="swiper-slide"><a href="genre.php?media=cd&genre=classical">Classical</a></li>
+                    <li class="swiper-slide"><a href="genre.php?media=cd&genre=electronic">Electronic</a></li>
+                    <li class="swiper-slide"><a href="genre.php?media=cd&genre=hip-hop">Hip-Hop</a></li>
+                    <li class="swiper-slide"><a href="genre.php?media=cd&genre=pop">Pop</a></li>
+                </ul>
             </div>
         </div>
     </div>
+</div>
     <div class="image-slider">
         <div class="swiper cd-image-slider">
             <div class="swiper-wrapper">
@@ -126,7 +126,7 @@
     </div>
 </div>
 
-<!-- Highlighted Category: Tapes -->
+<!-- Highlighted Category: Cassette Tapes -->
 <div class="highlighted-category">
     <div class="content">
         <h3>Cassette Tapes</h3>
@@ -136,18 +136,18 @@
             <span class="fas fa-angle-down-toggle">&#9662;</span>
             </a>
             <div class="dropdown-menu">
-                  <ul class="genre-list">
-                     <li class="swiper-slide"><a href="shop.php?category=rock">Rock</a></li>
-                     <li class="swiper-slide"><a href="shop.php?category=jazz">Jazz</a></li>
-                     <li class="swiper-slide"><a href="shop.php?category=classical">Classical</a></li>
-                     <li class="swiper-slide"><a href="shop.php?category=electronic">Electronic</a></li>
-                     <li class="swiper-slide"><a href="shop.php?category=hip-hop">Hip-Hop</a></li>
-                     <li class="swiper-slide"><a href="shop.php?category=pop">Pop</a></li>
-                     <!-- Add more genres as needed -->
-                </ui>
+                <ul class="genre-list">
+                    <li class="swiper-slide"><a href="genre.php?media=tape&genre=rock">Rock</a></li>
+                    <li class="swiper-slide"><a href="genre.php?media=tape&genre=jazz">Jazz</a></li>
+                    <li class="swiper-slide"><a href="genre.php?media=tape&genre=classical">Classical</a></li>
+                    <li class="swiper-slide"><a href="genre.php?media=tape&genre=electronic">Electronic</a></li>
+                    <li class="swiper-slide"><a href="genre.php?media=tape&genre=hip-hop">Hip-Hop</a></li>
+                    <li class="swiper-slide"><a href="genre.php?media=tape&genre=pop">Pop</a></li>
+                </ul>
             </div>
         </div>
     </div>
+</div>
     <div class="image-slider">
         <div class="swiper tape-image-slider">
             <div class="swiper-wrapper">
@@ -166,14 +166,14 @@
          <img src="images/turntable.jpg" alt="Turntables">
          <h3>Turntables</h3>
          <p>Find the perfect turntable for your listening experience.</p>
-         <a href="shop.php?category=turntables" class="btn">Explore Turntables</a>
+         <a href="genre.php?genre=turntables" class="btn">Explore Turntables</a>
       </div>
 
       <div class="category-box">
          <img src="images/vinyl-sizes.jpg" alt="Vinyl Sizes">
          <h3>Vinyl Sizes</h3>
          <p>Discover vinyl records in 7", 10", and 12" sizes.</p>
-         <a href="shop.php?category=vinyl-sizes" class="btn">Explore Sizes</a>
+         <a href="genre.php?genre=vinyl-sizes" class="btn">Explore Sizes</a>
       </div>
    </div>
 
