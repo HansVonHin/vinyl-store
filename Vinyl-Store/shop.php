@@ -13,6 +13,9 @@
    <!-- Custom CSS File Link -->
    <link rel="stylesheet" href="css/style.css">
 
+   <!-- Custom JavaScript File Link -->
+   <script src="js/script.js" defer></script>
+
 </head>
 <body>
 
@@ -22,7 +25,7 @@
 
    <!-- Sidebar for Categories and Sorting -->
    <aside class="sidebar">
-            <!-- Search Form -->
+      <!-- Search Form -->
       <form action="shop.php" method="GET" class="search-form">
          <input type="text" name="search" placeholder="Search products...">
          <button type="submit">Search</button>
@@ -30,8 +33,8 @@
       <h2>Categories</h2>
       <ul class="category-list">
          <li>
-            <a href="shop.php?category=vinyl">Vinyl</a>
-            <ul>
+            <a href="#" class="category-link">Vinyl</a>
+            <ul class="sub-category-list">
                <li><a href="shop.php?category=rock-vinyl">Rock</a></li>
                <li><a href="shop.php?category=jazz-vinyl">Jazz</a></li>
                <li><a href="shop.php?category=classical-vinyl">Classical</a></li>
@@ -41,8 +44,8 @@
             </ul>
          </li>
          <li>
-            <a href="shop.php?category=cd-dvd">CD & DVD</a>
-            <ul>
+            <a href="#" class="category-link">CD & DVD</a>
+            <ul class="sub-category-list">
                <li><a href="shop.php?category=rock-cd-dvd">Rock</a></li>
                <li><a href="shop.php?category=jazz-cd-dvd">Jazz</a></li>
                <li><a href="shop.php?category=classical-cd-dvd">Classical</a></li>
@@ -51,9 +54,10 @@
                <li><a href="shop.php?category=pop-cd-dvd">Pop</a></li>
             </ul>
          </li>
-         <li><a href="shop.php?category=tape-genres">Tape Genres</a></li>
-         <li><a href="shop.php?category=vinyl-accessories">Vinyl Accessories</a>
-            <ul>
+         <li><a href="shop.php?category=tape-genres" class="category-link">Tape Genres</a></li>
+         <li>
+            <a href="#" class="category-link">Vinyl Accessories</a>
+            <ul class="sub-category-list">
                <li><a href="shop.php?category=phono-cartridges">Phono Cartridges</a></li>
                <li><a href="shop.php?category=record-brushes">Record Brushes</a></li>
                <li><a href="shop.php?category=record-weights">Record Weights</a></li>
@@ -62,20 +66,20 @@
                <li><a href="shop.php?category=stylus-cleaners">Stylus Cleaners</a></li>
             </ul>
          </li>
-         <li><a href="shop.php?category=turntables">Turntables</a></li>
-         <li><a href="shop.php?category=vinyl-sizes">Vinyl Sizes</a></li>
+         <li><a href="shop.php?category=turntables" class="category-link">Turntables</a></li>
+         <li><a href="shop.php?category=vinyl-sizes" class="category-link">Vinyl Sizes</a></li>
       </ul>
       
       <!-- Sort By Section -->
       <h2>Sort By</h2>
       <ul class="sort-list">
-         <li><a href="shop.php?sort=latest">Latest Releases</a></li>
-         <li><a href="shop.php?sort=oldest">Oldest First</a></li>
-         <li><a href="shop.php?sort=price-asc">Price: Low to High</a></li>
-         <li><a href="shop.php?sort=price-desc">Price: High to Low</a></li>
-         <li><a href="shop.php?sort=popularity">Most Popular</a></li>
-         <li><a href="shop.php?sort=decades">By Decade</a>
-            <ul>
+         <li><a href="shop.php?sort=latest" class="category-link">Latest Releases</a></li>
+         <li><a href="shop.php?sort=oldest" class="category-link">Oldest First</a></li>
+         <li><a href="shop.php?sort=price-asc" class="category-link">Price: Low to High</a></li>
+         <li><a href="shop.php?sort=price-desc" class="category-link">Price: High to Low</a></li>
+         <li>
+            <a href="#" class="category-link">By Decade</a>
+            <ul class="sub-category-list">
                <li><a href="shop.php?sort=70s">70s</a></li>
                <li><a href="shop.php?sort=80s">80s</a></li>
                <li><a href="shop.php?sort=90s">90s</a></li>
@@ -85,7 +89,6 @@
          </li>
       </ul>
    </aside>
-
    <!-- Products Section -->
    <div class="products">
       <h2 class="heading">Our Collection</h2>

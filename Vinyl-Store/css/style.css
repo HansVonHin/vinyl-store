@@ -1073,8 +1073,49 @@ section{
    padding: 0;
 }
 
+.sidebar .category-list > li, .sidebar .sort-list > li {
+   margin-bottom: 1rem;
+}
+
 .sidebar .category-list li, .sidebar .sort-list li {
    margin-bottom: 10px;
+}
+
+.sidebar .category-link {
+   display: block;
+   padding: 10px;
+   color: #ffffff;
+   background-color: #000000;
+   text-decoration: none;
+   transition: background-color 0.3s, color 0.3s;
+}
+
+.sidebar .category-link:hover {
+   background-color: #ff0000;
+   color: #ffffff;
+}
+
+.sidebar .sub-category-list {
+   list-style-type: none;
+   padding-left: 20px;
+   display: none;
+   margin-top: 0.5rem;
+}
+
+.sidebar .sub-category-list li a {
+   padding: 5px;
+   display: block;
+   color: #ff0000;
+   text-decoration: none;
+   transition: color 0.3s;
+}
+
+.sidebar .sub-category-list li a:hover {
+   color: #ffffff;
+}
+
+.sidebar .category-link.active + .sub-category-list {
+   display: block;
 }
 
 .sidebar a {

@@ -108,4 +108,23 @@ window.addEventListener('scroll', () => {
     lastScrollTop = scrollTop;
 });
 
-// JavaScript to make navbar appear on scroll
+document.addEventListener('DOMContentLoaded', () => {
+   const categoryLinks = document.querySelectorAll('.category-link');
+
+   categoryLinks.forEach(link => {
+       link.addEventListener('click', (event) => {
+           event.preventDefault();
+
+           // Toggle the active class for the clicked link
+           link.classList.toggle('active');
+
+           // Get the corresponding sub-category list
+           const subCategoryList = link.nextElementSibling;
+
+           // Toggle the display of the sub-category list
+           if (subCategoryList) {
+               subCategoryList.style.display = subCategoryList.style.display === 'block' ? 'none' : 'block';
+           }
+       });
+   });
+});
