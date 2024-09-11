@@ -32,10 +32,11 @@ $maxPrice = isset($_GET['max-price']) ? $_GET['max-price'] : 1000000; // Set a h
    <!-- Sidebar for Categories and Sorting -->
    <aside class="sidebar">
       <!-- Search Form -->
-      <form action="shop.php" method="GET" class="search-form">
+      <form action="shop.php" method="GET" class="search-bar">
          <input type="text" name="search" placeholder="Search products...">
          <button type="submit">Search</button>
       </form>
+      <br>
       <h2>Categories</h2>
       <ul class="category-list">
          <li>
@@ -75,7 +76,7 @@ $maxPrice = isset($_GET['max-price']) ? $_GET['max-price'] : 1000000; // Set a h
          <li><a href="shop.php?category=turntables" class="category-link">Turntables</a></li>
          <li><a href="shop.php?category=vinyl-sizes" class="category-link">Vinyl Sizes</a></li>
       </ul>
-      
+      <br>
       <!-- Sort By Section -->
       <h2>Sort By</h2>
       <ul class="sort-list">
