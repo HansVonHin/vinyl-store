@@ -32,12 +32,12 @@
             </a>
             <div class="dropdown-menu">
                   <ul class="genre-list">
-                     <li class="swiper-slide"><a href="shop.php?category=rock">Rock</a></li>
-                     <li class="swiper-slide"><a href="shop.php?category=jazz">Jazz</a></li>
-                     <li class="swiper-slide"><a href="shop.php?category=classical">Classical</a></li>
-                     <li class="swiper-slide"><a href="shop.php?category=electronic">Electronic</a></li>
-                     <li class="swiper-slide"><a href="shop.php?category=hip-hop">Hip-Hop</a></li>
-                     <li class="swiper-slide"><a href="shop.php?category=pop">Pop</a></li>
+                     <li class="swiper-slide"><a href="genre.php?genre=rock">Rock</a></li>
+                     <li class="swiper-slide"><a href="genre.php?genre=jazz">Jazz</a></li>
+                     <li class="swiper-slide"><a href="genre.php?genre=classical">Classical</a></li>
+                     <li class="swiper-slide"><a href="genre.php?genre=electronic">Electronic</a></li>
+                     <li class="swiper-slide"><a href="genre.php?genre=hip-hop">Hip-Hop</a></li>
+                     <li class="swiper-slide"><a href="genre.php?genre=pop">Pop</a></li>
                      <!-- Add more genres as needed -->
                 </ui>
             </div>

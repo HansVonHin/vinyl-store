@@ -19,7 +19,13 @@
 </head>
 <body>
 
-<?php include 'components/user_header.php'; ?>
+<?php include 'components/user_header.php'; 
+$category = isset($_GET['category']) ? $_GET['category'] : 'all';
+$sort = isset($_GET['sort']) ? $_GET['sort'] : 'latest';
+$availability = isset($_GET['availability']) ? $_GET['availability'] : 'all';
+$minPrice = isset($_GET['min-price']) ? $_GET['min-price'] : 0;
+$maxPrice = isset($_GET['max-price']) ? $_GET['max-price'] : 1000000; // Set a high default max price
+?>
 
 <section class="shop-container">
 
@@ -92,7 +98,6 @@
    <!-- Products Section -->
    <div class="products">
       <h2 class="heading">Our Collection</h2>
-
       <div class="product-box-container">
          <!-- Sample Vinyl Product 1 -->
          <div class="product-box">
@@ -149,6 +154,31 @@
 
 <?php include 'components/footer.php'; ?>
 
+<script>
+   document.querySelectorAll('.category-link').forEach(link => {
+      link.addEventListener('click', function(event) {
+         event.preventDefault();
+         const subMenu = this.nextElementSibling;
+         const isActive = this.classList.contains('active');
+
+         // Close all submenus
+         document.querySelectorAll('.category-link').forEach(link => {
+            link.classList.remove('active');
+            if (link.nextElementSibling) {
+               link.nextElementSibling.style.display = 'none';
+            }
+         });
+
+         // Toggle the clicked submenu
+         if (!isActive) {
+            this.classList.add('active');
+            subMenu.style.display = 'block';
+         }
+      });
+   });
+</script>
+
 <script src="js/script.js"></script>
+
 </body>
 </html>

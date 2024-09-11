@@ -128,3 +128,20 @@ document.addEventListener('DOMContentLoaded', () => {
        });
    });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+   // Example: Implement sorting functionality
+   const sortOptions = document.querySelectorAll('.genre-sidebar ul li a');
+   sortOptions.forEach(option => {
+       option.addEventListener('click', (e) => {
+           e.preventDefault();
+           const sortType = option.getAttribute('href').split('sort=')[1];
+           sortProducts(sortType);
+       });
+   });
+
+   function sortProducts(sortType) {
+       // Implement sorting logic here based on the selected sortType
+       console.log(`Sorting by: ${sortType}`);
+   }
+});
