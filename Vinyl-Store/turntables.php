@@ -33,35 +33,60 @@ $turntableDetails = [
 
 </head>
 <body>
-
+    
 <?php include 'components/user_header.php'; ?>
 
 <section class="category-overview">
     <h1>Turntables</h1>
-    <div class="turntable-brands">
-        <?php foreach ($turntableDetails as $brand => $details) { ?>
-            <div class="turntable-brand">
-                <a href="shop.php?media=turntables&brand=<?php echo $brand; ?>">
-                    <img src="images/<?php echo $details['image']; ?>" alt="<?php echo $brand; ?>">
-                    <h2><?php echo ucfirst(str_replace('-', ' ', $brand)); ?></h2>
-                    <p><?php echo $details['description']; ?></p>
-                </a>
+    <a href="shop.php?category=turntables" class="main-shop-button">View All Turntables</a>
+
+    <div class="brand-category">
+        <div class="brand-highlight">
+            <div class="brand-info">
+                <h2>Brand A</h2>
+                <p>Discover the finest turntables from Brand A, known for their exceptional quality and sound performance.</p>
+                <a href="shop.php?brand=a&category=turntables" class="shop-button">Shop Brand A</a>
             </div>
-        <?php } ?>
+            <img src="images/brand-a-turntable.jpg" alt="Brand A Turntable">
+        </div>
+
+        <div class="brand-highlight">
+            <div class="brand-info">
+                <h2>Brand B</h2>
+                <p>Explore the advanced features and sleek design of Brand B's turntables, perfect for audiophiles.</p>
+                <a href="shop.php?brand=b&category=turntables" class="shop-button">Shop Brand B</a>
+            </div>
+            <img src="images/brand-b-turntable.jpg" alt="Brand B Turntable">
+        </div>
+
+        <div class="brand-highlight">
+            <div class="brand-info">
+                <h2>Brand C</h2>
+                <p>Brand C turntables offer a perfect blend of modern technology and classic appeal.</p>
+                <a href="shop.php?brand=c&category=turntables" class="shop-button">Shop Brand C</a>
+            </div>
+            <img src="images/brand-c-turntable.jpg" alt="Brand C Turntable">
+        </div>
     </div>
 </section>
 
 <aside class="category-sidebar">
     <h2>Sort By</h2>
     <ul>
-        <li><a href="shop.php?media=turntables&sort=price-asc">Price - Low to High</a></li>
-        <li><a href="shop.php?media=turntables&sort=price-desc">Price - High to Low</a></li>
-        <li><a href="shop.php?media=turntables&sort=popularity">Popularity</a></li>
+        <li><a href="#" onclick="sortBy('price-asc')">Price Low to High</a></li>
+        <li><a href="#" onclick="sortBy('price-desc')">Price High to Low</a></li>
+        <li><a href="#" onclick="sortBy('popularity')">Popularity</a></li>
     </ul>
 </aside>
 
 <?php include 'components/footer.php'; ?>
 
 <script src="js/script.js"></script>
+<script>
+function sortBy(criteria) {
+    // Implement sorting logic here, e.g., via AJAX or client-side sorting
+    console.log('Sorting by:', criteria);
+}
+</script>
 </body>
 </html>

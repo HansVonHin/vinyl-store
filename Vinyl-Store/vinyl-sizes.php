@@ -38,30 +38,55 @@ $vinylSizeDetails = [
 
 <section class="category-overview">
     <h1>Vinyl Sizes</h1>
-    <div class="vinyl-sizes">
-        <?php foreach ($vinylSizeDetails as $size => $details) { ?>
-            <div class="vinyl-size">
-                <a href="shop.php?media=vinyl-sizes&size=<?php echo $size; ?>">
-                    <img src="images/<?php echo $details['image']; ?>" alt="<?php echo $size; ?>">
-                    <h2><?php echo ucfirst(str_replace('-', ' ', $size)); ?></h2>
-                    <p><?php echo $details['description']; ?></p>
-                </a>
+    <a href="shop.php?category=vinyl_sizes" class="main-shop-button">View All Vinyl Sizes</a>
+
+    <div class="size-category">
+        <div class="size-highlight">
+            <div class="size-info">
+                <h2>7 Inch</h2>
+                <p>The 7-inch vinyl, perfect for singles and EPs, delivering classic sound in a compact size.</p>
+                <a href="shop.php?size=7-inch&category=vinyl_sizes" class="shop-button">Shop 7 Inch Vinyls</a>
             </div>
-        <?php } ?>
+            <img src="images/7-inch-vinyl.jpg" alt="7 Inch Vinyl">
+        </div>
+
+        <div class="size-highlight">
+            <div class="size-info">
+                <h2>10 Inch</h2>
+                <p>The 10-inch vinyl offers a balanced option for collectors, ideal for both singles and albums.</p>
+                <a href="shop.php?size=10-inch&category=vinyl_sizes" class="shop-button">Shop 10 Inch Vinyls</a>
+            </div>
+            <img src="images/10-inch-vinyl.jpg" alt="10 Inch Vinyl">
+        </div>
+
+        <div class="size-highlight">
+            <div class="size-info">
+                <h2>12 Inch</h2>
+                <p>Experience the full album experience with 12-inch vinyl, the industry standard for LPs.</p>
+                <a href="shop.php?size=12-inch&category=vinyl_sizes" class="shop-button">Shop 12 Inch Vinyls</a>
+            </div>
+            <img src="images/12-inch-vinyl.jpg" alt="12 Inch Vinyl">
+        </div>
     </div>
 </section>
 
 <aside class="category-sidebar">
     <h2>Sort By</h2>
     <ul>
-        <li><a href="shop.php?media=vinyl-sizes&sort=7-inch">7" Vinyls</a></li>
-        <li><a href="shop.php?media=vinyl-sizes&sort=10-inch">10" Vinyls</a></li>
-        <li><a href="shop.php?media=vinyl-sizes&sort=12-inch">12" Vinyls</a></li>
+        <li><a href="#" onclick="sortBy('7-inch')">7" Vinyls</a></li>
+        <li><a href="#" onclick="sortBy('10-inch')">10" Vinyls</a></li>
+        <li><a href="#" onclick="sortBy('12-inch')">12" Vinyls</a></li>
     </ul>
 </aside>
 
 <?php include 'components/footer.php'; ?>
 
 <script src="js/script.js"></script>
+<script>
+function sortBy(criteria) {
+    // Implement sorting logic here, e.g., via AJAX or client-side sorting
+    console.log('Sorting by:', criteria);
+}
+</script>
 </body>
 </html>
