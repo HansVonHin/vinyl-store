@@ -37,30 +37,36 @@ $accessoryDetails = [
     <link rel="icon" href="images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
 
-<!-- Font Awesome CDN Link -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <!-- Font Awesome CDN Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
-<!-- Custom CSS File Link -->
-<link rel="stylesheet" href="css/style.css">
+    <!-- Custom CSS File Link -->
+    <link rel="stylesheet" href="css/style.css">
 
 </head>
 <body>
 
 <?php include 'components/user_header.php'; ?>
 
-<section class="category-overview">
+<section class="genre-overview" style="background-image: url('images/vinyl-accessories-bg.jpg');">
     <h1>Vinyl Accessories</h1>
-    <div class="accessory-categories">
-        <?php foreach ($accessoryDetails as $category => $details) { ?>
-            <div class="accessory-category">
-                <a href="shop.php?media=vinyl-accessories&category=<?php echo $category; ?>">
-                    <img src="images/<?php echo $details['image']; ?>" alt="<?php echo $category; ?>">
-                    <h2><?php echo ucfirst(str_replace('-', ' ', $category)); ?></h2>
-                    <p><?php echo $details['description']; ?></p>
-                </a>
-            </div>
-        <?php } ?>
+    <div class="genre-description">
+        <p>Explore our range of vinyl accessories to enhance and protect your vinyl collection.</p>
+        <br>
+        <a href="#accessory-section" class="shop-btn">Browse Accessories</a>
     </div>
+</section>
+
+<section id="accessory-section" class="accessory-overview">
+    <?php foreach ($accessoryDetails as $category => $details) { ?>
+        <div class="accessory-item">
+            <a href="shop.php?media=vinyl-accessories&category=<?php echo $category; ?>">
+                <img src="images/<?php echo $details['image']; ?>" alt="<?php echo $category; ?>">
+                <h2><?php echo ucfirst(str_replace('-', ' ', $category)); ?></h2>
+                <p><?php echo $details['description']; ?></p>
+            </a>
+        </div>
+    <?php } ?>
 </section>
 
 <aside class="category-sidebar">

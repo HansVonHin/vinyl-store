@@ -174,8 +174,24 @@ $maxPrice = isset($_GET['max-price']) ? $_GET['max-price'] : 1000000; // Set a h
          }
       });
    });
-</script>
 
+   let header = document.querySelector('.header');
+   let lastScrollTop = 0;
+
+   window.addEventListener('scroll', () => {
+    let scrollTop = window.scrollY || document.documentElement.scrollTop;
+    
+    if (scrollTop > lastScrollTop && scrollTop > 250) {
+        // Scrolling down and past 100px, hide the header
+        header.classList.add('hidden');
+    } else if (scrollTop < lastScrollTop && scrollTop <= 250) {
+        // Scrolling up or near the top of the page, show the header
+        header.classList.remove('hidden');
+    }
+    
+    lastScrollTop = scrollTop;
+   });
+</script>
 <script src="js/script.js"></script>
 
 </body>

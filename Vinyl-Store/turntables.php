@@ -25,11 +25,11 @@ $turntableDetails = [
     <link rel="icon" href="images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
 
-<!-- Font Awesome CDN Link -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <!-- Font Awesome CDN Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
-<!-- Custom CSS File Link -->
-<link rel="stylesheet" href="css/style.css">
+    <!-- Custom CSS File Link -->
+    <link rel="stylesheet" href="css/style.css">
 
 </head>
 <body>
@@ -43,7 +43,7 @@ $turntableDetails = [
     <div class="brand-category">
         <div class="brand-highlight">
             <div class="brand-info">
-                <h2>Brand A</h2>
+                <h2>Pioneer DJ</h2>
                 <p>Discover the finest turntables from Brand A, known for their exceptional quality and sound performance.</p>
                 <a href="shop.php?brand=a&category=turntables" class="shop-button">Shop Brand A</a>
             </div>
@@ -52,7 +52,7 @@ $turntableDetails = [
 
         <div class="brand-highlight">
             <div class="brand-info">
-                <h2>Brand B</h2>
+                <h2>Audio Technica</h2>
                 <p>Explore the advanced features and sleek design of Brand B's turntables, perfect for audiophiles.</p>
                 <a href="shop.php?brand=b&category=turntables" class="shop-button">Shop Brand B</a>
             </div>
@@ -61,7 +61,7 @@ $turntableDetails = [
 
         <div class="brand-highlight">
             <div class="brand-info">
-                <h2>Brand C</h2>
+                <h2>Fluance</h2>
                 <p>Brand C turntables offer a perfect blend of modern technology and classic appeal.</p>
                 <a href="shop.php?brand=c&category=turntables" class="shop-button">Shop Brand C</a>
             </div>
@@ -81,12 +81,9 @@ $turntableDetails = [
 
 <?php include 'components/footer.php'; ?>
 
+<script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
 <script src="js/script.js"></script>
-<script>
-function sortBy(criteria) {
-    // Implement sorting logic here, e.g., via AJAX or client-side sorting
-    console.log('Sorting by:', criteria);
-}
+
 </script>
 </body>
 </html>

@@ -27,18 +27,6 @@ $genreDetails = [
     'pop' => [
         'description' => 'Pop music is characterized by its catchy melodies and widespread appeal. It evolved from rock and roll in the 1950s and has continued to dominate the charts.',
         'image' => 'pop-bg.jpg'
-    ],
-    'vinyl-accessories' => [
-        'description' => 'Vinyl accessories are essential tools for maintaining and enhancing your vinyl collection. These include cleaning kits, storage solutions, and protective covers.',
-        'image' => 'vinyl-accessories-bg.jpg'
-    ],
-    'turntables' => [
-        'description' => 'Turntables are the primary devices used for playing vinyl records. From entry-level to high-end models, turntables come in various types and features.',
-        'image' => 'turntables-bg.jpg'
-    ],
-    'vinyl-sizes' => [
-        'description' => 'Vinyl records come in various sizes, each offering a different listening experience. Explore the range of 7", 10", and 12" records to find your preferred format.',
-        'image' => 'vinyl-sizes-bg.jpg'
     ]
 ];
 
@@ -46,19 +34,13 @@ $genreDetails = [
 $mediaTitles = [
     'vinyl' => 'Vinyls',
     'cd' => 'CDs & DVDs',
-    'tape' => 'Cassettes',
-    'vinyl-accessories' => 'Vinyl Accessories',
-    'turntables' => 'Turntables',
-    'vinyl-sizes' => 'Vinyl Sizes'
+    'tape' => 'Cassettes'
 ];
 
 $mediaImages = [
     'vinyl' => 'vinyl-bg.jpg',
     'cd' => 'cd-bg.jpg',
-    'tape' => 'tape-bg.jpg',
-    'vinyl-accessories' => 'vinyl-accessories-bg.jpg',
-    'turntables' => 'turntables-bg.jpg',
-    'vinyl-sizes' => 'vinyl-sizes-bg.jpg'
+    'tape' => 'tape-bg.jpg'
 ];
 ?>
 
@@ -83,31 +65,16 @@ $mediaImages = [
 <?php include 'components/user_header.php'; ?>
 
 <section class="genre-overview" style="background-image: url('images/<?php echo $genreDetails[$genre]['image']; ?>');">
-    <h1><?php echo ucfirst($genre); ?> - <?php echo $mediaTitles[$media]; ?></h1>
+    <h1><?php echo ucfirst($genre); ?> <?php echo $mediaTitles[$media]; ?></h1>
     <div class="genre-description">
         <p><?php echo $genreDetails[$genre]['description']; ?></p>
+        <br>
         <a href="shop.php?category=<?php echo $genre; ?>&media=<?php echo $media; ?>" class="shop-btn">Shop <?php echo ucfirst($genre); ?> <?php echo $mediaTitles[$media]; ?></a>
     </div>
 </section>
 
 <section class="genre-products">
-    <?php if ($media === 'vinyl-sizes') { ?>
-        <h2>Explore Vinyl Sizes</h2>
-        <div class="vinyl-sizes-list">
-            <div class="vinyl-size">
-                <h3>7" Vinyls</h3>
-                <!-- Add code to dynamically fetch and display 7" vinyl records -->
-            </div>
-            <div class="vinyl-size">
-                <h3>10" Vinyls</h3>
-                <!-- Add code to dynamically fetch and display 10" vinyl records -->
-            </div>
-            <div class="vinyl-size">
-                <h3>12" Vinyls (LP)</h3>
-                <!-- Add code to dynamically fetch and display 12" vinyl records -->
-            </div>
-        </div>
-    <?php } elseif ($media === 'vinyl-accessories' || $media === 'turntables') { ?>
+    <?php if ($media === 'vinyl-accessories' || $media === 'turntables') { ?>
         <h2><?php echo $mediaTitles[$media]; ?> Collection</h2>
         <div class="products-list accessory-reel">
             <!-- Add code to dynamically fetch and display accessories or turntables -->
@@ -143,7 +110,7 @@ $mediaImages = [
         <input type="text" name="artist" placeholder="Search Artist...">
         <button type="submit">Search</button>
     </form>
-
+    <br>
     <h2>Sort By</h2>
     <ul>
         <?php if ($media === 'vinyl-sizes') { ?>

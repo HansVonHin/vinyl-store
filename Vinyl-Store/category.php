@@ -4,7 +4,7 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Plaka Express - Categories</title>
-   <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+   <link rel="icon" href="images/favicon.ico" type="images/x-icon">
    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
    
    <!-- Font Awesome CDN Link -->
@@ -27,7 +27,7 @@
         <h3>Vinyl Genres</h3>
         <p>Explore a vast selection of music genres from rock to classical, jazz to electronic, and everything in between.</p>
         <div class="dropdown-container">
-            <a href="shop.php?category=vinyl-genres" class="btn">Browse Genres
+            <a class="btn">Browse Genres
             <span class="fas fa-angle-down-toggle">&#9662;</span>
             </a>
             <div class="dropdown-menu">
@@ -64,7 +64,7 @@
         <h3>Vinyl Accessories</h3>
         <p>Complete your setup with high-quality accessories including phono cartridges, record brushes, and more.</p>
         <div class="dropdown-container">
-            <a href="shop.php?category=vinyl-accessories" class="btn">Browse Accessories
+            <a class="btn">Browse Accessories
             <span class="fas fa-angle-down-toggle">&#9662;</span>
             </a>
             <div class="dropdown-menu">
@@ -98,7 +98,7 @@
         <h3>CDs & DVDs</h3>
         <p>Discover our selection of CDs and DVDs, featuring a variety of genres and artists.</p>
         <div class="dropdown-container">
-            <a href="shop.php?category=cds-dvds" class="btn">Browse CDs & DVDs
+            <a class="btn">Browse CDs & DVDs
             <span class="fas fa-angle-down-toggle">&#9662;</span>
             </a>
             <div class="dropdown-menu">
@@ -113,7 +113,6 @@
             </div>
         </div>
     </div>
-</div>
     <div class="image-slider">
         <div class="swiper cd-image-slider">
             <div class="swiper-wrapper">
@@ -132,7 +131,7 @@
         <h3>Cassette Tapes</h3>
         <p>Explore our collection of cassette tapes from various genres and artists.</p>
         <div class="dropdown-container">
-            <a href="shop.php?category=tapes" class="btn">Browse Tapes
+            <a class="btn">Browse Tapes
             <span class="fas fa-angle-down-toggle">&#9662;</span>
             </a>
             <div class="dropdown-menu">
@@ -147,7 +146,6 @@
             </div>
         </div>
     </div>
-</div>
     <div class="image-slider">
         <div class="swiper tape-image-slider">
             <div class="swiper-wrapper">

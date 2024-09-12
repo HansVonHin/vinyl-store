@@ -81,12 +81,7 @@ $vinylSizeDetails = [
 
 <?php include 'components/footer.php'; ?>
 
+<script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
 <script src="js/script.js"></script>
-<script>
-function sortBy(criteria) {
-    // Implement sorting logic here, e.g., via AJAX or client-side sorting
-    console.log('Sorting by:', criteria);
-}
-</script>
 </body>
 </html>
