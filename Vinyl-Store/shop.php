@@ -39,26 +39,35 @@ $maxPrice = isset($_GET['max-price']) ? $_GET['max-price'] : 1000000; // Set a h
          <li>
             <a href="#" class="category-link">Vinyl</a>
             <ul class="sub-category-list">
-               <li><a href="shop.php?category=rock-vinyl">Rock</a></li>
-               <li><a href="shop.php?category=jazz-vinyl">Jazz</a></li>
-               <li><a href="shop.php?category=classical-vinyl">Classical</a></li>
-               <li><a href="shop.php?category=electronic-vinyl">Electronic</a></li>
-               <li><a href="shop.php?category=hip-hop-vinyl">Hip-Hop</a></li>
-               <li><a href="shop.php?category=pop-vinyl">Pop</a></li>
+               <li><a href="shop.php?category=rock&media=vinyl">Rock</a></li>
+               <li><a href="shop.php?category=jazz&media=vinyl">Jazz</a></li>
+               <li><a href="shop.php?category=classical&media=vinyl">Classical</a></li>
+               <li><a href="shop.php?category=electronic&media=vinyl">Electronic</a></li>
+               <li><a href="shop.php?category=hip-hop&media=vinyl">Hip-Hop</a></li>
+               <li><a href="shop.php?category=pop&media=vinyl">Pop</a></li>
             </ul>
          </li>
          <li>
             <a href="#" class="category-link">CD & DVD</a>
             <ul class="sub-category-list">
-               <li><a href="shop.php?category=rock-cd-dvd">Rock</a></li>
-               <li><a href="shop.php?category=jazz-cd-dvd">Jazz</a></li>
-               <li><a href="shop.php?category=classical-cd-dvd">Classical</a></li>
-               <li><a href="shop.php?category=electronic-cd-dvd">Electronic</a></li>
-               <li><a href="shop.php?category=hip-hop-cd-dvd">Hip-Hop</a></li>
-               <li><a href="shop.php?category=pop-cd-dvd">Pop</a></li>
+               <li><a href="shop.php?category=rock&media=cd">Rock</a></li>
+               <li><a href="shop.php?category=jazz&media=cd">Jazz</a></li>
+               <li><a href="shop.php?category=classical&media=cd">Classical</a></li>
+               <li><a href="shop.php?category=electronic&media=cd">Electronic</a></li>
+               <li><a href="shop.php?category=hip-hop&media=cd">Hip-Hop</a></li>
+               <li><a href="shop.php?category=pop&media=cd">Pop</a></li>
             </ul>
          </li>
-         <li><a href="shop.php?category=tape-genres" class="category-link">Tape Genres</a></li>
+         <li><a href="shop.php?category=tape-genres" class="category-link">Tape Genres</a>
+            <ul class="sub-category-list">
+               <li><a href="shop.php?category=rock&media=tape">Rock</a></li>
+               <li><a href="shop.php?category=jazz&media=tape">Jazz</a></li>
+               <li><a href="shop.php?category=classical&media=tape">Classical</a></li>
+               <li><a href="shop.php?category=electronic&media=tape">Electronic</a></li>
+               <li><a href="shop.php?category=hip-hop&media=tape">Hip-Hop</a></li>
+               <li><a href="shop.php?category=pop&media=tape">Pop</a></li>
+            </ul>
+         </li>
          <li>
             <a href="#" class="category-link">Vinyl Accessories</a>
             <ul class="sub-category-list">
