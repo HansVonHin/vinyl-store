@@ -1,4 +1,5 @@
 <?php
+$accessory = isset($_GET['accessory']) ? $_GET['accessory'] : 'all';
 // Description and image details for Vinyl Accessories
 $accessoryDetails = [
     'phono-cartridges' => [
@@ -33,7 +34,7 @@ $accessoryDetails = [
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plaka Express - Vinyl Accessories</title>
+    <title>Plaka Express - <?php echo ucfirst($accessory); ?></title>
     <link rel="icon" href="images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
 
@@ -48,12 +49,12 @@ $accessoryDetails = [
 
 <?php include 'components/user_header.php'; ?>
 
-<section class="genre-overview" style="background-image: url('images/vinyl-accessories-bg.jpg');">
-    <h1>Vinyl Accessories</h1>
+<section class="genre-overview" style="background-image: url('images/<?php echo $accessoryDetails[$accessory]['image']; ?>');">
+    <h1><?php echo ucfirst($accessory); ?></h1>
     <div class="genre-description">
-        <p>Explore our range of vinyl accessories to enhance and protect your vinyl collection.</p>
+        <p><?php echo $accessoryDetails[$accessory]['description']; ?></p>
         <br>
-        <a href="#accessory-section" class="shop-btn">Browse Accessories</a>
+        <a href="shop.php?category=<?php echo $accessory;?>"class="shop-btn">Shop <?php echo ucfirst($accessory); ?></a>
     </div>
 </section>
 
@@ -80,6 +81,24 @@ $accessoryDetails = [
 
 <?php include 'components/footer.php'; ?>
 
+<script>
+   let header = document.querySelector('.header');
+   let lastScrollTop = 0;
+
+   window.addEventListener('scroll', () => {
+    let scrollTop = window.scrollY || document.documentElement.scrollTop;
+    
+    if (scrollTop > lastScrollTop && scrollTop > 250) {
+        // Scrolling down and past 100px, hide the header
+        header.classList.add('hidden');
+    } else if (scrollTop < lastScrollTop && scrollTop <= 250) {
+        // Scrolling up or near the top of the page, show the header
+        header.classList.remove('hidden');
+    }
+    
+    lastScrollTop = scrollTop;
+   });
+</script>
 <script src="js/script.js"></script>
 </body>
 </html>

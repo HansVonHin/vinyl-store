@@ -5,26 +5,32 @@ $media = isset($_GET['media']) ? $_GET['media'] : 'vinyl';  // Default to vinyl
 // Descriptions and image files for each genre
 $genreDetails = [
     'rock' => [
+        'title' => 'Rock',
         'description' => 'Rock music emerged in the 1950s and is known for its powerful beats, electric guitars, and rebellious spirit. Iconic artists include The Beatles, Led Zeppelin, and The Rolling Stones.',
         'image' => 'rock-bg.jpg'
     ],
     'jazz' => [
+        'title' => 'Jazz',
         'description' => 'Jazz originated in the African-American communities of New Orleans in the late 19th and early 20th centuries. It is characterized by swing, improvisation, and complex harmonies.',
         'image' => 'jazz-bg.jpg'
     ],
     'classical' => [
+        'title' => 'Classical',
         'description' => 'Classical music spans over several centuries, from the Baroque period to the Romantic era. It is known for its orchestral and symphonic compositions.',
         'image' => 'classical-bg.jpg'
     ],
     'electronic' => [
+        'title' => 'Electronic Music',
         'description' => 'Electronic music encompasses a wide range of styles, from house and techno to ambient and dubstep. It emerged in the late 20th century, driven by advancements in technology.',
         'image' => 'electronic-bg.jpg'
     ],
     'hip-hop' => [
+        'title' => 'Hip-Hop',
         'description' => 'Hip-Hop began in the Bronx in the 1970s as a cultural movement encompassing DJing, rapping, breakdancing, and graffiti art.',
         'image' => 'hiphop-bg.jpg'
     ],
     'pop' => [
+        'title' => 'Pop',
         'description' => 'Pop music is characterized by its catchy melodies and widespread appeal. It evolved from rock and roll in the 1950s and has continued to dominate the charts.',
         'image' => 'pop-bg.jpg'
     ]
@@ -75,27 +81,27 @@ $mediaImages = [
 
 <section class="genre-products">
     <?php if ($media === 'vinyl-accessories' || $media === 'turntables') { ?>
-        <h2><?php echo $mediaTitles[$media]; ?> Collection</h2>
+        <h2><?php echo $genreDetails[$genre]['title']; ?> <?php echo $mediaTitles[$media]; ?> Collection</h2>
         <div class="products-list accessory-reel">
             <!-- Add code to dynamically fetch and display accessories or turntables -->
         </div>
     <?php } else { ?>
-        <h2>Iconic <?php echo $mediaTitles[$media]; ?></h2>
+        <h2>Iconic <?php echo $genreDetails[$genre]['title']; ?> <?php echo $mediaTitles[$media]; ?></h2>
         <div class="products-list iconic-reel">
             <!-- Add code to dynamically fetch and display iconic records -->
         </div>
 
-        <h2>Bestselling <?php echo $mediaTitles[$media]; ?></h2>
+        <h2>Bestselling <?php echo $genreDetails[$genre]['title']; ?> <?php echo $mediaTitles[$media]; ?></h2>
         <div class="products-list bestseller-reel">
             <!-- Add code to dynamically fetch and display bestselling records -->
         </div>
 
-        <h2><?php echo $mediaTitles[$media]; ?> Throughout the Years</h2>
+        <h2><?php echo $genreDetails[$genre]['title']; ?> <?php echo $mediaTitles[$media]; ?> Throughout the Years</h2>
         <div class="products-list year-reel">
             <!-- Add code to dynamically fetch and display records by year -->
         </div>
 
-        <h2>All <?php echo $mediaTitles[$media]; ?></h2>
+        <h2>All <?php echo $genreDetails[$genre]['title']; ?> <?php echo $mediaTitles[$media]; ?></h2>
         <div class="products-list full-catalogue">
             <!-- Add code to dynamically fetch and display the full catalogue -->
         </div>
