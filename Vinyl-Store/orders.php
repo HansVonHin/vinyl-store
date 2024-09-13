@@ -19,7 +19,7 @@
 
 <section class="orders">
 
-   <h1 class="heading">placed orders</h1>
+   <h1 class="heading">Placed Orders</h1>
 
    <div class="box-container">
 

@@ -90,22 +90,27 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-// JavaScript to hide the header on scroll
-let header = document.querySelector('.header');
+// Select the header and flex elements
+const header = document.querySelector('.header');
+const flex = document.querySelector('.flex');
+
+// Variable to store the last scroll position
 let lastScrollTop = 0;
 
 window.addEventListener('scroll', () => {
-    let scrollTop = window.scrollY || document.documentElement.scrollTop;
-    
-    if (scrollTop > lastScrollTop && scrollTop > 250) {
-        // Scrolling down and past 100px, hide the header
-        header.classList.add('hidden');
-    } else if (scrollTop < lastScrollTop && scrollTop <= 250) {
-        // Scrolling up or near the top of the page, show the header
-        header.classList.remove('hidden');
-    }
-    
-    lastScrollTop = scrollTop;
+   let scrollTop = window.scrollY || document.documentElement.scrollTop;
+
+   if (scrollTop > lastScrollTop && scrollTop > 250) {
+       // Scrolling down and past 250px, hide the header
+       header.classList.add('hidden');
+       flex.classList.add('visible');
+   } else if (scrollTop < lastScrollTop && scrollTop <= 250) {
+       // Scrolling up or near the top of the page, show the header
+       header.classList.remove('hidden');
+       flex.classList.remove('visible');
+   }
+
+   lastScrollTop = scrollTop;
 });
 
 document.addEventListener('DOMContentLoaded', () => {

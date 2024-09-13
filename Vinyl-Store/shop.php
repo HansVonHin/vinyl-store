@@ -45,7 +45,7 @@ $maxPrice = isset($_GET['max-price']) ? $_GET['max-price'] : 1000000; // Set a h
                <li><a href="shop.php?category=electronic&media=vinyl">Electronic</a></li>
                <li><a href="shop.php?category=hip-hop&media=vinyl">Hip-Hop</a></li>
                <li><a href="shop.php?category=pop&media=vinyl">Pop</a></li>
-            </ul>
+            </ul> 
          </li>
          <li>
             <a href="#" class="category-link">CD & DVD</a>
@@ -58,7 +58,7 @@ $maxPrice = isset($_GET['max-price']) ? $_GET['max-price'] : 1000000; // Set a h
                <li><a href="shop.php?category=pop&media=cd">Pop</a></li>
             </ul>
          </li>
-         <li><a href="shop.php?category=tape-genres" class="category-link">Tape Genres</a>
+         <li><a href="shop.php?category=tape-genres" class="category-link">Cassette Tapes</a>
             <ul class="sub-category-list">
                <li><a href="shop.php?category=rock&media=tape">Rock</a></li>
                <li><a href="shop.php?category=jazz&media=tape">Jazz</a></li>

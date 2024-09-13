@@ -70,7 +70,7 @@
             <a href="update_user.php" class="btn">Update Profile</a>
             <a href="components/user_logout.php" class="delete-btn" onclick="return confirm('Logout from the website?');">Logout</a> 
          <?php } else { ?>
-            <p>Please login or register first!</p>
+            <p>Please Login or Register First!</p>
             <div class="flex-btn">
                <a href="user_register.php" class="option-btn">Register</a>
                <a href="user_login.php" class="option-btn">Login</a>
