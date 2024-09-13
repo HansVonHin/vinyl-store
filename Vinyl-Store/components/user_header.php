@@ -1,3 +1,16 @@
+<?php
+   if(isset($message)){
+      foreach($message as $message){
+         echo '
+         <div class="message">
+            <span>'.$message.'</span>
+            <i class="fas fa-times" onclick="this.parentElement.remove();"></i>
+         </div>
+         ';
+      }
+   }
+?>
+
 <header class="header">
    <!-- Top Section: Logo -->
    <section class="top-section">
@@ -80,3 +93,6 @@
 
    </section>
 </header>
+
+<script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+<script src="js/script.js"></script>

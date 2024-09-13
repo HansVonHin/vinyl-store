@@ -1,6 +1,6 @@
 <?php
 
-include '../components/connect.php';
+include '../Vinyl-Store/components/connect.php';
 
 session_start();
 
@@ -22,12 +22,12 @@ if(!isset($admin_id)){
 
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
-   <link rel="stylesheet" href="../css/admin_style.css">
+   <link rel="stylesheet" href="../Vinyl-Store/css/admin_style.css">
 
 </head>
 <body>
 
-<?php include '../components/admin_header.php'; ?>
+<?php include '../Vinyl-Store/components/admin_header.php'; ?>
 
 <section class="dashboard">
 
@@ -36,9 +36,9 @@ if(!isset($admin_id)){
    <div class="box-container">
 
       <div class="box">
-         <h3>welcome!</h3>
+         <h3>Welcome!</h3>
          <p><?= $fetch_profile['name']; ?></p>
-         <a href="update_profile.php" class="btn">update profile</a>
+         <a href="update_profile.php" class="btn">Update Profile</a>
       </div>
 
       <div class="box">
@@ -52,9 +52,9 @@ if(!isset($admin_id)){
                }
             }
          ?>
-         <h3><span>$</span><?= $total_pendings; ?><span>/-</span></h3>
-         <p>total pendings</p>
-         <a href="placed_orders.php" class="btn">see orders</a>
+         <h3><span>₱</span><?= $total_pendings; ?><span>/-</span></h3>
+         <p>Total Pendings</p>
+         <a href="placed_orders.php" class="btn">See Orders</a>
       </div>
 
       <div class="box">
@@ -68,8 +68,8 @@ if(!isset($admin_id)){
                }
             }
          ?>
-         <h3><span>$</span><?= $total_completes; ?><span>/-</span></h3>
-         <p>completed orders</p>
+         <h3><span>₱</span><?= $total_completes; ?><span>/-</span></h3>
+         <p>Completed Orders</p>
          <a href="placed_orders.php" class="btn">see orders</a>
       </div>
 
@@ -80,8 +80,8 @@ if(!isset($admin_id)){
             $number_of_orders = $select_orders->rowCount()
          ?>
          <h3><?= $number_of_orders; ?></h3>
-         <p>orders placed</p>
-         <a href="placed_orders.php" class="btn">see orders</a>
+         <p>Orders Placed</p>
+         <a href="placed_orders.php" class="btn">See Orders</a>
       </div>
 
       <div class="box">
@@ -91,8 +91,8 @@ if(!isset($admin_id)){
             $number_of_products = $select_products->rowCount()
          ?>
          <h3><?= $number_of_products; ?></h3>
-         <p>products added</p>
-         <a href="products.php" class="btn">see products</a>
+         <p>Products Added</p>
+         <a href="products.php" class="btn">See Products</a>
       </div>
 
       <div class="box">
@@ -102,8 +102,8 @@ if(!isset($admin_id)){
             $number_of_users = $select_users->rowCount()
          ?>
          <h3><?= $number_of_users; ?></h3>
-         <p>normal users</p>
-         <a href="users_accounts.php" class="btn">see users</a>
+         <p>Normal Users</p>
+         <a href="users_accounts.php" class="btn">See Users</a>
       </div>
 
       <div class="box">
@@ -113,8 +113,8 @@ if(!isset($admin_id)){
             $number_of_admins = $select_admins->rowCount()
          ?>
          <h3><?= $number_of_admins; ?></h3>
-         <p>admin users</p>
-         <a href="admin_accounts.php" class="btn">see admins</a>
+         <p>Admin Users</p>
+         <a href="admin_accounts.php" class="btn">See Admins</a>
       </div>
 
       <div class="box">
@@ -124,15 +124,15 @@ if(!isset($admin_id)){
             $number_of_messages = $select_messages->rowCount()
          ?>
          <h3><?= $number_of_messages; ?></h3>
-         <p>new messages</p>
-         <a href="messagess.php" class="btn">see messages</a>
+         <p>New Messages</p>
+         <a href="messagess.php" class="btn">See Messages</a>
       </div>
 
    </div>
 
 </section>
 
-<script src="../js/admin_script.js"></script>
+<script src="../Vinyl-Store/js/admin_script.js"></script>
    
 </body>
 </html>

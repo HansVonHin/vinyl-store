@@ -75,20 +75,9 @@ if(isset($_POST['submit'])){
 
 </section>
 
-
-
-
-
-
-
-
-
-
-
-
-
 <?php include 'components/footer.php'; ?>
 
+<script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
 <script src="js/script.js"></script>
 
 </body>

@@ -1,19 +1,22 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700&display=swap');
+/* Import Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600&display=swap');
 
+/* Root Variables */
 :root{
-   --main-color:#2980b9;
-   --orange:#f39c12;
-   --red:#e74c3c;
-   --black:#444;
-   --white:#fff;
-   --light-color:#777;
-   --light-bg:#f5f5f5;
-   --border:.2rem solid var(--black);
-   --box-shadow:0 .5rem 1rem rgba(0,0,0,.1);
+   --main-color: #1a1a1a; /* A deep, vinyl-black color */
+   --orange: #d35400; /* Rich orange for highlights */
+   --red: #c0392b; /* A deep red */
+   --black: #111; /* Slightly darker black */
+   --white: #f9f9f9; /* A soft white */
+   --light-color: #7f8c8d; /* Muted gray */
+   --light-bg: #ecf0f1; /* Light gray background */
+   --border: .2rem solid var(--black);
+   --box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
 }
 
+/* General Resets and Defaults */
 *{
-   font-family: 'Nunito', sans-serif;
+   font-family: 'Oswald', sans-serif;
    margin:0; padding:0;
    box-sizing: border-box;
    outline: none; border:none;

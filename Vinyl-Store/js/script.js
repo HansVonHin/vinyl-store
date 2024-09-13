@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function() {
 let mainImage = document.querySelector('.quick-view .box .row .image-container .main-image img');
 let subImages = document.querySelectorAll('.quick-view .box .row .image-container .sub-image img');
 
-subImages.forEach(image => {
+subImages.forEach(images => {
    image.onclick = () => {
       let src = image.getAttribute('src');
       mainImage.src = src;

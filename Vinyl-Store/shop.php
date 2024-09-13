@@ -1,3 +1,19 @@
+<?php
+
+include 'components/connect.php';
+
+session_start();
+
+if(isset($_SESSION['user_id'])){
+   $user_id = $_SESSION['user_id'];
+}else{
+   $user_id = '';
+};
+
+include 'components/wishlist_cart.php';
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -105,7 +121,34 @@ $maxPrice = isset($_GET['max-price']) ? $_GET['max-price'] : 1000000; // Set a h
    <!-- Products Section -->
    <div class="products">
       <h2 class="heading">Our Collection</h2>
-      <div class="product-box-container">
+         <div class="product-box-container">
+         <?php
+            $select_products = $conn->prepare("SELECT * FROM `products`"); 
+            $select_products->execute();
+            if($select_products->rowCount() > 0){
+            while($fetch_product = $select_products->fetch(PDO::FETCH_ASSOC)){
+         ?>
+         <form action="" method="post" class="product-box">
+            <input type="hidden" name="pid" value="<?= $fetch_product['id']; ?>">
+            <h3><input type="hidden" name="name" value="<?= $fetch_product['name']; ?>"></h3>
+            <input type="hidden" name="price" value="<?= $fetch_product['price']; ?>">
+            <input type="hidden" name="image" value="<?= $fetch_product['image_01']; ?>">
+            <button class="fas fa-heart" type="submit" name="add_to_wishlist"></button>
+            <a href="quick_view.php?pid=<?= $fetch_product['id']; ?>" class="fas fa-eye"></a>
+            <img src="uploaded_img/<?= $fetch_product['image_01']; ?>" alt="">
+            <div class="name"><?= $fetch_product['name']; ?></div>
+            <div class="flex">
+               <div class="price"><span>₱</span><?= $fetch_product['price']; ?><span>/-</span></div>
+               <input type="number" name="qty" class="qty" min="1" max="9" onkeypress="if(this.value.length == 2) return false;" value="1">
+            </div>
+            <input type="submit" value="add to cart" class="btn" name="add_to_cart">
+         </form>
+         <?php
+            }
+         }else{
+            echo '<p class="empty">No Products Found!</p>';
+         }
+         ?>
          <!-- Sample Vinyl Product 1 -->
          <div class="product-box">
             <img src="images/sample-vinyl1.jpg" alt="Sample Vinyl 1">
@@ -201,6 +244,8 @@ $maxPrice = isset($_GET['max-price']) ? $_GET['max-price'] : 1000000; // Set a h
     lastScrollTop = scrollTop;
    });
 </script>
+
+<script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
 <script src="js/script.js"></script>
 
 </body>

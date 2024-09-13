@@ -1,4 +1,16 @@
 <?php
+include 'components/connect.php';
+
+session_start();
+
+if(isset($_SESSION['user_id'])){
+   $user_id = $_SESSION['user_id'];
+}else{
+   $user_id = '';
+};
+
+include 'components/wishlist_cart.php';
+
 $accessory = isset($_GET['accessory']) ? $_GET['accessory'] : 'all';
 // Description and image details for Vinyl Accessories
 $accessoryDetails = [
@@ -99,6 +111,9 @@ $accessoryDetails = [
     lastScrollTop = scrollTop;
    });
 </script>
+
+<script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
 <script src="js/script.js"></script>
+
 </body>
 </html>

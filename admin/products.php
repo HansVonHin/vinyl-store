@@ -1,6 +1,6 @@
 <?php
 
-include '../components/connect.php';
+include '../Vinyl-Store/components/connect.php';
 
 session_start();
 
@@ -94,12 +94,12 @@ if(isset($_GET['delete'])){
 
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
-   <link rel="stylesheet" href="../css/admin_style.css">
+   <link rel="stylesheet" href="../Vinyl-Store/css/admin_style.css">
 
 </head>
 <body>
 
-<?php include '../components/admin_header.php'; ?>
+<?php include '../Vinyl-Store/components/admin_header.php'; ?>
 
 <section class="add-products">
 
@@ -171,7 +171,7 @@ if(isset($_GET['delete'])){
 
 </section>
 
-<script src="../js/admin_script.js"></script>
+<script src="../Vinyl-Store/js/admin_script.js"></script>
    
 </body>
 </html>
