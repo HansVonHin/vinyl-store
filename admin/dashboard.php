@@ -31,7 +31,7 @@ if(!isset($admin_id)){
 
 <section class="dashboard">
 
-   <h1 class="heading">dashboard</h1>
+   <h1 class="heading">Dashboard</h1>
 
    <div class="box-container">
 
@@ -70,7 +70,7 @@ if(!isset($admin_id)){
          ?>
          <h3><span>₱</span><?= $total_completes; ?><span>/-</span></h3>
          <p>Completed Orders</p>
-         <a href="placed_orders.php" class="btn">see orders</a>
+         <a href="placed_orders.php" class="btn">See Orders</a>
       </div>
 
       <div class="box">

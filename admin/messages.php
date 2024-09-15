@@ -54,12 +54,12 @@ if(isset($_GET['delete'])){
    <p> Email : <span><?= $fetch_message['email']; ?></span></p>
    <p> Number : <span><?= $fetch_message['number']; ?></span></p>
    <p> Message : <span><?= $fetch_message['message']; ?></span></p>
-   <a href="messages.php??delete=<?= $fetch_message['id']; ?>" onclick="return confirm('delete this message?');" class="delete-btn">delete</a>
+   <a href="messages.php??delete=<?= $fetch_message['id']; ?>" onclick="return confirm('Delete This Message?');" class="delete-btn">Delete</a>
    </div>
    <?php
          }
       }else{
-         echo '<p class="empty">you have no messages</p>';
+         echo '<p class="empty">You Have No Messages</p>';
       }
    ?>
 
