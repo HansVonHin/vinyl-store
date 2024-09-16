@@ -79,7 +79,7 @@ if(isset($_GET['delete_all'])){
    <?php
       }
    }else{
-      echo '<p class="empty">your wishlist is empty</p>';
+      echo '<p class="empty">Your Wishlist Is Empty</p>';
    }
    ?>
    </div>
@@ -87,7 +87,7 @@ if(isset($_GET['delete_all'])){
    <div class="wishlist-total">
       <p>Grand Total: <span>₱<?= $grand_total; ?>/-</span></p>
       <a href="shop.php" class="option-btn">Continue Shopping</a>
-      <a href="wishlist.php?delete_all" class="delete-btn <?= ($grand_total > 1)?'':'disabled'; ?>" onclick="return confirm('delete all from wishlist?');">Delete All Items</a>
+      <a href="wishlist.php?delete_all" class="delete-btn <?= ($grand_total > 1)?'':'disabled'; ?>" onclick="return confirm('Delete All From Wishlist?');">Delete All Items</a>
    </div>
 
 </section>

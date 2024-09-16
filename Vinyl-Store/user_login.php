@@ -25,7 +25,7 @@ if(isset($_POST['submit'])){
       $_SESSION['user_id'] = $row['id'];
       header('location:home.php');
    }else{
-      $message[] = 'Incorrect Username Or Password.';
+      $message[] = 'Incorrect Username Or Password!';
    }
 
 }

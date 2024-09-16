@@ -26,14 +26,14 @@ if(isset($_POST['submit'])){
    $row = $select_user->fetch(PDO::FETCH_ASSOC);
 
    if($select_user->rowCount() > 0){
-      $message[] = 'email already exists!';
+      $message[] = 'Email Already Exists!';
    }else{
       if($pass != $cpass){
-         $message[] = 'confirm password not matched!';
+         $message[] = 'Confirm Password Not Matched!';
       }else{
          $insert_user = $conn->prepare("INSERT INTO `users`(name, email, password) VALUES(?,?,?)");
          $insert_user->execute([$name, $email, $cpass]);
-         $message[] = 'registered successfully, login now please!';
+         $message[] = 'Registered Successfully!';
       }
    }
 
