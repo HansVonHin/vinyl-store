@@ -43,7 +43,7 @@
             <a href="../admin/register_admin.php" class="option-btn">Register</a>
             <a href="../admin/admin_login.php" class="option-btn">Login</a>
          </div>
-         <a href="../components/admin_logout.php" class="delete-btn" onclick="return confirm('logout from the website?');">Logout</a> 
+         <a href="../components/admin_logout.php" class="delete-btn" onclick="return confirm('Logout From The Website?');">Logout</a> 
       </div>
 
    </section>
