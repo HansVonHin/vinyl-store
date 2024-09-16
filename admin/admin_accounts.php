@@ -57,7 +57,7 @@ if(isset($_GET['delete'])){
       <p> Admin ID : <span><?= $fetch_accounts['id']; ?></span> </p>
       <p> Admin Name : <span><?= $fetch_accounts['name']; ?></span> </p>
       <div class="flex-btn">
-         <a href="admin_accounts.php?delete=<?= $fetch_accounts['id']; ?>" onclick="return confirm('delete this account?')" class="delete-btn">delete</a>
+         <a href="admin_accounts.php?delete=<?= $fetch_accounts['id']; ?>" onclick="return confirm('Delete This Account?')" class="delete-btn">Delete</a>
          <?php
             if($fetch_accounts['id'] == $admin_id){
                echo '<a href="update_profile.php" class="option-btn">update</a>';
@@ -68,7 +68,7 @@ if(isset($_GET['delete'])){
    <?php
          }
       }else{
-         echo '<p class="empty">no accounts available!</p>';
+         echo '<p class="empty">No Accounts Available!</p>';
       }
    ?>
 

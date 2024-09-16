@@ -58,13 +58,13 @@ if(isset($_GET['delete'])){
          while($fetch_orders = $select_orders->fetch(PDO::FETCH_ASSOC)){
    ?>
    <div class="box">
-      <p> Placed On : <span><?= $fetch_orders['placed_on']; ?></span> </p>
-      <p> Name : <span><?= $fetch_orders['name']; ?></span> </p>
-      <p> Number : <span><?= $fetch_orders['number']; ?></span> </p>
-      <p> Address : <span><?= $fetch_orders['address']; ?></span> </p>
-      <p> Total Products : <span><?= $fetch_orders['total_products']; ?></span> </p>
-      <p> Total Price : <span>₱<?= $fetch_orders['total_price']; ?>/-</span> </p>
-      <p> Payment Method : <span><?= $fetch_orders['method']; ?></span> </p>
+      <p> Placed On: <span><?= $fetch_orders['placed_on']; ?></span> </p>
+      <p> Name: <span><?= $fetch_orders['name']; ?></span> </p>
+      <p> Number: <span><?= $fetch_orders['number']; ?></span> </p>
+      <p> Address: <span><?= $fetch_orders['address']; ?></span> </p>
+      <p> Total Products: <span><?= $fetch_orders['total_products']; ?></span> </p>
+      <p> Total Price: <span>₱<?= $fetch_orders['total_price']; ?>/-</span> </p>
+      <p> Payment Method: <span><?= $fetch_orders['method']; ?></span> </p>
       <form action="" method="post">
          <input type="hidden" name="order_id" value="<?= $fetch_orders['id']; ?>">
          <select name="payment_status" class="select">
