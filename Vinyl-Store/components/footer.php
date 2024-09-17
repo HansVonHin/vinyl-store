@@ -29,8 +29,8 @@
          <div class="links-column">
             <h3>Help</h3>
             <a href="about.php"> <i class="fas fa-angle-right"></i> About Us</a>
-            <a href="contact.php"> <i class="fas fa-angle-right"></i>Contact Us</a>
-            <a href="about.php?section=faq"> <i class="fas fa-angle-right"></i>FAQ</a>
+            <a href="contact.php"> <i class="fas fa-angle-right"></i> Contact Us</a>
+            <a href="about.php?section=faq"> <i class="fas fa-angle-right"></i> FAQ</a>
          </div>
       </div>
 
