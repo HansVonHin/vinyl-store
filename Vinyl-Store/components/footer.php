@@ -23,7 +23,7 @@
             <h3>Quick Links</h3>
             <a href="home.php"> <i class="fas fa-angle-right"></i> Home</a>
             <a href="shop.php"> <i class="fas fa-angle-right"></i> Shop</a>
-            <a href="categories.php"> <i class="fas fa-angle-right"></i> Categories</a>
+            <a href="category.php"> <i class="fas fa-angle-right"></i> Categories</a>
          </div>
          <br>
          <div class="links-column">
