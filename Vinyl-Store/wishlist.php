@@ -67,7 +67,7 @@ if(isset($_GET['delete_all'])){
       <input type="hidden" name="price" value="<?= $fetch_wishlist['price']; ?>">
       <input type="hidden" name="image" value="<?= $fetch_wishlist['image']; ?>">
       <a href="quick_view.php?pid=<?= $fetch_wishlist['pid']; ?>" class="fas fa-eye"></a>
-      <img src="uploaded_img/<?= $fetch_wishlist['image']; ?>" alt="">
+      <img src="/Vinyl-Store/uploaded_img/<?= $fetch_wishlist['image']; ?>" alt="">
       <div class="name"><?= $fetch_wishlist['name']; ?></div>
       <div class="flex">
          <div class="price">₱<?= $fetch_wishlist['price']; ?>/-</div>

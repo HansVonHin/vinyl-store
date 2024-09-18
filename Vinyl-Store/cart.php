@@ -69,7 +69,7 @@ if(isset($_POST['update_qty'])){
    <form action="" method="post" class="box">
       <input type="hidden" name="cart_id" value="<?= $fetch_cart['id']; ?>">
       <a href="quick_view.php?pid=<?= $fetch_cart['pid']; ?>" class="fas fa-eye"></a>
-      <img src="uploaded_img/<?= $fetch_cart['image']; ?>" alt="">
+      <img src="/Vinyl-Store/uploaded_img/<?= $fetch_cart['image']; ?>" alt="">
       <div class="name"><?= $fetch_cart['name']; ?></div>
       <div class="flex">
          <div class="price">₱<?= $fetch_cart['price']; ?>/-</div>
