@@ -41,7 +41,7 @@
             </div>
             <br> <a href="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d964.9700598001808!2d121.03114946450538!3d14.662737175554316!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397b6e1b31457a9%3A0x123349dfa5a8d5b6!2sPlaka%20Express!5e0!3m2!1sen!2sph!4v1725799028784!5m2!1sen!2sph"><i class="fas fa-map-marker-alt"></i> 50 Palawan Street, Lungsod Quezon, 1105 Kalakhang Maynila </a>
                <div class="newsletter">
-                  <h3>Sign Up for Our Newsletter</h3>
+                  <h3>Sign Up for Our Newsletter!</h3>
                      <form action="subscribe.php" method="post">
                   <input type="email" name="email" placeholder="Enter your Email..." required>
                <button type="submit"><i class="fas fa-paper-plane"></i> Subscribe</button>
@@ -51,7 +51,7 @@
 
    </section>
 
-   <div class="credit">&copy; <?= date('Y'); ?> by <span>Plaka Express</span> | All rights reserved!</div>
+   <div class="credit">&copy; <?= date('Y'); ?> by <span>Plaka Express</span> | All Rights Reserved!</div>
 
 </footer>
 
