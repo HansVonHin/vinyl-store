@@ -377,7 +377,7 @@ section{
    gap: 1rem;
 }
 
-/* Show dropdown on hover */
+/* Show Dropdown on Hover */
 .navbar .nav-2 ul li:hover ul {
    display: grid;
 }
