@@ -207,7 +207,7 @@ section{
    transition: 0.3s ease-in-out;
 }
 
-/* Remove whitespace issues */
+/* Remove Whitespace Issues */
 .header::before {
    content: '';
    display: block;
