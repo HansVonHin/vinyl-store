@@ -95,53 +95,89 @@ if (isset($_GET['delete'])) {
 
 <?php include '../Vinyl-Store/components/admin_header.php'; ?>
 
-<section class="add-products">
-
-    <h1 class="heading">Add Product</h1>
-
-    <form action="" method="post" enctype="multipart/form-data">
-        <div class="flex">
+<form action="" method="post" enctype="multipart/form-data">
+    <div class="flex">
+        <div class="inputBox">
+            <span>Select Product Type (Required)</span>
+            <select name="product_type" id="product_type" onchange="toggleFields()" required>
+                <option value="media">Media (Vinyl, CD, etc.)</option>
+                <option value="non-media">Non-Media (Turntable, Accessories, etc.)</option>
+            </select>
+        </div>
+        <div id="media_fields">
             <div class="inputBox">
-                <span>Product Name (Required)</span>
-                <input type="text" class="box" required maxlength="100" placeholder="Enter product name" name="name">
+                <span>Media Type (Required)</span>
+                <select name="media_type_id" required>
+                    <option value="1">Vinyl</option>
+                    <option value="2">CD</option>
+                    <option value="3">Cassette</option>
+                    <option value="4">DVD</option>
+                </select>
             </div>
             <div class="inputBox">
-                <span>Product Price (Required)</span>
-                <input type="number" min="0" class="box" required max="9999999999" placeholder="Enter product price" name="price">
-            </div>
-            <div class="inputBox">
-                <span>Product Genre (Required)</span>
-                <input type="text" class="box" required maxlength="100" placeholder="Enter genre" name="genre">
-            </div>
-            <div class="inputBox">
-                <span>Product Category (Required)</span>
-                <input type="text" class="box" required maxlength="100" placeholder="Enter category" name="category">
-            </div>
-            <div class="inputBox">
-                <span>Product Inventory (Required)</span>
-                <input type="number" class="box" required placeholder="Enter stock quantity" name="inventory">
-            </div>
-            <div class="inputBox">
-                <span>1st Image (Required)</span>
-                <input type="file" name="image_01" accept="image/jpg, image/jpeg, image/png, image/webp" class="box" required>
-            </div>
-            <div class="inputBox">
-                <span>2nd Image (Required)</span>
-                <input type="file" name="image_02" accept="image/jpg, image/jpeg, image/png, image/webp" class="box" required>
-            </div>
-            <div class="inputBox">
-                <span>3rd Image (Required)</span>
-                <input type="file" name="image_03" accept="image/jpg, image/jpeg, image/png, image/webp" class="box" required>
-            </div>
-            <div class="inputBox">
-                <span>Product Details (Required)</span>
-                <textarea name="details" placeholder="Enter product details" class="box" required maxlength="500" cols="30" rows="10"></textarea>
+                <span>Genre (Required)</span>
+                <select name="genre_id" required>
+                    <option value="1">Rock</option>
+                    <option value="2">Pop</option>
+                    <option value="3">Jazz</option>
+                    <option value="4">Classical</option>
+                    <option value="5">Hip-Hop</option>
+                    <option value="6">Electronic</option>
+                </select>
             </div>
         </div>
-        <input type="submit" value="Add Product" class="btn" name="add_product">
-    </form>
+        <div id="non_media_fields" style="display:none;">
+            <div class="inputBox">
+                <span>Category (Required)</span>
+                <select name="category_id" required>
+                    <option value="1">Turntable</option>
+                    <option value="2">Vinyl Accessories</option>
+                    <option value="3">CD Player</option>
+                    <option value="4">Speakers</option>
+                    <option value="5">Other</option>
+                </select>
+            </div>
+        </div>
+        <!-- Other common product fields -->
+        <div class="inputBox">
+            <span>Product Name (Required)</span>
+            <input type="text" class="box" required maxlength="100" placeholder="Enter product name" name="name">
+        </div>
+        <div class="inputBox">
+            <span>Product Price (Required)</span>
+            <input type="number" min="0" class="box" required max="9999999999" placeholder="Enter product price" name="price">
+        </div>
+        <div class="inputBox">
+            <span>Product Inventory (Required)</span>
+            <input type="number" class="box" required placeholder="Enter stock quantity" name="inventory">
+        </div>
+        <div class="inputBox">
+            <span>1st Image (Required)</span>
+            <input type="file" name="image_01" accept="image/jpg, image/jpeg, image/png, image/webp" class="box" required>
+        </div>
+        <div class="inputBox">
+            <span>2nd Image (Required)</span>
+            <input type="file" name="image_02" accept="image/jpg, image/jpeg, image/png, image/webp" class="box" required>
+        </div>
+        <div class="inputBox">
+            <span>3rd Image (Required)</span>
+            <input type="file" name="image_03" accept="image/jpg, image/jpeg, image/png, image/webp" class="box" required>
+        </div>
+        <div class="inputBox">
+            <span>Product Details (Required)</span>
+            <textarea name="details" placeholder="Enter product details" class="box" required maxlength="500" cols="30" rows="10"></textarea>
+        </div>
+    </div>
+    <input type="submit" value="Add Product" class="btn" name="add_product">
+</form>
 
-</section>
+<script>
+function toggleFields() {
+    var productType = document.getElementById('product_type').value;
+    document.getElementById('media_fields').style.display = productType === 'media' ? 'block' : 'none';
+    document.getElementById('non_media_fields').style.display = productType === 'non-media' ? 'block' : 'none';
+}
+</script>
 
 <section class="show-products">
 
