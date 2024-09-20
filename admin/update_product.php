@@ -19,12 +19,27 @@ if(isset($_POST['update'])){
    $price = filter_var($price, FILTER_SANITIZE_STRING);
    $details = $_POST['details'];
    $details = filter_var($details, FILTER_SANITIZE_STRING);
+   $genre_id = $_POST['genre_id'];
+   $genre_id = filter_var($genre_id, FILTER_SANITIZE_STRING);
+   $media_type_id = $_POST['media_type_id'];
+   $media_type_id = filter_var($media_type_id, FILTER_SANITIZE_STRING);
+   $vinyl_size = $_POST['vinyl_size'];
+   $vinyl_size = filter_var($vinyl_size, FILTER_SANITIZE_STRING);
+   $category_id = $_POST['category_id'];
+   $category_id = filter_var($category_id, FILTER_SANITIZE_STRING);
+   $release_date = $_POST['release_date'];
+   $release_date = filter_var($release_date, FILTER_SANITIZE_STRING);
+   $inventory_status = $_POST['inventory_status'];
+   $inventory_status = filter_var($inventory_status, FILTER_SANITIZE_STRING);
+   $quantity = $_POST['quantity'];
+   $quantity = filter_var($quantity, FILTER_SANITIZE_NUMBER_INT);
 
-   $update_product = $conn->prepare("UPDATE `products` SET name = ?, price = ?, details = ? WHERE id = ?");
-   $update_product->execute([$name, $price, $details, $pid]);
+   $update_product = $conn->prepare("UPDATE `products` SET name = ?, price = ?, details = ?, genre_id = ?, media_type_id = ?, vinyl_size = ?, category_id = ?, release_date = ?, inventory_status = ?, quantity = ? WHERE id = ?");
+   $update_product->execute([$name, $price, $details, $genre_id, $media_type_id, $vinyl_size, $category_id, $release_date, $inventory_status, $quantity, $pid]);
 
    $message[] = 'Product Updated Successfully!';
 
+   // Image handling for image_01
    $old_image_01 = $_POST['old_image_01'];
    $image_01 = $_FILES['image_01']['name'];
    $image_01 = filter_var($image_01, FILTER_SANITIZE_STRING);
@@ -44,6 +59,7 @@ if(isset($_POST['update'])){
       }
    }
 
+   // Image handling for image_02
    $old_image_02 = $_POST['old_image_02'];
    $image_02 = $_FILES['image_02']['name'];
    $image_02 = filter_var($image_02, FILTER_SANITIZE_STRING);
@@ -63,6 +79,7 @@ if(isset($_POST['update'])){
       }
    }
 
+   // Image handling for image_03
    $old_image_03 = $_POST['old_image_03'];
    $image_03 = $_FILES['image_03']['name'];
    $image_03 = filter_var($image_03, FILTER_SANITIZE_STRING);
@@ -119,6 +136,8 @@ if(isset($_POST['update'])){
       <input type="hidden" name="old_image_01" value="<?= $fetch_products['image_01']; ?>">
       <input type="hidden" name="old_image_02" value="<?= $fetch_products['image_02']; ?>">
       <input type="hidden" name="old_image_03" value="<?= $fetch_products['image_03']; ?>">
+      
+      <!-- Display images -->
       <div class="image-container">
          <div class="main-image">
             <img src="/Vinyl-Store/uploaded_img/<?= $fetch_products['image_01']; ?>" alt="">
@@ -129,34 +148,63 @@ if(isset($_POST['update'])){
             <img src="/Vinyl-Store/uploaded_img/<?= $fetch_products['image_03']; ?>" alt="">
          </div>
       </div>
+
+      <!-- Form fields for update -->
       <span>Update Name</span>
       <input type="text" name="name" required class="box" maxlength="100" placeholder="Enter Product Name" value="<?= $fetch_products['name']; ?>">
+
       <span>Update Price</span>
-      <input type="number" name="price" required class="box" min="0" max="9999999999" placeholder="Enter Product Price" onkeypress="if(this.value.length == 10) return false;" value="<?= $fetch_products['price']; ?>">
+      <input type="number" name="price" required class="box" min="0" max="9999999999" placeholder="Enter Product Price" value="<?= $fetch_products['price']; ?>">
+
       <span>Update Details</span>
       <textarea name="details" class="box" required cols="30" rows="10"><?= $fetch_products['details']; ?></textarea>
+
+      <span>Update Genre ID</span>
+      <input type="number" name="genre_id" required class="box" value="<?= $fetch_products['genre_id']; ?>">
+
+      <span>Update Media Type ID</span>
+      <input type="number" name="media_type_id" required class="box" value="<?= $fetch_products['media_type_id']; ?>">
+
+      <span>Update Vinyl Size</span>
+      <input type="text" name="vinyl_size" class="box" value="<?= $fetch_products['vinyl_size']; ?>">
+
+      <span>Update Category ID</span>
+      <input type="number" name="category_id" required class="box" value="<?= $fetch_products['category_id']; ?>">
+
+      <span>Update Release Date</span>
+      <input type="date" name="release_date" class="box" value="<?= $fetch_products['release_date']; ?>">
+
+      <span>Update Inventory Status</span>
+      <input type="text" name="inventory_status" class="box" value="<?= $fetch_products['inventory_status']; ?>">
+
+      <span>Update Quantity</span>
+      <input type="number" name="quantity" class="box" value="<?= $fetch_products['quantity']; ?>">
+
       <span>Update 1st Image</span>
-      <input type="file" name="image_01" accept="image/jpg, image/jpeg, image/png, image/webp" class="box">
+      <input type="file" name="image_01" accept="image/jpg, image/jpeg, image/png" class="box">
+
       <span>Update 2nd Image</span>
-      <input type="file" name="image_02" accept="image/jpg, image/jpeg, image/png, image/webp" class="box">
+      <input type="file" name="image_02" accept="image/jpg, image/jpeg, image/png" class="box">
+
       <span>Update 3rd Image</span>
-      <input type="file" name="image_03" accept="image/jpg, image/jpeg, image/png, image/webp" class="box">
+      <input type="file" name="image_03" accept="image/jpg, image/jpeg, image/png" class="box">
+
       <div class="flex-btn">
-         <input type="submit" name="update" class="btn" value="update">
-         <a href="products.php" class="option-btn">Go Back</a>
+         <input type="submit" class="btn" value="Update Product" name="update">
+         <a href="admin_products.php" class="option-btn">Go Back</a>
       </div>
    </form>
-   
+
    <?php
          }
       }else{
-         echo '<p class="empty">No Product Found!</p>';
+         echo '<p class="empty">No Products Found!</p>';
       }
    ?>
 
 </section>
 
-<script src="../Vinyl-Store/js/admin_script.js"></script>
-   
+<script src="../Vinyl-Store/js/script.js"></script>
+
 </body>
 </html>
