@@ -12,14 +12,25 @@ if (!isset($admin_id)) {
 
 // Add a new product
 if (isset($_POST['add_product'])) {
-
     $name = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
     $price = filter_var($_POST['price'], FILTER_SANITIZE_STRING);
     $details = filter_var($_POST['details'], FILTER_SANITIZE_STRING);
-    $genre = filter_var($_POST['genre'], FILTER_SANITIZE_STRING);
-    $category = filter_var($_POST['category'], FILTER_SANITIZE_STRING);
     $inventory = filter_var($_POST['inventory'], FILTER_SANITIZE_NUMBER_INT);
+    $media_type_id = null; // Initialize
+    $genre_id = null; // Initialize
+    $category_id = null; // Initialize
 
+    // Check product type
+    $product_type = filter_var($_POST['product_type'], FILTER_SANITIZE_STRING);
+    
+    if ($product_type == 'media') {
+        $media_type_id = filter_var($_POST['media_type_id'], FILTER_SANITIZE_NUMBER_INT);
+        $genre_id = filter_var($_POST['genre_id'], FILTER_SANITIZE_NUMBER_INT);
+    } else {
+        $category_id = filter_var($_POST['category_id'], FILTER_SANITIZE_NUMBER_INT);
+    }
+
+    // Handle image uploads
     $image_01 = filter_var($_FILES['image_01']['name'], FILTER_SANITIZE_STRING);
     $image_tmp_name_01 = $_FILES['image_01']['tmp_name'];
     $image_folder_01 = '../Vinyl-Store/uploaded_img/' . $image_01;
@@ -32,14 +43,16 @@ if (isset($_POST['add_product'])) {
     $image_tmp_name_03 = $_FILES['image_03']['tmp_name'];
     $image_folder_03 = '../Vinyl-Store/uploaded_img/' . $image_03;
 
+    // Check if the product already exists
     $select_products = $conn->prepare("SELECT * FROM `products` WHERE name = ?");
     $select_products->execute([$name]);
 
     if ($select_products->rowCount() > 0) {
         $message[] = 'Product Name Already Exists!';
     } else {
-        $insert_products = $conn->prepare("INSERT INTO `products`(name, details, price, genre, category, inventory, image_01, image_02, image_03) VALUES(?,?,?,?,?,?,?,?,?)");
-        $insert_products->execute([$name, $details, $price, $genre, $category, $inventory, $image_01, $image_02, $image_03]);
+        $insert_products = $conn->prepare("INSERT INTO `products` (name, details, price, genre_id, category_id, media_type_id, inventory_status, quantity, image_01, image_02, image_03)
+                                            VALUES (?, ?, ?, ?, ?, ?, 'in stock', ?, ?, ?, ?)");
+        $insert_products->execute([$name, $details, $price, $genre_id, $category_id, $media_type_id, $inventory, $image_01, $image_02, $image_03]);
 
         if ($insert_products) {
             move_uploaded_file($image_tmp_name_01, $image_folder_01);
