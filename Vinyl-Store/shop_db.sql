@@ -373,6 +373,9 @@ ALTER TABLE `orders`
 --
 ALTER TABLE `products`
   MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `genre_id` int(100) DEFAULT NULL,
+  MODIFY `media_type_id` int(100) DEFAULT NULL,
+  MODIFY `category_id` int(100) DEFAULT NULL;
 
 --
 -- AUTO_INCREMENT for table `users`
