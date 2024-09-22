@@ -29,7 +29,7 @@
    <!-- Bottom Section: Navbar, Search Bar, and Icons -->
    <section class="flex">
       <nav class="navbar">
-         <section class="navbar nav-2">
+      <section class="navbar nav-2">
             <div id="menu-btn" class="fas fa-bars"></div> <!-- Hamburger icon -->
             <div class="menu">
                <ul id="nav-menu"> <!-- Add ID for easy JS toggling -->
@@ -63,14 +63,15 @@
          </section>
       </nav>
 
-      <!-- Search Form -->
+      <!-- Search Bar -->
       <div class="search">
          <form action="search_page.php" method="post" class="search-bar">
-         <input type="text" name="search_box" placeholder="Search here..." maxlength="100" required>
-         <button type="submit" class="fas fa-search" name="search_btn"></button>
+            <input type="text" name="search_box" placeholder="Search here..." maxlength="100" required>
+            <button type="submit" class="fas fa-search" name="search_btn"></button>
          </form>
       </div>
 
+      <!-- Icons -->
       <div class="icons">
          <a href="wishlist.php"><i class="fas fa-heart"></i><span></span></a>
          <a href="cart.php"><i class="fas fa-shopping-cart"></i><span></span></a>

@@ -152,6 +152,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.getElementById('menu-btn').addEventListener('click', function() {
-   const navMenu = document.getElementById('nav-menu');
-   navMenu.classList.toggle('active'); // Toggle the 'active' class to show/hide the menu
+   var menu = document.querySelector('.menu');
+   menu.classList.toggle('active'); // Toggle the menu visibility
 });
