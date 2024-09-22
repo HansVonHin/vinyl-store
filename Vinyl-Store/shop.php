@@ -149,53 +149,6 @@ $maxPrice = isset($_GET['max-price']) ? $_GET['max-price'] : 1000000; // Set a h
             echo '<p class="empty">No Products Found!</p>';
          }
          ?>
-         <!-- Sample Vinyl Product 1 -->
-         <div class="product-box">
-            <img src="images/sample-vinyl1.jpg" alt="Sample Vinyl 1">
-            <h3>Classic Rock Vinyl</h3>
-            <p>Experience the timeless classics with this rock vinyl collection.</p>
-            <a href="product-details.php?id=1" class="btn">View Details</a>
-         </div>
-
-         <!-- Sample Vinyl Product 2 -->
-         <div class="product-box">
-            <img src="images/sample-vinyl2.jpg" alt="Sample Vinyl 2">
-            <h3>Jazz Vinyl Collection</h3>
-            <p>Immerse yourself in smooth jazz with these carefully curated records.</p>
-            <a href="product-details.php?id=2" class="btn">View Details</a>
-         </div>
-
-         <!-- Sample Vinyl Product 3 -->
-         <div class="product-box">
-            <img src="images/sample-vinyl3.jpg" alt="Sample Vinyl 3">
-            <h3>Hip-Hop Classics</h3>
-            <p>A must-have for any hip-hop enthusiast, featuring the greatest hits.</p>
-            <a href="product-details.php?id=3" class="btn">View Details</a>
-         </div>
-
-         <!-- Sample Vinyl Product 4 -->
-         <div class="product-box">
-            <img src="images/sample-vinyl4.jpg" alt="Sample Vinyl 4">
-            <h3>Electronic Beats</h3>
-            <p>Get your groove on with this selection of top electronic records.</p>
-            <a href="product-details.php?id=4" class="btn">View Details</a>
-         </div>
-
-         <!-- Sample Vinyl Product 5 -->
-         <div class="product-box">
-            <img src="images/sample-vinyl5.jpg" alt="Sample Vinyl 5">
-            <h3>Classical Masterpieces</h3>
-            <p>Discover the world's finest classical music on high-quality vinyl.</p>
-            <a href="product-details.php?id=5" class="btn">View Details</a>
-         </div>
-
-         <!-- Sample Vinyl Product 6 -->
-         <div class="product-box">
-            <img src="images/sample-vinyl6.jpg" alt="Sample Vinyl 6">
-            <h3>Pop Hits</h3>
-            <p>Enjoy the biggest pop hits from the past and present on vinyl.</p>
-            <a href="product-details.php?id=6" class="btn">View Details</a>
-         </div>
       </div>
 
    </div>
