@@ -158,27 +158,30 @@ $maxPrice = isset($_GET['max-price']) ? $_GET['max-price'] : 1000000; // Set a h
 <?php include 'components/footer.php'; ?>
 
 <script>
+   // Sidebar category toggle
    document.querySelectorAll('.category-link').forEach(link => {
       link.addEventListener('click', function(event) {
          event.preventDefault();
+
          const subMenu = this.nextElementSibling;
          const isActive = this.classList.contains('active');
 
-         // Close all submenus
+         // Close all other submenus
          document.querySelectorAll('.category-link').forEach(link => {
             link.classList.remove('active');
-            if (link.nextElementSibling) {
-               link.nextElementSibling.style.display = 'none';
+            if (link.nextElementSibling && link.nextElementSibling.classList.contains('sub-category-list')) {
+               link.nextElementSibling.classList.remove('open');
             }
          });
 
          // Toggle the clicked submenu
          if (!isActive) {
             this.classList.add('active');
-            subMenu.style.display = 'block';
+            subMenu.classList.add('open');
          }
       });
    });
+
 
    let header = document.querySelector('.header');
    let lastScrollTop = 0;

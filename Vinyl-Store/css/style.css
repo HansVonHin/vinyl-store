@@ -1583,10 +1583,14 @@ section{
 }
 
 .sidebar .sub-category-list {
-   list-style-type: none;
+   list-style: none;
    padding-left: 20px;
    display: none;
    margin-top: 0.5rem;
+}
+
+.sidebar .sub-category-list.open {
+   display: block;
 }
 
 .sidebar .sub-category-list li a {
