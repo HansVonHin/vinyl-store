@@ -94,5 +94,16 @@
    </section>
 </header>
 
+<script>
+   // Toggle the mobile menu (hamburger)
+   document.getElementById("menu-btn").onclick = function() {
+      document.querySelector(".menu").classList.toggle("active");
+   };
+
+   // Toggle the search bar input visibility in mobile
+   document.querySelector(".search-bar button").onclick = function() {
+      document.querySelector(".search-bar").classList.toggle("active");
+   };
+</script>
 <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
-<script src="js/script.js"></script>
+<script src="Vinyl-Store/js/script.js"></script>

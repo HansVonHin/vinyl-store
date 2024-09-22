@@ -2609,23 +2609,29 @@ section{
 }
 
 @media (max-width: 768px) {
-   /* Hamburger icon display */
+   /* Hamburger menu overrides on mobile */
    #menu-btn {
-       display: inline-block;
-       font-size: 24px;
-       cursor: pointer;
-       padding: 1rem;
+      font-size: 2.5rem;
+      cursor: pointer;
+      display: block;
    }
 
-   /* Hide the full navbar items initially */
+   /* Hide the menu by default */
+   .menu {
+      display: none;
+      flex-direction: column;
+      background-color: var(--black); /* Match your site colors */
+      position: absolute;
+      top: 60px; /* Adjust according to your header height */
+      left: 0;
+      width: 100%;
+      z-index: 100;
+   }
+
+   /* Align the navbar items vertically */
    .menu ul {
-       display: none;
-       flex-direction: column;
-       text-align: center;
-       background-color: #fff;
-       position: absolute;
-       top: 60px;
-       width: 100%;
+      display: block;
+      text-align: left;
    }
 
    /* When active, show the navbar items */
@@ -2633,24 +2639,41 @@ section{
        display: flex;
    }
 
+   /* Style the navbar items for mobile */
+   .menu ul li {
+      margin-bottom: 1rem;
+   }
+
+
    /* For search and icons in mobile */
    .search,
    .icons {
       width: 100%;
       display: flex;
       justify-content: space-between;
-      padding: 10px;
    }
 
-   .search-bar {
-       width: 100%;
-       display: flex;
-       justify-content: center;
+   /* Show search icon for mobile view */
+   .flex .search .search-bar button {
+      margin-left: 0;
+      padding: 0.8rem; /* Adjust padding for smaller size */
+      font-size: 1.8rem; /* Smaller search icon */
    }
 
-   /* Adjust positioning */
-   .search-bar input {
-      width: calc(100% - 40px); /* Adjust based on padding */
+   /* Hide the search input and display only the icon */
+   .flex .search .search-bar input {
+      display: none; /* Hide input on mobile */
+   }
+
+   /* Show the search bar when clicked */
+   .search-bar.active input {
+      display: block; /* Show input when active */
+      width: 100%; /* Full width for mobile */
+   }
+
+   /* Adjust the navbar for mobile */
+   .navbar {
+      flex-direction: column;
    }
 
    .header .flex .navbar a {
@@ -2684,15 +2707,21 @@ section{
       text-align: center;
    }
 
-   /* Show the navigation when the menu is active */
+   /* Show the menu when the hamburger is clicked */
    .menu.active {
-      display: block;
+      display: flex;
    }
 
    /* Flex styling for the flex-btn (Register/Login) */
    .flex-btn {
        flex-direction: column;
        gap: 1rem;
+   }
+
+   /* Adjust the profile section */
+   .profile {
+      position: static;
+      margin-top: 1rem;
    }
 
    .home-bg .home .slide .content{

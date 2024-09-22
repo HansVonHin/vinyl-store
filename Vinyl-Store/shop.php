@@ -158,17 +158,17 @@ $maxPrice = isset($_GET['max-price']) ? $_GET['max-price'] : 1000000; // Set a h
 <?php include 'components/footer.php'; ?>
 
 <script>
-   // Sidebar category toggle
+   // Category sidebar slide-down on click animation
    document.querySelectorAll('.category-link').forEach(link => {
       link.addEventListener('click', function(event) {
          event.preventDefault();
          const subMenu = this.nextElementSibling;
          const isActive = this.classList.contains('active');
 
-         // Close all other submenus
+         // Close all submenus
          document.querySelectorAll('.category-link').forEach(link => {
             link.classList.remove('active');
-            if (link.nextElementSibling && link.nextElementSibling.classList.contains('sub-category-list')) {
+            if (link.nextElementSibling) {
                link.nextElementSibling.style.display = 'none';
             }
          });
@@ -180,8 +180,6 @@ $maxPrice = isset($_GET['max-price']) ? $_GET['max-price'] : 1000000; // Set a h
          }
       });
    });
-
-
    let header = document.querySelector('.header');
    let lastScrollTop = 0;
 
@@ -201,7 +199,7 @@ $maxPrice = isset($_GET['max-price']) ? $_GET['max-price'] : 1000000; // Set a h
 </script>
 
 <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
-<script src="js/script.js"></script>
+<script src="Vinyl-Store/js/script.js"></script>
 
 </body>
 </html>

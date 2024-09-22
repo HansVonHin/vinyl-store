@@ -151,7 +151,25 @@ document.addEventListener('DOMContentLoaded', () => {
    }
 });
 
-document.getElementById('menu-btn').addEventListener('click', function() {
-   var menu = document.querySelector('.menu');
-   menu.classList.toggle('active'); // Toggle the menu visibility
+// Category sidebar slide-down on click animation
+document.querySelectorAll('.category-link').forEach(link => {
+   link.addEventListener('click', function(event) {
+      event.preventDefault();
+      const subMenu = this.nextElementSibling;
+      const isActive = this.classList.contains('active');
+
+      // Close all submenus
+      document.querySelectorAll('.category-link').forEach(link => {
+         link.classList.remove('active');
+         if (link.nextElementSibling) {
+            link.nextElementSibling.style.display = 'none';
+         }
+      });
+
+      // Toggle the clicked submenu
+      if (!isActive) {
+         this.classList.add('active');
+         subMenu.classList.add = 'block';
+      }
+   });
 });

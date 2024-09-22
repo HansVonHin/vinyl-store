@@ -264,7 +264,7 @@ if(isset($_SESSION['user_id'])){
 <?php include 'components/footer.php'; ?>
 
 <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
-<script src="js/script.js"></script>
+<script src="Vinyl-Store/js/script.js"></script>
 
 <script>
 var swiper = new Swiper(".reviews-slider", {
