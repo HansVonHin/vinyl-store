@@ -151,26 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
    }
 });
 
-// Sidebar category toggle
-document.querySelectorAll('.category-link').forEach(link => {
-   link.addEventListener('click', function(event) {
-      event.preventDefault();
-
-      const subMenu = this.nextElementSibling;
-      const isActive = this.classList.contains('active');
-
-      // Close all other submenus
-      document.querySelectorAll('.category-link').forEach(link => {
-         link.classList.remove('active');
-         if (link.nextElementSibling && link.nextElementSibling.classList.contains('sub-category-list')) {
-            link.nextElementSibling.classList.remove('open');
-         }
-      });
-
-      // Toggle the clicked submenu
-      if (!isActive) {
-         this.classList.add('active');
-         subMenu.classList.add('open');
-      }
-   });
+document.getElementById('menu-btn').addEventListener('click', function() {
+   const navMenu = document.getElementById('nav-menu');
+   navMenu.classList.toggle('active'); // Toggle the 'active' class to show/hide the menu
 });

@@ -162,7 +162,6 @@ $maxPrice = isset($_GET['max-price']) ? $_GET['max-price'] : 1000000; // Set a h
    document.querySelectorAll('.category-link').forEach(link => {
       link.addEventListener('click', function(event) {
          event.preventDefault();
-
          const subMenu = this.nextElementSibling;
          const isActive = this.classList.contains('active');
 
@@ -170,14 +169,14 @@ $maxPrice = isset($_GET['max-price']) ? $_GET['max-price'] : 1000000; // Set a h
          document.querySelectorAll('.category-link').forEach(link => {
             link.classList.remove('active');
             if (link.nextElementSibling && link.nextElementSibling.classList.contains('sub-category-list')) {
-               link.nextElementSibling.classList.remove('open');
+               link.nextElementSibling.style.display = 'none';
             }
          });
 
          // Toggle the clicked submenu
          if (!isActive) {
             this.classList.add('active');
-            subMenu.classList.add('open');
+            subMenu.style.display = 'block';
          }
       });
    });

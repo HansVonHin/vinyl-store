@@ -30,9 +30,9 @@
    <section class="flex">
       <nav class="navbar">
          <section class="navbar nav-2">
-            <div id="menu-btn"></div>
+            <div id="menu-btn" class="fas fa-bars"></div> <!-- Hamburger icon -->
             <div class="menu">
-               <ul>
+               <ul id="nav-menu"> <!-- Add ID for easy JS toggling -->
                   <li><a href="home.php">Home</a></li>
                   <li><a href="about.php">About <i class="fas fa-angle-down"></i></a>
                      <ul>
@@ -43,7 +43,7 @@
                      </ul>
                   </li>
                   <li><a href="shop.php">Shop</a></li>
-                  <?php if (isset($user_id)) { ?>
+                  <?php if (!empty($user_id)) { ?>
                      <li><a href="orders.php">Orders</a></li>
                   <?php } else { ?>
                      <li><a href="user_login.php">Orders</a></li>
@@ -78,11 +78,11 @@
       </div>
 
       <div class="profile">
-         <p><?= isset($fetch_profile["name"]) ? $fetch_profile["name"] : "Guest"; ?></p>
-         <?php if (isset($user_id)) { ?>
+         <p><?= isset($fetch_profile["name"]) && !empty($fetch_profile["name"]) ? $fetch_profile["name"] : "Guest"; ?></p>
+         <?php if (!empty($user_id)) { // Check if user is authenticated ?>
             <a href="update_user.php" class="btn">Update Profile</a>
             <a href="components/user_logout.php" class="delete-btn" onclick="return confirm('Logout from the website?');">Logout</a> 
-         <?php } else { ?>
+         <?php } else { // Show guest options ?>
             <p>Please Login or Register First!</p>
             <div class="flex-btn">
                <a href="user_register.php" class="option-btn">Register</a>
@@ -90,7 +90,6 @@
             </div>
          <?php } ?>
       </div>
-
    </section>
 </header>
 
