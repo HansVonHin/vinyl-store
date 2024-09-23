@@ -25,3 +25,24 @@ subImages.forEach(images =>{
       mainImage.src = src;
    }
 });
+
+// Hamburger Icon Navbar Toggle
+document.addEventListener('DOMContentLoaded', function() {
+   const menuBtn = document.getElementById('menu-btn');
+   const sidebar = document.querySelector('.sidebar');
+
+   menuBtn.addEventListener('click', function() {
+      sidebar.classList.toggle('active');
+      style.width = "250px";
+   });
+});   
+
+// Profile Dropdown Icon Toggle
+document.addEventListener('DOMContentLoaded', function() {
+   const profileTop = document.querySelector('.profile-top');
+   const dropdown = document.querySelector('.profile-dropdown');
+
+   profileTop.addEventListener('click', function() {
+      dropdown.classList.toggle('active');
+   });
+});

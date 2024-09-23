@@ -47,8 +47,8 @@ include 'components/wishlist_cart.php';
    <?php
      if(isset($_POST['search_box']) OR isset($_POST['search_btn'])){
      $search_box = $_POST['search_box'];
-     $select_products = $conn->prepare("SELECT * FROM `products` WHERE name LIKE ? OR artist LIKE ? OR genre LIKE ?");
-     $select_products->execute(['%'.$search_box.'%', '%'.$search_box.'%', '%'.$search_box.'%']);
+     $select_products = $conn->prepare("SELECT * FROM `products` WHERE name LIKE ? OR 'genre_id' LIKE ?");
+     $select_products->execute(['%'.$search_box.'%', '%'.$search_box.'%']);
      if($select_products->rowCount() > 0){
       while($fetch_product = $select_products->fetch(PDO::FETCH_ASSOC)){
    ?>

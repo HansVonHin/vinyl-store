@@ -49,6 +49,10 @@ html{
 body{
    background-color: var(--light-bg);
    /* padding-bottom: 10rem; */
+   margin-left: 250px; /* Ensures content fits next to sidebar */
+   padding: 2rem;
+   padding-top: 0; /* Ensures no extra padding at the top */
+   width: calc(100% - 250px); /* Content width, accounting for sidebar */
 }
 
 section{
@@ -195,19 +199,16 @@ section{
    color:var(--black);
 }
 
-.header{
-   position: sticky;
-   top:0; left:0; right:0;
-   background-color: var(--white);
-   box-shadow: var(--box-shadow);
-   z-index: 1000;
+/* Header styles */
+.header {
+   width: 100%;
+   display: flex;
+   flex-direction: column;
 }
 
-.header .flex{
+.header .flex {
    display: flex;
-   align-items: center;
-   justify-content: space-between;
-   position: relative;
+   height: 100%;
 }
 
 .header .flex .logo{
@@ -266,8 +267,192 @@ section{
    margin-bottom: 1rem;
 }
 
-#menu-btn{
-   display: none;
+/* Sidebar Styles */
+.sidebar {
+   width: 250px;
+   background-color: var(--white);
+   padding: 1.5rem;
+   box-shadow: var(--box-shadow);
+   position: fixed;
+   top: 0;
+   left: 0;
+   height: 100%;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   transition: left 0.3s ease-in-out; /* Smooth animation for toggling */
+   z-index: 1000;
+}
+
+.sidebar.active {
+   left: -250px; /* Move sidebar off-screen when toggled */
+}
+
+.sidebar .logo {
+   font-size: 2rem;
+   display: flex;
+   align-items: center;
+}
+
+.sidebar .logo i {
+   margin-right: 10px;
+}
+
+.sidebar ul.navbar {
+   margin: 2rem 0;
+   list-style-type: none;
+   padding: 0;
+}
+
+.sidebar ul.navbar li {
+   margin-bottom: 1rem;
+}
+
+.sidebar ul.navbar li a {
+   text-decoration: none;
+   font-size: 1.2rem;
+   display: flex;
+   align-items: center;
+   color: var(--black);
+   justify-content: flex-start; /* Ensure items align to the left */
+   padding-left: 10px; /* Add some padding for spacing */
+}
+
+.sidebar ul.navbar li a i {
+   margin-right: 10px; /* Adjust margin between icon and text */
+}
+
+.sidebar ul.navbar li a:hover {
+   color: var(--main-color);
+}
+
+.sidebar .submenu {
+   list-style-type: none;
+   padding-left: 2rem; /* Indent submenu items */
+}
+
+.sidebar ul.navbar li.client-facing > span, 
+.sidebar ul.navbar li.sales > span, 
+.sidebar ul.navbar li.management > span {
+   font-size: 1.7rem;
+   padding-left: 10px;
+   color: var(--black);
+   font-weight: bold;
+}
+
+.sidebar .submenu li a {
+   font-size: 1rem; /* Submenu font size */
+}
+
+.sidebar .submenu li a i {
+   margin-right: 10px;
+}
+
+.profile-sidebar {
+   display: flex;
+   align-items: center;
+   cursor: pointer;
+   text-align: left;
+   border-top: 1px solid #111;
+}
+
+.profile-sidebar p {
+   font-size: 1.7rem;
+}
+
+.profile-sidebar .profile-picture img {
+   width: 80px;
+   height: 80px;
+   border-radius: 50%;
+   margin-bottom: 10px;
+}
+
+/* Top Navbar */
+.top-navbar {
+   position: fixed;
+   top: 0;
+   left: 250px; /* To align with the sidebar */
+   width: calc(100% - 250px); /* Full width minus sidebar */
+   background-color: var(--white);
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   padding: 1rem;
+   box-shadow: var(--box-shadow);
+   z-index: 1000;
+}
+
+.top-navbar .icons {
+   display: flex;
+   align-items: center;
+}
+
+#menu-btn {
+   font-size: 1.5rem;
+   cursor: pointer;
+}
+
+.search-bar {
+   display: flex;
+   align-items: center;
+   margin-left: 1.5rem;
+}
+
+.search-bar input {
+   padding: 0.5rem;
+   border-radius: 5px;
+   border: 1px solid var(--grey);
+}
+
+.search-bar button {
+   background-color: var(--main-color);
+   color: var(--white);
+   padding: 0.5rem;
+   border: none;
+   border-radius: 5px;
+   margin-left: 0.5rem;
+}
+
+.profile-top {
+   display: flex;
+   align-items: center;
+   cursor: pointer;
+}
+
+.profile-top img {
+   width: 40px;
+   height: 40px;
+   border-radius: 50%;
+   margin-right: 10px;
+}
+
+.profile-top i {
+   margin-right: 10px;
+}
+
+.profile-dropdown {
+   position: absolute;
+   right: 0;
+   background-color: var(--white);
+   box-shadow: var(--box-shadow);
+   display: none; /* Hidden by default */
+   padding: 10px;
+   border-radius: 5px;
+}
+
+.profile-top.active .profile-dropdown {
+   display: block; /* Show the dropdown when active */
+}
+
+.profile-dropdown a {
+   display: block;
+   padding: 10px;
+   color: var(--black);
+   text-decoration: none;
+}
+
+.profile-dropdown a:hover {
+   background-color: var(--light-gray);
 }
 
 .dashboard .box-container{
@@ -281,7 +466,6 @@ section{
 .dashboard .box-container .box{
    padding:2rem;
    text-align: center;
-   border:var(--border);
    box-shadow: var(--box-shadow);
    border-radius: .5rem;
    background-color: var(--white);
@@ -540,23 +724,6 @@ section{
    color:var(--main-color);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @media (max-width:991px){
 
    html{
@@ -571,6 +738,11 @@ section{
       display: inline-block;
    }
 
+   .content {
+      margin-left: 0; /* For mobile, when sidebar is hidden */
+      width: 100%; /* Full width when no sidebar */
+   }
+   
    .header .flex .navbar{
       position: absolute;
       top:99%; left:0; right:0;
@@ -589,7 +761,25 @@ section{
       display: block;
       margin:2rem;
    }
+   
+   .sidebar {
+      width: 0;
+      overflow: hidden;
+      transition: width 0.3s ease;
+   }
 
+   .sidebar.active {
+      width: 250px;
+   }
+
+   .top-navbar {
+      margin-left: 0;
+      width: 100%;
+   }
+
+   #menu-btn {
+      display: block;
+   }
 }
 
 @media (max-width:450px){

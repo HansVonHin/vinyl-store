@@ -11,17 +11,17 @@ if(isset($_POST['submit'])){
    $pass = filter_var($pass, FILTER_SANITIZE_STRING);
 
    // Validate reCAPTCHA
-   $recaptchaSecret = 'YOUR_SECRET_KEY_HERE';
-   $recaptchaResponse = $_POST['g-recaptcha-response'];
-   $recaptchaVerifyUrl = 'https://www.google.com/recaptcha/api/siteverify';
+   //$recaptchaSecret = 'YOUR_SECRET_KEY_HERE';
+   //$recaptchaResponse = $_POST['g-recaptcha-response'];
+   //$recaptchaVerifyUrl = 'https://www.google.com/recaptcha/api/siteverify';
 
    // Make request to Google reCAPTCHA API
-   $response = file_get_contents($recaptchaVerifyUrl . '?secret=' . $recaptchaSecret . '&response=' . $recaptchaResponse);
-   $responseKeys = json_decode($response, true);
+   //$response = file_get_contents($recaptchaVerifyUrl . '?secret=' . $recaptchaSecret . '&response=' . $recaptchaResponse);
+   //$responseKeys = json_decode($response, true);
 
-   if(intval($responseKeys["success"]) !== 1) {
-      $message[] = 'Please complete the reCAPTCHA!';
-   } else {
+   //if(intval($responseKeys["success"]) !== 1) {
+      //$message[] = 'Please complete the reCAPTCHA!';
+   //} else {
       // Proceed with login if reCAPTCHA is successful
       $select_admin = $conn->prepare("SELECT * FROM `admins` WHERE name = ? AND password = ?");
       $select_admin->execute([$name, $pass]);
@@ -34,7 +34,7 @@ if(isset($_POST['submit'])){
          $message[] = 'Incorrect Username Or Password!';
       }
    }
-}
+//}
 
 ?>
 
@@ -74,8 +74,8 @@ if(isset($_POST['submit'])){
       <input type="text" name="name" required placeholder="Enter Your Username" maxlength="20"  class="box" oninput="this.value = this.value.replace(/\s/g, '')">
       <input type="password" name="pass" required placeholder="Enter Your Password" maxlength="20"  class="box" oninput="this.value = this.value.replace(/\s/g, '')">
       
-      <!-- Google reCAPTCHA widget -->
-      <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY_HERE"></div>
+      <!-- Google reCAPTCHA widget 
+      <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY_HERE"></div>-->
 
       <input type="submit" value="login now" class="btn" name="submit">
    </form>
