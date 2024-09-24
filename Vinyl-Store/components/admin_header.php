@@ -90,17 +90,4 @@
 
 </header>
 
-<script>
-   // Toggle sidebar
-   document.getElementById('menu-btn').addEventListener('click', function() {
-      document.querySelector('.sidebar').classList.toggle('collapsed');
-      document.querySelector('.top-navbar').classList.toggle('collapsed');
-   });
-
-   // Toggle profile dropdown
-   document.querySelector('.profile-top').addEventListener('click', function() {
-      this.classList.toggle('active');
-   });
-</script>
-
 <script src="../Vinyl-Store/js/admin_script.js"></script>

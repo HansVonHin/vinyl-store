@@ -51,7 +51,7 @@ if(isset($_POST['submit'])){
    <link rel="stylesheet" href="../Vinyl-Store/css/admin_style.css">
 
 </head>
-<body>
+<div id = main>
 
 <?php
    if(isset($message)){
@@ -82,5 +82,5 @@ if(isset($_POST['submit'])){
 
 </section>
    
-</body>
+</div>
 </html>

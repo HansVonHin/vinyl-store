@@ -45,66 +45,83 @@ $top_products = [
 <?php include '../Vinyl-Store/components/admin_header.php'; ?>
 
 <section class="dashboard">
-    <h1 class="heading">Dashboard</h1>
+    <!-- First section: Welcome and Reports -->
+    <div class="dashboard-header">
+        <h1>DASHBOARD</h1>
+        <h2>Welcome, <?= $fetch_profile['name']; ?>!</h2>
+        <a href="#" class="btn report-btn">Download Reports</a>
+    </div>
 
-    <div class="box-container">
-        <!-- Welcome Card -->
-        <div class="box">
-            <h3>Welcome!</h3>
-            <p><?= $fetch_profile['name']; ?></p>
-            <a href="update_profile.php" class="btn">Update Profile</a>
+    <!-- Second section: Sales Statistics and Chart -->
+    <div class="sales-stats">
+        <div class="small-stats">
+            <div class="stat-box">
+                <p>Total Customers</p>
+                <h3>1,200</h3>
+                <span>+21% Since last month</span>
+            </div>
+            <div class="stat-box">
+                <p>Sales Today</p>
+                <h3>₱5,000</h3>
+                <span>-10% Since last month</span>
+            </div>
+            <div class="stat-box">
+                <p>Monthly Sales</p>
+                <h3>₱60,000</h3>
+                <span>+15% Since last month</span>
+            </div>
+            <div class="stat-box">
+                <p>Yearly Sales</p>
+                <h3>₱720,000</h3>
+                <span>+18% Since last year</span>
+            </div>
         </div>
-
-        <!-- Total Pending Orders -->
-        <div class="box">
-            <?php
-            $total_pendings = 0;
-            $select_pendings = $conn->prepare("SELECT * FROM `orders` WHERE payment_status = ?");
-            $select_pendings->execute(['pending']);
-            if($select_pendings->rowCount() > 0){
-               while($fetch_pendings = $select_pendings->fetch(PDO::FETCH_ASSOC)){
-                  $total_pendings += $fetch_pendings['total_price'];
-               }
-            }
-            ?>
-            <h3><span>₱</span><?= $total_pendings; ?><span>/-</span></h3>
-            <p>Total Pendings</p>
-            <a href="placed_orders.php" class="btn">See Orders</a>
-        </div>
-
-        <!-- Completed Orders -->
-        <div class="box">
-            <?php
-            $total_completes = 0;
-            $select_completes = $conn->prepare("SELECT * FROM `orders` WHERE payment_status = ?");
-            $select_completes->execute(['completed']);
-            if($select_completes->rowCount() > 0){
-               while($fetch_completes = $select_completes->fetch(PDO::FETCH_ASSOC)){
-                  $total_completes += $fetch_completes['total_price'];
-               }
-            }
-            ?>
-            <h3><span>₱</span><?= $total_completes; ?><span>/-</span></h3>
-            <p>Completed Orders</p>
-            <a href="placed_orders.php" class="btn">See Orders</a>
-        </div>
-
-        <!-- Monthly Sales Chart -->
-        <div class="box">
-            <h3>Monthly Sales</h3>
+        <div class="chart-box">
+            <h3>Monthly Sales Trend</h3>
             <canvas id="salesChart"></canvas>
         </div>
+    </div>
 
-        <!-- Order Status Pie Chart -->
-        <div class="box">
-            <h3>Order Status</h3>
-            <canvas id="statusChart"></canvas>
+    <!-- Third section: Recent Orders and Sales by Category -->
+    <div class="orders-and-category">
+        <div class="recent-orders">
+            <h3>Recent User Checkouts</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product ID</th>
+                        <th>User ID</th>
+                        <th>Created At</th>
+                        <th># of Products</th>
+                        <th>Cost (PHP)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Example data, replace with actual queries -->
+                    <tr>
+                        <td>101</td>
+                        <td>501</td>
+                        <td>2024-09-21</td>
+                        <td>3</td>
+                        <td>₱1,500</td>
+                    </tr>
+                    <!-- Repeat rows -->
+                </tbody>
+            </table>
+            <div class="table-footer">
+                <select>
+                    <option value="25">25 rows</option>
+                    <option value="50">50 rows</option>
+                    <option value="75">75 rows</option>
+                    <option value="100">100 rows</option>
+                </select>
+                <p>1-25 of 50</p>
+            </div>
         </div>
-
-        <!-- Top Products Bar Chart -->
-        <div class="box">
-            <h3>Top-Selling Products</h3>
-            <canvas id="productsChart"></canvas>
+        <div class="pie-chart-box">
+            <h3>Sales by Category</h3>
+            <canvas id="categoryChart"></canvas>
+            <p>Breakdown of sales by genre and category for this year and total sales.</p>
         </div>
     </div>
 </section>
@@ -126,31 +143,15 @@ new Chart(ctxSales, {
     }
 });
 
-// Order Status Pie Chart
-const ctxStatus = document.getElementById('statusChart').getContext('2d');
-new Chart(ctxStatus, {
+// Sales by Category Pie Chart
+const ctxCategory = document.getElementById('categoryChart').getContext('2d');
+new Chart(ctxCategory, {
     type: 'pie',
     data: {
-        labels: ['Pending', 'Completed'],
+        labels: ['Rock', 'Jazz', 'Pop', 'Classical'], // Example categories
         datasets: [{
-            data: [<?= $pending_orders; ?>, <?= $completed_orders; ?>],
-            backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)'],
-            borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)'],
-        }]
-    }
-});
-
-// Top Products Bar Chart
-const ctxProducts = document.getElementById('productsChart').getContext('2d');
-new Chart(ctxProducts, {
-    type: 'bar',
-    data: {
-        labels: <?= json_encode(array_column($top_products, 'name')); ?>,
-        datasets: [{
-            label: 'Sales',
-            data: <?= json_encode(array_column($top_products, 'sales')); ?>,
-            backgroundColor: 'rgba(153, 102, 255, 0.2)',
-            borderColor: 'rgba(153, 102, 255, 1)',
+            data: [3000, 2000, 1500, 1000], // Example data, replace with actual queries
+            backgroundColor: ['#ff6384', '#36a2eb', '#cc65fe', '#ffce56']
         }]
     }
 });
