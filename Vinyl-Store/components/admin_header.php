@@ -36,7 +36,7 @@
                <span>Sales</span>
                <ul class="submenu">
                   <li><a href="../admin/overview.php"><i class="fas fa-chart-line"></i><span>Overview</span></a></li>
-                  <li><a href="#"><i class="fas fa-calendar-day"></i><span>Daily</span></a></li>
+                  <li><a href="../admin/daily.php"><i class="fas fa-calendar-day"></i><span>Daily</span></a></li>
                   <li><a href="#"><i class="fas fa-calendar-alt"></i><span>Monthly</span></a></li>
                   <li><a href="#"><i class="fas fa-chart-pie"></i><span>Breakdown</span></a></li>
                </ul>
