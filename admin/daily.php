@@ -28,56 +28,55 @@ if (!isset($admin_id)) {
         <h1>Daily</h1>
         <p>Chart of Daily Sales</p>
 
-        <div class="calendar-toggles">
-            <label for="start-date">From:</label>
-            <input type="date" id="start-date">
-            <label for="end-date">To:</label>
-            <input type="date" id="end-date">
-        </div>
+        <form id="dateFilterForm">
+            <label for="startDate">Start Date:</label>
+            <input type="date" id="startDate" name="startDate" required>
+            <label for="endDate">End Date:</label>
+            <input type="date" id="endDate" name="endDate" required>
+            <button type="submit">Filter</button>
+        </form>
 
-        <div class="chart-container">
-            <canvas id="dailyChart"></canvas>
-        </div>
+        <canvas id="dailyChart"></canvas>
     </section>
 
     <script>
-    const ctxDaily = document.getElementById('dailyChart').getContext('2d');
-    new Chart(ctxDaily, {
-        type: 'line',
-        data: {
-            labels: ['9-02-24', '9-03-24', '9-04-24', '9-05-24', '9-06-24'],
-            datasets: [{
-                label: 'Total Units Sold',
-                data: [15, 30, 25, 40, 50],
-                borderColor: 'rgba(75, 192, 192, 1)',
-                fill: false,
-                tension: 0.1
+        const ctxDaily = document.getElementById('dailyChart').getContext('2d');
+        let dailyChart = new Chart(ctxDaily, {
+            type: 'line',
+            data: {
+                labels: ['2024-09-21', '2024-09-22', '2024-09-23', '2024-09-24', '2024-09-25', '2024-09-26', '2024-09-27'], // Replace with dynamic dates
+                datasets: [{
+                    label: 'Daily Sales',
+                    data: [100, 110, 120, 130, 140, 150, 160, 170], // Replace with dynamic data
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                }]
             },
-            {
-                label: 'Total Sales (₱)',
-                data: [1500, 3000, 2500, 4000, 5000],
-                borderColor: 'rgba(255, 99, 132, 1)',
-                fill: false,
-                tension: 0.1
-            }]
-        },
-        options: {
-            scales: {
-                x: {
-                    title: {
-                        display: true,
-                        text: 'Date'
-                    }
-                },
-                y: {
-                    title: {
-                        display: true,
-                        text: 'Total Units / Sales (₱)'
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
                     }
                 }
             }
-        }
-    });
+        });
+
+        document.getElementById('dateFilterForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
+
+            // Fetch filtered data based on selected date range (you'll need to replace this with actual dynamic data)
+            const filteredData = {
+                labels: ['2024-09-21', '2024-09-22', '2024-09-23', '2024-09-24', '2024-09-25', '2024-09-26', '2024-09-27'], // Example of filtered dates
+                data: [100, 110, 120, 130, 140, 150, 160, 170] // Example of filtered sales
+            };
+
+            // Update the chart with filtered data
+            dailyChart.data.labels = filteredData.labels;
+            dailyChart.data.datasets[0].data = filteredData.data;
+            dailyChart.update();
+        });
     </script>
 
     <script src="../Vinyl-Store/js/admin_script.js"></script>

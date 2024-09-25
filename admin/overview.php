@@ -29,55 +29,48 @@ if (!isset($admin_id)) {
         <p>Overview of general revenue and profit</p>
 
         <label for="sales-toggle">Toggle Between:</label>
-        <select id="sales-toggle">
+        <select id="salesType" class="sales-toggle">
             <option value="units">Total Units</option>
             <option value="revenue">Total Revenue</option>
         </select>
 
-        <div class="chart-container">
-            <canvas id="overviewChart"></canvas>
-        </div>
+        <canvas id="overviewChart"></canvas>
     </section>
 
     <script>
-    const ctxOverview = document.getElementById('overviewChart').getContext('2d');
-    new Chart(ctxOverview, {
-        type: 'line',
-        data: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-            datasets: [{
-                label: 'Total Units Sold',
-                data: [100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300, 320],
-                borderColor: 'rgba(75, 192, 192, 1)',
-                fill: false,
-                tension: 0.1
+        const ctxOverview = document.getElementById('overviewChart').getContext('2d');
+        const chartData = {
+            units: [1000, 1200, 1100, 1300, 1400, 1500, 1600], // Replace with dynamic data from database
+            revenue: [5000, 6000, 5500, 7000, 7500, 8000, 9000] // Replace with dynamic data from database
+        };
+
+        const overviewChart = new Chart(ctxOverview, {
+            type: 'line',
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'], // Months
+                datasets: [{
+                    label: 'Total Units',
+                    data: chartData.units,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                }]
             },
-            {
-                label: 'Total Revenue (₱)',
-                data: [10000, 12000, 14000, 16000, 18000, 20000, 22000, 24000, 26000, 28000, 30000, 32000],
-                borderColor: 'rgba(255, 99, 132, 1)',
-                fill: false,
-                tension: 0.1
-            }]
-        },
-        options: {
-            scales: {
-                x: {
-                    title: {
-                        display: true,
-                        text: 'Months'
-                    }
-                },
-                y: {
-                    title: {
-                        display: true,
-                        text: 'Total Units / Revenue (₱)'
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
                     }
                 }
             }
-        }
-    });
-    </script>
+        });
+
+        document.getElementById('salesType').addEventListener('change', function() {
+            const selectedType = this.value;
+            overviewChart.data.datasets[0].label = selectedType === 'units' ? 'Total Units' : 'Total Revenue';
+            overviewChart.data.datasets[0].data = chartData[selectedType];
+            overviewChart.update();
+        });
+        </script>
 
     <script src="../Vinyl-Store/js/admin_script.js"></script>
 </body>
