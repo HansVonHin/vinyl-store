@@ -30,6 +30,7 @@
                   <li><a href="../admin/users_accounts.php"><i class="fas fa-users"></i><span>Customers</span></a></li>
                   <li><a href="../admin/placed_orders.php"><i class="fas fa-shopping-cart"></i><span>Transactions</span></a></li>
                   <li><a href="../admin/messages.php"><i class="fas fa-comments"></i><span>Messages</span></a></li>
+                  <li><a href="../admin/geography.php"><i class="fas fa-globe"></i><span>Geography</span></a></li>
                </ul>
             </li>
             <li class="sales">
