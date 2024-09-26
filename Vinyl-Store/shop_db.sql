@@ -199,10 +199,10 @@ CREATE TABLE `products` (
   `image_01` varchar(100) NOT NULL,
   `image_02` varchar(100) NOT NULL,
   `image_03` varchar(100) NOT NULL,
-  `genre_id` int(100) NOT NULL,
-  `media_type_id` int(100) NOT NULL,
+  `genre_id` int(100) DEFAULT NULL,
+  `media_type_id` int(100) DEFAULT NULL,
   `vinyl_size` varchar(50) DEFAULT NULL,
-  `category_id` int(100) NOT NULL,
+  `category_id` int(100) DEFAULT NULL,
   `release_date` date NOT NULL DEFAULT curdate(),
   `inventory_status` enum('in stock','out of stock') NOT NULL DEFAULT 'in stock',
   `quantity` int(10) NOT NULL DEFAULT 0
@@ -372,11 +372,11 @@ ALTER TABLE `orders`
 --
 -- AUTO_INCREMENT for table `products`
 --
-ALTER TABLE `products`
+ ALTER TABLE `products`
   MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-  MODIFY `genre_id` int(100) DEFAULT NULL,
-  MODIFY `media_type_id` int(100) DEFAULT NULL,
-  MODIFY `category_id` int(100) DEFAULT NULL;
+--  MODIFY `genre_id` int(100) DEFAULT NULL,
+--  MODIFY `media_type_id` int(100) DEFAULT NULL,
+--  MODIFY `category_id` int(100) DEFAULT NULL;
 
 --
 -- AUTO_INCREMENT for table `users`
