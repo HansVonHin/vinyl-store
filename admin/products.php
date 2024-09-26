@@ -79,6 +79,8 @@ if (isset($_GET['delete'])) {
     header('location:products.php');
 }
 
+// Fetch products for display
+$products = $conn->query("SELECT * FROM `products` ORDER BY id DESC")->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -91,94 +93,132 @@ if (isset($_GET['delete'])) {
     <link rel="icon" href="images/favicon.ico" type="images/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link rel="stylesheet" href="../Vinyl-Store/css/admin_style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 
 <?php include '../Vinyl-Store/components/admin_header.php'; ?>
 
-<form action="" method="post" enctype="multipart/form-data">
-    <div class="flex">
-        <div class="inputBox">
-            <span>Select Product Type (Required)</span>
-            <select name="product_type" id="product_type" onchange="toggleFields()" required>
-                <option value="media">Media (Vinyl, CD, etc.)</option>
-                <option value="non-media">Non-Media (Turntable, Accessories, etc.)</option>
+<div class="container">
+
+    <!-- Section 1: Product Table with Sorting -->
+    <section id="product_table_section">
+        <h1>Product List</h1>
+        <div class="sort-options">
+            <label for="sort">Sort by: </label>
+            <select id="sort" name="sort" onchange="sortProducts()">
+                <option value="new">Newest</option>
+                <option value="old">Oldest</option>
             </select>
         </div>
-        <div id="media_fields">
-            <div class="inputBox">
-                <span>Media Type (Required)</span>
-                <select name="media_type_id" required>
-                    <option value="1">Vinyl</option>
-                    <option value="2">CD</option>
-                    <option value="3">Cassette</option>
-                    <option value="4">DVD</option>
-                </select>
-            </div>
-            <div class="inputBox">
-                <span>Genre (Required)</span>
-                <select name="genre_id" required>
-                    <option value="1">Rock</option>
-                    <option value="2">Pop</option>
-                    <option value="3">Jazz</option>
-                    <option value="4">Classical</option>
-                    <option value="5">Hip-Hop</option>
-                    <option value="6">Electronic</option>
-                </select>
-            </div>
-        </div>
-        <div id="non_media_fields" style="display:none;">
-            <div class="inputBox">
-                <span>Category (Required)</span>
-                <select name="category_id" required>
-                    <option value="1">Turntable</option>
-                    <option value="2">Vinyl Accessories</option>
-                    <option value="3">CD Player</option>
-                    <option value="4">Speakers</option>
-                    <option value="5">Other</option>
-                </select>
-            </div>
-        </div>
-        <!-- Other common product fields -->
-        <div class="inputBox">
-            <span>Product Name (Required)</span>
-            <input type="text" class="box" required maxlength="100" placeholder="Enter product name" name="name">
-        </div>
-        <div class="inputBox">
-            <span>Product Price (Required)</span>
-            <input type="number" min="0" class="box" required max="9999999999" placeholder="Enter product price" name="price">
-        </div>
-        <div class="inputBox">
-            <span>Product Inventory (Required)</span>
-            <input type="number" class="box" required placeholder="Enter stock quantity" name="inventory">
-        </div>
-        <div class="inputBox">
-            <span>1st Image (Required)</span>
-            <input type="file" name="image_01" accept="image/jpg, image/jpeg, image/png, image/webp" class="box" required>
-        </div>
-        <div class="inputBox">
-            <span>2nd Image (Required)</span>
-            <input type="file" name="image_02" accept="image/jpg, image/jpeg, image/png, image/webp" class="box" required>
-        </div>
-        <div class="inputBox">
-            <span>3rd Image (Required)</span>
-            <input type="file" name="image_03" accept="image/jpg, image/jpeg, image/png, image/webp" class="box" required>
-        </div>
-        <div class="inputBox">
-            <span>Product Details (Required)</span>
-            <textarea name="details" placeholder="Enter product details" class="box" required maxlength="500" cols="30" rows="10"></textarea>
-        </div>
-    </div>
-    <input type="submit" value="Add Product" class="btn" name="add_product">
-</form>
+        <table class="products-table">
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="product_list">
+                <?php foreach ($products as $product): ?>
+                <tr>
+                    <td><?= $product['name']; ?></td>
+                    <td>$<?= $product['price']; ?></td>
+                    <td><?= $product['inventory_status']; ?></td>
+                    <td>
+                        <a href="update_product.php?id=<?= $product['id']; ?>" class="update-icon">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a href="products.php?delete=<?= $product['id']; ?>" onclick="return confirm('Are you sure you want to delete this product?');" class="delete-icon">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </section>
 
-<script>
-function toggleFields() {
-    var productType = document.getElementById('product_type').value;
-    document.getElementById('media_fields').style.display = productType === 'media' ? 'block' : 'none';
-    document.getElementById('non_media_fields').style.display = productType === 'non-media' ? 'block' : 'none';
-}
-</script>
+    <!-- Section 2: Add Product Form -->
+    <section id="add_product_section">
+    <h1>Add New Product</h1>
+    <form action="" method="post" enctype="multipart/form-data">
+        <div class="flex">
+            <div class="inputBox">
+                <span>Select Product Type (Required)</span>
+                <select name="product_type" id="product_type" onchange="toggleFields()" required>
+                    <option value="media">Media (Vinyl, CD, etc.)</option>
+                    <option value="non-media">Non-Media (Turntable, Accessories, etc.)</option>
+                </select>
+            </div>
+            <div id="media_fields">
+                <div class="inputBox">
+                    <span>Media Type (Required)</span>
+                    <select name="media_type_id" required>
+                        <option value="1">Vinyl</option>
+                        <option value="2">CD</option>
+                        <option value="3">Cassette</option>
+                        <option value="4">DVD</option>
+                    </select>
+                </div>
+                <div class="inputBox">
+                    <span>Genre (Required)</span>
+                    <select name="genre_id" required>
+                        <option value="1">Rock</option>
+                        <option value="2">Pop</option>
+                        <option value="3">Jazz</option>
+                        <option value="4">Classical</option>
+                        <option value="5">Hip-Hop</option>
+                        <option value="6">Electronic</option>
+                    </select>
+                </div>
+            </div>
+            <div id="non_media_fields" style="display:none;">
+                <div class="inputBox">
+                    <span>Category (Required)</span>
+                    <select name="category_id" required>
+                        <option value="1">Turntable</option>
+                        <option value="2">Vinyl Accessories</option>
+                        <option value="3">CD Player</option>
+                        <option value="4">Speakers</option>
+                        <option value="5">Other</option>
+                    </select>
+                </div>
+            </div>
+            <!-- Other common product fields -->
+            <div class="inputBox">
+                <span>Product Name (Required)</span>
+                <input type="text" class="box" required maxlength="100" placeholder="Enter product name" name="name">
+            </div>
+            <div class="inputBox">
+                <span>Product Price (Required)</span>
+                <input type="number" min="0" class="box" required max="9999999999" placeholder="Enter product price" name="price">
+            </div>
+            <div class="inputBox">
+                <span>Product Inventory (Required)</span>
+                <input type="number" class="box" required placeholder="Enter stock quantity" name="inventory">
+            </div>
+            <div class="inputBox">
+                <span>1st Image (Required)</span>
+                <input type="file" name="image_01" accept="image/jpg, image/jpeg, image/png, image/webp" class="box" required>
+            </div>
+            <div class="inputBox">
+                <span>2nd Image (Required)</span>
+                <input type="file" name="image_02" accept="image/jpg, image/jpeg, image/png, image/webp" class="box" required>
+            </div>
+            <div class="inputBox">
+                <span>3rd Image (Required)</span>
+                <input type="file" name="image_03" accept="image/jpg, image/jpeg, image/png, image/webp" class="box" required>
+            </div>
+            <div class="inputBox">
+                <span>Product Details (Required)</span>
+                <textarea name="details" placeholder="Enter product details" class="box" required maxlength="500" cols="30" rows="10"></textarea>
+            </div>
+        </div>
+        <input type="submit" value="Add Product" class="btn" name="add_product">
+    </form>
+</section>
 
 <section class="show-products">
 
@@ -213,6 +253,42 @@ function toggleFields() {
     </div>
 
 </section>
+
+<!-- Section 3: Product Statistics -->
+<section id="product_statistics_section">
+    <h1>Product Statistics</h1>
+    <p>Total Products: <?= count($products); ?></p>
+    <p>Products In Stock: <?= count(array_filter($products, function($product) {
+        return $product['inventory_status'] === 'in stock';
+    })); ?></p>
+</section>
+</div>
+
+<script>
+function toggleFields() {
+    var productType = document.getElementById('product_type').value;
+    document.getElementById('media_fields').style.display = productType === 'media' ? 'block' : 'none';
+    document.getElementById('non_media_fields').style.display = productType === 'non-media' ? 'block' : 'none';
+}
+// Sort products based on selection
+function sortProducts() {
+    var sortType = document.getElementById('sort').value;
+    var tbody = document.getElementById('product_list');
+    var rows = Array.from(tbody.querySelectorAll('tr'));
+
+    rows.sort(function(a, b) {
+        var idA = parseInt(a.querySelector('a.update-icon').getAttribute('href').split('=')[1]);
+        var idB = parseInt(b.querySelector('a.update-icon').getAttribute('href').split('=')[1]);
+
+        return sortType === 'new' ? idB - idA : idA - idB;
+    });
+
+    // Re-append rows in sorted order
+    rows.forEach(function(row) {
+        tbody.appendChild(row);
+    });
+}
+</script>
 
 <script src="../Vinyl-Store/js/admin_script.js"></script>
    
