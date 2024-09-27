@@ -746,7 +746,8 @@ h1 {
 .show-products .box .genre,
 .show-products .box .category,
 .show-products .box .inventory,
-.show-products .box .details {
+.show-products .box .details,
+.show-products .box .media-type {
    font-size: 1.6rem;
    margin-bottom: 0.8rem;
 }

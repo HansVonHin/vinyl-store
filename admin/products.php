@@ -88,6 +88,16 @@ if (isset($_GET['delete'])) {
 
 // Fetch products for display
 $products = $conn->query("SELECT * FROM `products` ORDER BY id DESC")->fetchAll(PDO::FETCH_ASSOC);
+
+$select_products = $conn->prepare("
+    SELECT p.*, g.genre_name, c.category_name, mt.media_type_name, i.quantity, i.status as inventory_status 
+    FROM `products` p
+    LEFT JOIN `genres` g ON p.genre_id = g.id
+    LEFT JOIN `categories` c ON p.category_id = c.id
+    LEFT JOIN `media_types` mt ON p.media_type_id = mt.id
+    LEFT JOIN `inventory` i ON p.id = i.product_id
+");
+$select_products->execute();
 ?>
 
 <!DOCTYPE html>
@@ -233,8 +243,6 @@ $products = $conn->query("SELECT * FROM `products` ORDER BY id DESC")->fetchAll(
 
     <div class="box-container">
     <?php
-        $select_products = $conn->prepare("SELECT * FROM `products`");
-        $select_products->execute();
         if ($select_products->rowCount() > 0) {
             while ($fetch_products = $select_products->fetch(PDO::FETCH_ASSOC)) {
     ?>
@@ -242,20 +250,32 @@ $products = $conn->query("SELECT * FROM `products` ORDER BY id DESC")->fetchAll(
         <img src="../Vinyl-Store/uploaded_img/<?= $fetch_products['image_01']; ?>" alt="">
         <div class="name"><?= $fetch_products['name']; ?></div>
         <div class="price">₱<span><?= $fetch_products['price']; ?></span>/-</div>
-        <!-- Check if genre is set -->
+
+        <!-- Display genre if available -->
+        <?php if (isset($fetch_products['genre_name'])): ?>
         <div class="genre">
-            <span><?= isset($fetch_products['genre']) ? $fetch_products['genre'] : 'No genre specified'; ?></span>
+            <span> Genre: <?= isset($fetch_products['genre_name']) ? $fetch_products['genre_name'] : 'No genre specified'; ?></span>
         </div>
 
-        <!-- Check if category is set -->
+        <!-- Display media type if available -->
+        <?php elseif (isset($fetch_products['media_type_name'])): ?>
+        <div class="media-type">
+            <span>Media Type: <?= $fetch_products['media_type_name']; ?></span>
+        </div>
+
+        <!-- Display category if available (for non-media products) -->
+        <?php elseif (isset($fetch_products['category_name'])): ?>
         <div class="category">
-            <span><?= isset($fetch_products['category']) ? $fetch_products['category'] : 'No category specified'; ?></span>
+            <span><?= isset($fetch_products['category_name']) ? $fetch_products['category_name'] : 'No category specified'; ?></span>
+        </div>
+        <?php endif; ?>
+        
+        <!-- Display inventory status and quantity -->
+        <div class="inventory">
+            <span>Stock: <?= isset($fetch_products['quantity']) ? $fetch_products['quantity'] : 'N/A'; ?></span>
+            <span>Status: <?= isset($fetch_products['inventory_status']) ? $fetch_products['inventory_status'] : 'Unknown'; ?></span>
         </div>
 
-        <!-- Check if inventory is set -->
-        <div class="inventory">
-            <span>Stock: <?= isset($fetch_products['inventory']) ? $fetch_products['inventory'] : 'N/A'; ?></span>
-        </div>
         <div class="details"><span><?= $fetch_products['details']; ?></span></div>
         <div class="flex-btn">
             <a href="update_product.php?update=<?= $fetch_products['id']; ?>" class="option-btn">Update</a>
