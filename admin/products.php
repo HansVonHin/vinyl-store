@@ -239,7 +239,7 @@ $select_products->execute();
 
 <section class="show-products">
 
-    <h1 class="heading">Products Added</h1>
+    <h1><!--class="heading"-->Products Added</h1>
 
     <div class="box-container">
     <?php

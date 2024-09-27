@@ -135,7 +135,7 @@ $maxPrice = isset($_GET['max-price']) ? $_GET['max-price'] : 1000000; // Set a h
             <input type="hidden" name="image" value="<?= $fetch_product['image_01']; ?>">
             <button class="fas fa-heart" type="submit" name="add_to_wishlist"></button>
             <a href="quick_view.php?pid=<?= $fetch_product['id']; ?>" class="fas fa-eye"></a>
-            <img src="/Vinyl-Store/uploaded_img/<?= $fetch_product['image_01']; ?>" alt="">
+            <img src="../Vinyl-Store/uploaded_img/<?= $fetch_product['image_01']; ?>" alt="">
             <div class="name"><?= $fetch_product['name']; ?></div>
             <div class="flex">
                <div class="price"><span>₱</span><?= $fetch_product['price']; ?><span>/-</span></div>

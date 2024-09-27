@@ -140,12 +140,12 @@ if(isset($_POST['update'])){
       <!-- Display images -->
       <div class="image-container">
          <div class="main-image">
-            <img src="/Vinyl-Store/uploaded_img/<?= $fetch_products['image_01']; ?>" alt="">
+            <img src="../Vinyl-Store/uploaded_img/<?= $fetch_products['image_01']; ?>" alt="">
          </div>
          <div class="sub-image">
-            <img src="/Vinyl-Store/uploaded_img/<?= $fetch_products['image_01']; ?>" alt="">
-            <img src="/Vinyl-Store/uploaded_img/<?= $fetch_products['image_02']; ?>" alt="">
-            <img src="/Vinyl-Store/uploaded_img/<?= $fetch_products['image_03']; ?>" alt="">
+            <img src="../Vinyl-Store/uploaded_img/<?= $fetch_products['image_01']; ?>" alt="">
+            <img src="../Vinyl-Store/uploaded_img/<?= $fetch_products['image_02']; ?>" alt="">
+            <img src="../Vinyl-Store/uploaded_img/<?= $fetch_products['image_03']; ?>" alt="">
          </div>
       </div>
 
@@ -159,17 +159,19 @@ if(isset($_POST['update'])){
       <span>Update Details</span>
       <textarea name="details" class="box" required cols="30" rows="10"><?= $fetch_products['details']; ?></textarea>
 
-      <span>Update Genre ID</span>
-      <input type="number" name="genre_id" required class="box" value="<?= $fetch_products['genre_id']; ?>">
+      <!--<span>Update Genre</span>
+      <input type="text" name="genre_name" required class="box" maxlength="100" value="</*?= $fetch_products['genre_name']; ?>">-->
 
-      <span>Update Media Type ID</span>
-      <input type="number" name="media_type_id" required class="box" value="<?= $fetch_products['media_type_id']; ?>">
+      <!--<span>Update Media Type</span>
+      <input type="text" name="media_type_name" required class="box" maxlength="100" value="</*?=  $fetch_products['media_type_name']; */ ?>">-->
 
+      <?php if (isset($fetch_products['vinyl_size'])): ?>
       <span>Update Vinyl Size</span>
       <input type="text" name="vinyl_size" class="box" value="<?= $fetch_products['vinyl_size']; ?>">
+      <?php endif; ?>
 
-      <span>Update Category ID</span>
-      <input type="number" name="category_id" required class="box" value="<?= $fetch_products['category_id']; ?>">
+      <!--<span>Update Category</span>
+      <input type="text" name="category_name" required class="box" maxlength="100" value="</*?= $fetch_products['category_name']; ?>">-->
 
       <span>Update Release Date</span>
       <input type="date" name="release_date" class="box" value="<?= $fetch_products['release_date']; ?>">
@@ -191,7 +193,7 @@ if(isset($_POST['update'])){
 
       <div class="flex-btn">
          <input type="submit" class="btn" value="Update Product" name="update">
-         <a href="admin_products.php" class="option-btn">Go Back</a>
+         <a href="products.php" class="option-btn">Go Back</a>
       </div>
    </form>
 

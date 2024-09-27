@@ -151,13 +151,13 @@ include 'components/wishlist_cart.php';
       while($fetch_product = $select_products->fetch(PDO::FETCH_ASSOC)){
    ?>
    <form action="" method="post" class="swiper-slide slide">
-      <input type="hidden" name="pid" value="<?= $fetch_product['id']; ?>">
-      <input type="hidden" name="name" value="<?= $fetch_product['name']; ?>">
-      <input type="hidden" name="price" value="<?= $fetch_product['price']; ?>">
-      <input type="hidden" name="image" value="<?= $fetch_product['image_01']; ?>">
+      <input type="hidden" name="pid" value="<?= $fetch_products['id']; ?>">
+      <input type="hidden" name="name" value="<?= $fetch_products['name']; ?>">
+      <input type="hidden" name="price" value="<?= $fetch_products['price']; ?>">
+      <input type="hidden" name="image" value="<?= $fetch_products['image_01']; ?>">
       <button class="fas fa-heart" type="submit" name="add_to_wishlist"></button>
-      <a href="quick_view.php?pid=<?= $fetch_product['id']; ?>" class="fas fa-eye"></a>
-      <img src="/Vinyl-Store/uploaded_img/<?= $fetch_product['image_01']; ?>" alt="">
+      <a href="quick_view.php?pid=<?= $fetch_products['id']; ?>" class="fas fa-eye"></a>
+      <img src="../Vinyl-Store/uploaded_img/<?= $fetch_product['image_01']; ?>" alt="">
       <div class="name"><?= $fetch_product['name']; ?></div>
       <div class="flex">
          <div class="price"><span>₱</span><?= $fetch_product['price']; ?><span>/</span></div>
