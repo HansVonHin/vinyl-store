@@ -134,7 +134,7 @@ $products = $conn->query("SELECT * FROM `products` ORDER BY id DESC")->fetchAll(
                     <td>$<?= $product['price']; ?></td>
                     <td><?= $product['inventory_status']; ?></td>
                     <td>
-                        <a href="update_product.php?id=<?= $product['id']; ?>" class="update-icon">
+                        <a href="update_product.php?update=<?= $product['id']; ?>" class="update-icon">
                             <i class="fas fa-edit"></i>
                         </a>
                         <a href="products.php?delete=<?= $product['id']; ?>" onclick="return confirm('Are you sure you want to delete this product?');" class="delete-icon">
@@ -242,13 +242,24 @@ $products = $conn->query("SELECT * FROM `products` ORDER BY id DESC")->fetchAll(
         <img src="../Vinyl-Store/uploaded_img/<?= $fetch_products['image_01']; ?>" alt="">
         <div class="name"><?= $fetch_products['name']; ?></div>
         <div class="price">₱<span><?= $fetch_products['price']; ?></span>/-</div>
-        <div class="genre"><span><?= $fetch_products['genre']; ?></span></div>
-        <div class="category"><span><?= $fetch_products['category']; ?></span></div>
-        <div class="inventory"><span>Stock: <?= $fetch_products['inventory']; ?></span></div>
+        <!-- Check if genre is set -->
+        <div class="genre">
+            <span><?= isset($fetch_products['genre']) ? $fetch_products['genre'] : 'No genre specified'; ?></span>
+        </div>
+
+        <!-- Check if category is set -->
+        <div class="category">
+            <span><?= isset($fetch_products['category']) ? $fetch_products['category'] : 'No category specified'; ?></span>
+        </div>
+
+        <!-- Check if inventory is set -->
+        <div class="inventory">
+            <span>Stock: <?= isset($fetch_products['inventory']) ? $fetch_products['inventory'] : 'N/A'; ?></span>
+        </div>
         <div class="details"><span><?= $fetch_products['details']; ?></span></div>
         <div class="flex-btn">
             <a href="update_product.php?update=<?= $fetch_products['id']; ?>" class="option-btn">Update</a>
-            <a href="products.php?delete=<?= $fetch_products['id']; ?>" class="delete-btn" onclick="return confirm('Delete This Product?');">Delete</a>
+            <a href="products.php?delete=<?= $fetch_products['id']; ?>" class="delete-btn" onclick="return confirm('Are you sure you want to delete this product?');">Delete</a>
         </div>
     </div>
     <?php
