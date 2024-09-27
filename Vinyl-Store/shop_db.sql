@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 17, 2024 at 05:06 PM
+-- Generation Time: Sep 26, 2024 at 07:14 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -38,8 +38,8 @@ CREATE TABLE `admins` (
 -- Dumping data for table `admins`
 --
 
-INSERT INTO `admins` (`id`, `name`, `password`) VALUES
-(1, 'admin', '6216f8a75fd5bb3d5f22b6f9958cdede3fc086c2');
+INSERT INTO `admins` (`id`, `name`, `position`, `password`) VALUES
+(1, 'admin', '', '6216f8a75fd5bb3d5f22b6f9958cdede3fc086c2');
 
 -- --------------------------------------------------------
 
@@ -151,13 +151,6 @@ CREATE TABLE `messages` (
   `message` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `messages`
---
-
-INSERT INTO `messages` (`id`, `user_id`, `name`, `email`, `number`, `message`) VALUES
-(1, 1, 'Hans', 'hanzricote8@yahoo.com', '12345', 'abcdef');
-
 -- --------------------------------------------------------
 
 --
@@ -177,13 +170,6 @@ CREATE TABLE `orders` (
   `placed_on` date NOT NULL DEFAULT current_timestamp(),
   `payment_status` varchar(20) NOT NULL DEFAULT 'pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `orders`
---
-
-INSERT INTO `orders` (`id`, `user_id`, `name`, `number`, `email`, `method`, `address`, `total_products`, `total_price`, `placed_on`, `payment_status`) VALUES
-(1, 1, 'Hans', '12345', 'hanzricote8@yahoo.com', 'paypal', 'flat no. 123, abc, def, ghi, jkl - 1234', 'Hans (50 x 1) - ', 50, '2024-09-04', 'completed');
 
 -- --------------------------------------------------------
 
@@ -208,6 +194,14 @@ CREATE TABLE `products` (
   `quantity` int(10) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`id`, `name`, `details`, `price`, `image_01`, `image_02`, `image_03`, `genre_id`, `media_type_id`, `vinyl_size`, `category_id`, `release_date`, `inventory_status`, `quantity`) VALUES
+(5, '12&#34; Discogs Turntable', 'test', 25000, 'brand-a-turntable.jpg', 'brand-b-turntable.jpg', 'brand-c-turntable.jpg', NULL, NULL, NULL, 1, '2024-09-27', 'in stock', 10),
+(6, 'Abbey Road', 'test', 2500, 'brand-a-turntable.jpg', 'brand-b-turntable.jpg', 'brand-c-turntable.jpg', 1, 1, NULL, NULL, '2024-09-27', 'in stock', 50);
+
 -- --------------------------------------------------------
 
 --
@@ -220,13 +214,6 @@ CREATE TABLE `users` (
   `email` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `name`, `email`, `password`) VALUES
-(1, 'Hans', 'hanzricote8@yahoo.com', '40bd001563085fc35165329ea1ff5c5ecbdbbeef');
 
 -- --------------------------------------------------------
 
@@ -372,11 +359,8 @@ ALTER TABLE `orders`
 --
 -- AUTO_INCREMENT for table `products`
 --
- ALTER TABLE `products`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
---  MODIFY `genre_id` int(100) DEFAULT NULL,
---  MODIFY `media_type_id` int(100) DEFAULT NULL,
---  MODIFY `category_id` int(100) DEFAULT NULL;
+ALTER TABLE `products`
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `users`
