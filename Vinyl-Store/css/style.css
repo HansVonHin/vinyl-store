@@ -51,10 +51,10 @@ html{
 }
 
 body{
-   background-image: url('path-to-your-background-image.jpg');
+   background-image: url('images/background.jpg');
    background-size: cover;
    background-position: center;
-   background-repeat: no-repeat;
+   background-attachment: fixed;
    margin: 0;
    padding: 0;
    max-width: 100%;
@@ -2342,6 +2342,51 @@ section{
 .facebook-btn {
    background-color: #3b5998;
    color: white;
+}
+
+/* Register Page Styles */
+.user_register .form-container {
+   flex: 1;
+   max-width: 450px; /* Slightly smaller */
+   margin: auto;
+   background-color: var(--white);
+   padding: 3rem;
+   border-radius: .5rem;
+   box-shadow: var(--box-shadow);
+   text-align: left;
+}
+
+.user_register .form-container form h3 {
+   font-size: 2.5rem;
+   text-transform: uppercase;
+   color: var(--black);
+   margin-bottom: 1.5rem;
+}
+
+.user_register .form-container form .box {
+   margin: 1rem 0;
+   background-color: var(--light-bg);
+   padding: 1.4rem;
+   font-size: 1.8rem;
+   color: var(--black);  
+   width: 100%;
+   border-radius: .5rem;
+   border: 1px solid var(--border);
+}
+
+/* Add specific styling for profile picture input */
+.user_register .form-container form input[type="file"] {
+   margin-top: 1rem;
+   padding: .8rem;
+   border: 1px solid var(--border);
+   border-radius: .5rem;
+}
+
+/* Different image for the register page */
+.user_register .image-container img {
+   max-width: 90%;
+   max-height: 100%;
+   object-fit: contain;
 }
 
 /* About Page Styles */
