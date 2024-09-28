@@ -8,6 +8,8 @@
    --red: #c0392b; /* A deep red */
    --black: #111; /* Slightly darker black */
    --white: #f9f9f9; /* A soft white */
+   --dark-blue: #00008B;
+   --blue: #0000FF;
    --light-color: #7f8c8d; /* Muted gray */
    --light-bg: #ecf0f1; /* Light gray background */
    --border: .2rem solid var(--black);
@@ -49,7 +51,10 @@ html{
 }
 
 body{
-   background-color: var(--light-bg);
+   background-image: url('path-to-your-background-image.jpg');
+   background-size: cover;
+   background-position: center;
+   background-repeat: no-repeat;
    margin: 0;
    padding: 0;
    max-width: 100%;
@@ -2222,10 +2227,10 @@ section{
 }
 .form-container {
    flex: 1;
-   max-width: 500px;
+   max-width: 400px;
    margin: auto;
    background-color: var(--white);
-   padding: 3rem;
+   padding: 2rem;
    border-radius: .5rem;
    box-shadow: var(--box-shadow);
    text-align: left;
@@ -2255,7 +2260,8 @@ section{
    border: 1px solid var(--border);
 }
 
-.btn, .option-btn {
+.login-container .btn, .option-btn,
+.form-container .btn, .option-btn {
    display: block;
    width: 100%;
    margin-top: 1.5rem;
@@ -2264,22 +2270,78 @@ section{
    font-size: 1.7rem;
    text-transform: capitalize;
    color: var(--white);
-   background-color: var(--blue);
+   background-color: var(--black);
    cursor: pointer;
    text-align: center;
    transition: background-color 0.3s;
 }
 
-.btn:hover, .option-btn:hover {
-   background-color: var(--dark-blue);
+.login-container .btn:hover, .option-btn:hover,
+.form-container .btn:hover, .option-btn:hover {
+   color: var(--black);
+   background-color: var(--white);
 }
 
-.option-btn {
+.login-container .option-btn,
+.form-container .option-btn
+ {
    background-color: var(--red);
 }
 
-.option-btn:hover {
+.login-container .option-btn:hover,
+.form-container .option-btn:hover {
    background-color: var(--dark-red);
+}
+
+.password-container {
+   position: relative;
+}
+
+.password-container input {
+   width: calc(100% - 30px); /* adjust to fit icon */
+}
+
+.toggle-password {
+   position: absolute;
+   right: 10px;
+   top: 50%;
+   transform: translateY(-50%);
+   cursor: pointer;
+}
+
+.or-separator {
+   text-align: center;
+   margin: 20px 0;
+}
+
+.or-separator span {
+   background: #fff;
+   padding: 0 10px;
+   position: relative;
+}
+
+.social-login button {
+   width: 100%;
+   padding: 10px;
+   margin-bottom: 10px;
+   font-size: 16px;
+   border-radius: 5px;
+   border: none;
+}
+
+.google-btn {
+   background-color: #4285F4;
+   color: white;
+}
+
+.apple-btn {
+   background-color: #000;
+   color: white;
+}
+
+.facebook-btn {
+   background-color: #3b5998;
+   color: white;
 }
 
 /* About Page Styles */

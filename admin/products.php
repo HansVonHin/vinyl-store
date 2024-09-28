@@ -122,7 +122,7 @@ $select_products->execute();
 
     <!-- Section 1: Product Table with Sorting -->
     <section id="product_table_section">
-        <h1>Product List</h1>
+        <h1 class="heading">Product List</h1>
         <div class="sort-options">
             <label for="sort">Sort by: </label>
             <select id="sort" name="sort" onchange="sortProducts()">
