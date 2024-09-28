@@ -16,7 +16,8 @@ if (isset($_POST['add_product'])) {
     $price = filter_var($_POST['price'], FILTER_SANITIZE_STRING);
     $details = filter_var($_POST['details'], FILTER_SANITIZE_STRING);
     $inventory = filter_var($_POST['inventory'], FILTER_SANITIZE_NUMBER_INT);
-    
+
+    $vinyl_size = null; // Initialize
     $media_type_id = null; // Initialize
     $genre_id = null; // Initialize
     $category_id = null; // Initialize
@@ -28,6 +29,7 @@ if (isset($_POST['add_product'])) {
         // Only set media fields for media products
         $media_type_id = !empty($_POST['media_type_id']) ? filter_var($_POST['media_type_id'], FILTER_SANITIZE_NUMBER_INT) : null;
         $genre_id = !empty($_POST['genre_id']) ? filter_var($_POST['genre_id'], FILTER_SANITIZE_NUMBER_INT) : null;
+        $genre_id = !empty($_POST['vinyl_size']) ? filter_var($_POST['vinyl_size'], FILTER_SANITIZE_NUMBER_INT) : null;
     } else {
         // Only set category_id for non-media products
         $category_id = !empty($_POST['category_id']) ? filter_var($_POST['category_id'], FILTER_SANITIZE_NUMBER_INT) : null;
@@ -55,10 +57,10 @@ if (isset($_POST['add_product'])) {
     } else {
         // Insert product, allowing NULL values for certain fields
         $insert_products = $conn->prepare("INSERT INTO `products` 
-            (name, details, price, genre_id, category_id, media_type_id, inventory_status, quantity, image_01, image_02, image_03)
-            VALUES (?, ?, ?, ?, ?, ?, 'in stock', ?, ?, ?, ?)");
+            (name, details, price, vinyl_size, genre_id, category_id, media_type_id, inventory_status, quantity, image_01, image_02, image_03)
+            VALUES (?, ?, ?, ?, ?, ?, ?, 'in stock', ?, ?, ?, ?)");
 
-        $insert_products->execute([$name, $details, $price, $genre_id, $category_id, $media_type_id, $inventory, $image_01, $image_02, $image_03]);
+        $insert_products->execute([$name, $details, $price, $vinyl_size, $genre_id, $category_id, $media_type_id, $inventory, $image_01, $image_02, $image_03]);
 
         if ($insert_products) {
             // Move the uploaded images to the appropriate folders
@@ -133,6 +135,7 @@ $select_products->execute();
                 <tr>
                     <th>Product Name</th>
                     <th>Price</th>
+                    <th>Quantity</th>
                     <th>Stock</th>
                     <th>Actions</th>
                 </tr>
@@ -141,7 +144,8 @@ $select_products->execute();
                 <?php foreach ($products as $product): ?>
                 <tr>
                     <td><?= $product['name']; ?></td>
-                    <td>$<?= $product['price']; ?></td>
+                    <td>₱<?= $product['price']; ?></td>
+                    <td><?= $product['quantity']; ?></td>
                     <td><?= $product['inventory_status']; ?></td>
                     <td>
                         <a href="update_product.php?update=<?= $product['id']; ?>" class="update-icon">
@@ -173,15 +177,27 @@ $select_products->execute();
                 <div class="inputBox">
                     <span>Media Type (Required)</span>
                     <select name="media_type_id" required>
+                        <option> -- </option>
                         <option value="1">Vinyl</option>
                         <option value="2">CD</option>
                         <option value="3">Cassette</option>
                         <option value="4">DVD</option>
                     </select>
                 </div>
+                    <!-- Vinyl size dropdown (hidden by default) -->
+                <div class="inputBox" id="vinyl_size_field" style="display: none;">
+                    <span>Vinyl Size</span>
+                    <select name="vinyl_size">
+                        <option> -- </option>
+                        <option value="7">7"</option>
+                        <option value="10">10"</option>
+                        <option value="12">12" (LP)</option>
+                    </select>
+                </div>
                 <div class="inputBox">
                     <span>Genre (Required)</span>
                     <select name="genre_id" required>
+                        <option> -- </option>
                         <option value="1">Rock</option>
                         <option value="2">Pop</option>
                         <option value="3">Jazz</option>
@@ -256,25 +272,34 @@ $select_products->execute();
         <div class="genre">
             <span> Genre: <?= isset($fetch_products['genre_name']) ? $fetch_products['genre_name'] : 'No genre specified'; ?></span>
         </div>
+        <?php endif; ?>
 
         <!-- Display media type if available -->
-        <?php elseif (isset($fetch_products['media_type_name'])): ?>
+        <?php if (isset($fetch_products['media_type_name'])): ?>
         <div class="media-type">
             <span>Media Type: <?= $fetch_products['media_type_name']; ?></span>
         </div>
+        <?php endif; ?>
 
         <!-- Display category if available (for non-media products) -->
-        <?php elseif (isset($fetch_products['category_name'])): ?>
+        <?php if (isset($fetch_products['category_name'])): ?>
         <div class="category">
             <span><?= isset($fetch_products['category_name']) ? $fetch_products['category_name'] : 'No category specified'; ?></span>
         </div>
         <?php endif; ?>
         
-        <!-- Display inventory status and quantity -->
-        <div class="inventory">
-            <span>Stock: <?= isset($fetch_products['quantity']) ? $fetch_products['quantity'] : 'N/A'; ?></span>
-            <span>Status: <?= isset($fetch_products['inventory_status']) ? $fetch_products['inventory_status'] : 'Unknown'; ?></span>
+        <!-- Display inventory status and quantity 
+        </?php if (isset($fetch_products['quantity'])): ?>
+        <div class="stock">
+            <span>Stock: </?= isset($fetch_products['quantity']) ? $fetch_products['quantity'] : 'N/A'; ?></span>
         </div>
+        </?php endif; ?>
+        
+        </?php if (isset($fetch_products['quantity'])): ?>
+        <div class="inventory">
+        <span>Status: </?= isset($fetch_products['inventory_status']) ? $fetch_products['inventory_status'] : 'Unknown'; ?></span>
+        </div>
+        </?php endif; ?>-->
 
         <div class="details"><span><?= $fetch_products['details']; ?></span></div>
         <div class="flex-btn">
@@ -305,9 +330,19 @@ $select_products->execute();
 <script>
 function toggleFields() {
     var productType = document.getElementById('product_type').value;
+    var mediaType = document.querySelector('select[name="media_type_id"]').value;
+    
+    // Show or hide the media and non-media fields
     document.getElementById('media_fields').style.display = productType === 'media' ? 'block' : 'none';
     document.getElementById('non_media_fields').style.display = productType === 'non-media' ? 'block' : 'none';
+    
+    // Show vinyl size only if 'Vinyl' is selected
+    document.getElementById('vinyl_size_field').style.display = mediaType === '1' ? 'block' : 'none';
 }
+
+// Ensure vinyl size toggles when media type changes
+document.querySelector('select[name="media_type_id"]').addEventListener('change', toggleFields);
+
 // Sort products based on selection
 function sortProducts() {
     var sortType = document.getElementById('sort').value;
@@ -326,6 +361,7 @@ function sortProducts() {
         tbody.appendChild(row);
     });
 }
+
 </script>
 
 <script src="../Vinyl-Store/js/admin_script.js"></script>

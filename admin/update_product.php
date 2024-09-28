@@ -19,10 +19,10 @@ if(isset($_POST['update'])){
    $price = filter_var($price, FILTER_SANITIZE_STRING);
    $details = $_POST['details'];
    $details = filter_var($details, FILTER_SANITIZE_STRING);
-   $genre_id = $_POST['genre_id'];
+   /*$genre_id = $_POST['genre_id'];
    $genre_id = filter_var($genre_id, FILTER_SANITIZE_STRING);
    $media_type_id = $_POST['media_type_id'];
-   $media_type_id = filter_var($media_type_id, FILTER_SANITIZE_STRING);
+   $media_type_id = filter_var($media_type_id, FILTER_SANITIZE_STRING);*/
    $vinyl_size = $_POST['vinyl_size'];
    $vinyl_size = filter_var($vinyl_size, FILTER_SANITIZE_STRING);
    $category_id = $_POST['category_id'];
@@ -34,8 +34,8 @@ if(isset($_POST['update'])){
    $quantity = $_POST['quantity'];
    $quantity = filter_var($quantity, FILTER_SANITIZE_NUMBER_INT);
 
-   $update_product = $conn->prepare("UPDATE `products` SET name = ?, price = ?, details = ?, genre_id = ?, media_type_id = ?, vinyl_size = ?, category_id = ?, release_date = ?, inventory_status = ?, quantity = ? WHERE id = ?");
-   $update_product->execute([$name, $price, $details, $genre_id, $media_type_id, $vinyl_size, $category_id, $release_date, $inventory_status, $quantity, $pid]);
+   $update_product = $conn->prepare("UPDATE `products` SET name = ?, price = ?, details = ?, /*genre_id = ?, media_type_id = ?,*/ vinyl_size = ?, /*category_id = ?,*/ release_date = ?, inventory_status = ?, quantity = ? WHERE id = ?");
+   $update_product->execute([$name, $price, $details, /*$genre_id, $media_type_id,*/ $vinyl_size, /*$category_id,*/ $release_date, $inventory_status, $quantity, $pid]);
 
    $message[] = 'Product Updated Successfully!';
 
