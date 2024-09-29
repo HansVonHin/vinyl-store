@@ -678,6 +678,35 @@ h1 {
    margin-top: 1rem;
 }
 
+/* Styling for the input boxes */
+#add_product_section form .flex-media {
+   display: flex;
+   justify-content: space-between;
+   flex-wrap: nowrap;  /* Keeps the elements on one line */
+   gap: 1rem;  /* Adjusts spacing between input boxes */
+}
+
+#add_product_section form .inputBox-media {
+   flex: 1;
+   min-width: 200px;  /* Ensures input boxes are at least a certain width */
+}
+
+/* Additional styling (optional) */
+#add_product_section form .inputBox-media span {
+   display: block;
+   font-size: 1.6rem;
+   margin-bottom: 0.5rem;
+   color: var(--light-color);
+}
+
+#add_product_section form .inputBox-media input {
+   width: 100%;
+   padding: 0.75rem;
+   font-size: 1.4rem;
+   border: 1px solid var(--border);
+   border-radius: .5rem;
+}
+
 /* Buttons styling */
 .option-btn, .delete-btn {
    display: inline-block;

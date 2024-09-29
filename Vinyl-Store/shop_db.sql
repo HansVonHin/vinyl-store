@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 26, 2024 at 07:14 PM
+-- Generation Time: Sep 29, 2024 at 10:00 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -40,6 +40,18 @@ CREATE TABLE `admins` (
 
 INSERT INTO `admins` (`id`, `name`, `position`, `password`) VALUES
 (1, 'admin', '', '6216f8a75fd5bb3d5f22b6f9958cdede3fc086c2');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `artists`
+--
+
+CREATE TABLE `artists` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `bio` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -113,6 +125,32 @@ CREATE TABLE `inventory` (
   `product_id` int(100) NOT NULL,
   `quantity` int(10) NOT NULL DEFAULT 0,
   `status` enum('in stock','out of stock') NOT NULL DEFAULT 'in stock'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `media_credits`
+--
+
+CREATE TABLE `media_credits` (
+  `id` int(11) NOT NULL,
+  `product_id` int(11) DEFAULT NULL,
+  `credit_type` enum('songwriter','producer') DEFAULT NULL,
+  `artist_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `media_tracklists`
+--
+
+CREATE TABLE `media_tracklists` (
+  `id` int(11) NOT NULL,
+  `product_id` int(11) DEFAULT NULL,
+  `platform` enum('YouTube','Spotify','AppleMusic') DEFAULT NULL,
+  `tracklist_url` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -199,8 +237,19 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `details`, `price`, `image_01`, `image_02`, `image_03`, `genre_id`, `media_type_id`, `vinyl_size`, `category_id`, `release_date`, `inventory_status`, `quantity`) VALUES
-(5, '12&#34; Discogs Turntable', 'test', 25000, 'brand-a-turntable.jpg', 'brand-b-turntable.jpg', 'brand-c-turntable.jpg', NULL, NULL, NULL, 1, '2024-09-27', 'in stock', 10),
-(6, 'Abbey Road', 'test', 2500, 'brand-a-turntable.jpg', 'brand-b-turntable.jpg', 'brand-c-turntable.jpg', 1, 1, NULL, NULL, '2024-09-27', 'in stock', 50);
+(9, 'Abbey Road', 'test', 6665, 'abbey-road-1.jpg', 'abbey-road-2.jpg', 'abbey-road-3.jpg', 1, 1, '12', NULL, '2024-09-28', 'in stock', 50),
+(12, 'Pro-Ject Debut Carbon EVO', 'test', 33605, 'pro-ject-1.jpg', 'pro-ject-2.jpg', 'pro-ject-3.jpg', NULL, NULL, NULL, 1, '2024-09-28', 'in stock', 5);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_artists`
+--
+
+CREATE TABLE `product_artists` (
+  `product_id` int(11) DEFAULT NULL,
+  `artist_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -212,7 +261,11 @@ CREATE TABLE `users` (
   `id` int(100) NOT NULL,
   `name` varchar(20) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `password` varchar(50) NOT NULL
+  `password` varchar(50) NOT NULL,
+  `profile_pic` varchar(255) DEFAULT NULL,
+  `username` varchar(20) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -241,6 +294,12 @@ ALTER TABLE `admins`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `artists`
+--
+ALTER TABLE `artists`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `cart`
 --
 ALTER TABLE `cart`
@@ -262,6 +321,21 @@ ALTER TABLE `genres`
 -- Indexes for table `inventory`
 --
 ALTER TABLE `inventory`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `product_id` (`product_id`);
+
+--
+-- Indexes for table `media_credits`
+--
+ALTER TABLE `media_credits`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `product_id` (`product_id`),
+  ADD KEY `artist_id` (`artist_id`);
+
+--
+-- Indexes for table `media_tracklists`
+--
+ALTER TABLE `media_tracklists`
   ADD PRIMARY KEY (`id`),
   ADD KEY `product_id` (`product_id`);
 
@@ -293,6 +367,13 @@ ALTER TABLE `products`
   ADD KEY `fk_category` (`category_id`);
 
 --
+-- Indexes for table `product_artists`
+--
+ALTER TABLE `product_artists`
+  ADD KEY `product_id` (`product_id`),
+  ADD KEY `artist_id` (`artist_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -313,6 +394,12 @@ ALTER TABLE `wishlist`
 --
 ALTER TABLE `admins`
   MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `artists`
+--
+ALTER TABLE `artists`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `cart`
@@ -339,6 +426,18 @@ ALTER TABLE `inventory`
   MODIFY `id` int(100) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `media_credits`
+--
+ALTER TABLE `media_credits`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `media_tracklists`
+--
+ALTER TABLE `media_tracklists`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `media_types`
 --
 ALTER TABLE `media_types`
@@ -360,7 +459,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -385,12 +484,32 @@ ALTER TABLE `inventory`
   ADD CONSTRAINT `inventory_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
 
 --
+-- Constraints for table `media_credits`
+--
+ALTER TABLE `media_credits`
+  ADD CONSTRAINT `media_credits_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `media_credits_ibfk_2` FOREIGN KEY (`artist_id`) REFERENCES `artists` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `media_tracklists`
+--
+ALTER TABLE `media_tracklists`
+  ADD CONSTRAINT `media_tracklists_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
+
+--
 -- Constraints for table `products`
 --
 ALTER TABLE `products`
   ADD CONSTRAINT `fk_category` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_genre` FOREIGN KEY (`genre_id`) REFERENCES `genres` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_media_type` FOREIGN KEY (`media_type_id`) REFERENCES `media_types` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `product_artists`
+--
+ALTER TABLE `product_artists`
+  ADD CONSTRAINT `product_artists_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
+  ADD CONSTRAINT `product_artists_ibfk_2` FOREIGN KEY (`artist_id`) REFERENCES `artists` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

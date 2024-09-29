@@ -13,25 +13,25 @@ if (!isset($admin_id)) {
 // Add a new product
 if (isset($_POST['add_product'])) {
     $name = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
-    $price = filter_var($_POST['price'], FILTER_SANITIZE_STRING);
+    $price = filter_var($_POST['price'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
     $details = filter_var($_POST['details'], FILTER_SANITIZE_STRING);
     $inventory = filter_var($_POST['inventory'], FILTER_SANITIZE_NUMBER_INT);
 
-    $vinyl_size = null; // Initialize
-    $media_type_id = null; // Initialize
-    $genre_id = null; // Initialize
-    $category_id = null; // Initialize
+    $vinyl_size = null; // Initialize for vinyl-specific products
+    $media_type_id = null; // Initialize for media type
+    $genre_id = null; // Initialize for genre
+    $category_id = null; // Initialize for non-media categories
 
-    // Check product type
+    // Check product type (media or non-media)
     $product_type = filter_var($_POST['product_type'], FILTER_SANITIZE_STRING);
 
     if ($product_type == 'media') {
         // Only set media fields for media products
         $media_type_id = !empty($_POST['media_type_id']) ? filter_var($_POST['media_type_id'], FILTER_SANITIZE_NUMBER_INT) : null;
         $genre_id = !empty($_POST['genre_id']) ? filter_var($_POST['genre_id'], FILTER_SANITIZE_NUMBER_INT) : null;
-        $genre_id = !empty($_POST['vinyl_size']) ? filter_var($_POST['vinyl_size'], FILTER_SANITIZE_NUMBER_INT) : null;
+        $vinyl_size = !empty($_POST['vinyl_size']) ? filter_var($_POST['vinyl_size'], FILTER_SANITIZE_NUMBER_INT) : null;
     } else {
-        // Only set category_id for non-media products
+        // Set category for non-media products
         $category_id = !empty($_POST['category_id']) ? filter_var($_POST['category_id'], FILTER_SANITIZE_NUMBER_INT) : null;
     }
 
@@ -55,12 +55,14 @@ if (isset($_POST['add_product'])) {
     if ($select_products->rowCount() > 0) {
         $message[] = 'Product Name Already Exists!';
     } else {
-        // Insert product, allowing NULL values for certain fields
+        // Insert product, allowing NULL values for optional fields
         $insert_products = $conn->prepare("INSERT INTO `products` 
             (name, details, price, vinyl_size, genre_id, category_id, media_type_id, inventory_status, quantity, image_01, image_02, image_03)
             VALUES (?, ?, ?, ?, ?, ?, ?, 'in stock', ?, ?, ?, ?)");
 
         $insert_products->execute([$name, $details, $price, $vinyl_size, $genre_id, $category_id, $media_type_id, $inventory, $image_01, $image_02, $image_03]);
+
+        $product_id = $conn->lastInsertId(); // Get the ID of the inserted product
 
         if ($insert_products) {
             // Move the uploaded images to the appropriate folders
@@ -68,6 +70,35 @@ if (isset($_POST['add_product'])) {
             move_uploaded_file($image_tmp_name_02, $image_folder_02);
             move_uploaded_file($image_tmp_name_03, $image_folder_03);
             $message[] = 'New Product Added!';
+
+            // Insert associated media credits
+            if (isset($_POST['credits'])) {
+                foreach ($_POST['credits'] as $credit) {
+                    $credit_type = filter_var($credit['type'], FILTER_SANITIZE_STRING);
+                    $artist_id = filter_var($credit['artist_id'], FILTER_SANITIZE_NUMBER_INT);
+                    $insert_credit = $conn->prepare("INSERT INTO `media_credits` (product_id, credit_type, artist_id) VALUES (?, ?, ?)");
+                    $insert_credit->execute([$product_id, $credit_type, $artist_id]);
+                }
+            }
+
+            // Insert tracklist information
+            if (isset($_POST['tracklists'])) {
+                foreach ($_POST['tracklists'] as $tracklist) {
+                    $platform = filter_var($tracklist['platform'], FILTER_SANITIZE_STRING);
+                    $tracklist_url = filter_var($tracklist['url'], FILTER_SANITIZE_URL);
+                    $insert_tracklist = $conn->prepare("INSERT INTO `media_tracklists` (product_id, platform, tracklist_url) VALUES (?, ?, ?)");
+                    $insert_tracklist->execute([$product_id, $platform, $tracklist_url]);
+                }
+            }
+
+            // Insert artist associations
+            if (isset($_POST['artists'])) {
+                foreach ($_POST['artists'] as $artist_id) {
+                    $artist_id = filter_var($artist_id, FILTER_SANITIZE_NUMBER_INT);
+                    $insert_artist = $conn->prepare("INSERT INTO `product_artists` (product_id, artist_id) VALUES (?, ?)");
+                    $insert_artist->execute([$product_id, $artist_id]);
+                }
+            }
         }
     }
 }
@@ -161,8 +192,8 @@ $select_products->execute();
         </table>
     </section>
 
-    <!-- Section 2: Add Product Form -->
-    <section id="add_product_section">
+<!-- Section 2: Add Product Form -->
+<section id="add_product_section">
     <h1>Add New Product</h1>
     <form action="" method="post" enctype="multipart/form-data">
         <div class="flex">
@@ -173,6 +204,8 @@ $select_products->execute();
                     <option value="non-media">Non-Media (Turntable, Accessories, etc.)</option>
                 </select>
             </div>
+            
+            <!-- Media fields start -->
             <div id="media_fields">
                 <div class="inputBox">
                     <span>Media Type (Required)</span>
@@ -184,7 +217,8 @@ $select_products->execute();
                         <option value="4">DVD</option>
                     </select>
                 </div>
-                    <!-- Vinyl size dropdown (hidden by default) -->
+                
+                <!-- Vinyl size dropdown (hidden by default) -->
                 <div class="inputBox" id="vinyl_size_field" style="display: none;">
                     <span>Vinyl Size</span>
                     <select name="vinyl_size">
@@ -194,6 +228,7 @@ $select_products->execute();
                         <option value="12">12" (LP)</option>
                     </select>
                 </div>
+
                 <div class="inputBox">
                     <span>Genre (Required)</span>
                     <select name="genre_id" required>
@@ -206,7 +241,28 @@ $select_products->execute();
                         <option value="6">Electronic</option>
                     </select>
                 </div>
+
+                <!-- New Media fields in one line -->
+                <!--div class="flex-media">
+                    <div class="inputBox-media">
+                        <span>Artist (Required)</span>
+                        <input type="text" class="box" name="artist_name" placeholder="Enter artist name" maxlength="100" required>
+                    </div>
+
+                    <div class="inputBox-media">
+                        <span>Credits (Required)</span>
+                        <input type="text" class="box" name="credits" placeholder="Enter credits (e.g., Composer, Producer)" maxlength="255" required>
+                    </div>
+
+                    <div class="inputBox-media">
+                        <span>Tracklist URL (Required)</span>
+                        <input type="url" class="box" name="tracklist_url" placeholder="Enter tracklist URL" maxlength="255" required>
+                    </div>
+                </div-->
             </div>
+            <!-- Media fields end -->
+            
+            <!-- Non-media fields -->
             <div id="non_media_fields" style="display:none;">
                 <div class="inputBox">
                     <span>Category (Required)</span>
@@ -219,6 +275,7 @@ $select_products->execute();
                     </select>
                 </div>
             </div>
+
             <!-- Other common product fields -->
             <div class="inputBox">
                 <span>Product Name (Required)</span>
@@ -328,19 +385,32 @@ $select_products->execute();
 </div>
 
 <script>
+// Function to toggle media/non-media fields
 function toggleFields() {
-    var productType = document.getElementById('product_type').value;
-    var mediaType = document.querySelector('select[name="media_type_id"]').value;
-    
-    // Show or hide the media and non-media fields
-    document.getElementById('media_fields').style.display = productType === 'media' ? 'block' : 'none';
-    document.getElementById('non_media_fields').style.display = productType === 'non-media' ? 'block' : 'none';
-    
-    // Show vinyl size only if 'Vinyl' is selected
-    document.getElementById('vinyl_size_field').style.display = mediaType === '1' ? 'block' : 'none';
+    const productType = document.getElementById('product_type').value;
+    const mediaFields = document.getElementById('media_fields');
+    const nonMediaFields = document.getElementById('non_media_fields');
+    const vinylSizeField = document.getElementById('vinyl_size_field');
+    const mediaType = document.querySelector('select[name="media_type_id"]').value;
+
+    if (productType === 'media') {
+        mediaFields.style.display = 'block';
+        nonMediaFields.style.display = 'none';
+
+        // Check if vinyl is selected, and show/hide vinyl size field
+        if (mediaType == '1') {
+            vinylSizeField.style.display = 'block';
+        } else {
+            vinylSizeField.style.display = 'none';
+        }
+    } else {
+        mediaFields.style.display = 'none';
+        nonMediaFields.style.display = 'block';
+    }
 }
 
-// Ensure vinyl size toggles when media type changes
+// Trigger toggle on page load and when media type changes
+document.addEventListener('DOMContentLoaded', toggleFields);
 document.querySelector('select[name="media_type_id"]').addEventListener('change', toggleFields);
 
 // Sort products based on selection
