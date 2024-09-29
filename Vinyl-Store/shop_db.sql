@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 29, 2024 at 10:00 AM
+-- Generation Time: Sep 29, 2024 at 08:38 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -49,7 +49,7 @@ INSERT INTO `admins` (`id`, `name`, `position`, `password`) VALUES
 
 CREATE TABLE `artists` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
+  `artist_name` varchar(255) DEFAULT NULL,
   `bio` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -238,7 +238,9 @@ CREATE TABLE `products` (
 
 INSERT INTO `products` (`id`, `name`, `details`, `price`, `image_01`, `image_02`, `image_03`, `genre_id`, `media_type_id`, `vinyl_size`, `category_id`, `release_date`, `inventory_status`, `quantity`) VALUES
 (9, 'Abbey Road', 'test', 6665, 'abbey-road-1.jpg', 'abbey-road-2.jpg', 'abbey-road-3.jpg', 1, 1, '12', NULL, '2024-09-28', 'in stock', 50),
-(12, 'Pro-Ject Debut Carbon EVO', 'test', 33605, 'pro-ject-1.jpg', 'pro-ject-2.jpg', 'pro-ject-3.jpg', NULL, NULL, NULL, 1, '2024-09-28', 'in stock', 5);
+(12, 'Pro-Ject Debut Carbon EVO', 'test', 33605, 'pro-ject-1.jpg', 'pro-ject-2.jpg', 'pro-ject-3.jpg', NULL, NULL, NULL, 1, '2024-09-28', 'in stock', 5),
+(13, 'Dark Side of the Moon', 'Pink Floyd Legendary Album', 3200, 'dark-side-1.jpg', 'dark-side-2.jpg', 'dark-side-3.jpg', 2, 1, '12', NULL, '2024-09-29', 'in stock', 30),
+(16, 'Back in Black', 'AC/DC Hit Album', 2800, 'back-in-black-1.jpg', 'back-in-black-2.jpg', 'back-in-black-3.jpg', 1, 1, '12', NULL, '2024-09-30', 'in stock', 40);
 
 -- --------------------------------------------------------
 
@@ -429,7 +431,7 @@ ALTER TABLE `inventory`
 -- AUTO_INCREMENT for table `media_credits`
 --
 ALTER TABLE `media_credits`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `media_tracklists`
@@ -459,7 +461,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `users`
