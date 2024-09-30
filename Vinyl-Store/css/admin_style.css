@@ -1135,6 +1135,46 @@ h1 {
    resize: none;
 }
 
+/* Artists, Tracklist, and Credits Styling */
+.form-section form {
+   margin-top: 3rem;
+   background-color: var(--white);
+   padding: 2rem;
+   border-radius: .5rem;
+   box-shadow: var(--box-shadow);
+}
+
+.form-section form h1 {
+   font-size: 2.2rem;
+   margin-bottom: 1.5rem;
+   text-align: center;
+}
+
+.form-section form .flex {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 1.5rem;
+}
+
+.form-section form .inputBox {
+   flex: 1 1 48%;
+}
+
+.form-section form .inputBox span {
+   font-size: 1.6rem;
+   color: var(--light-color);
+}
+
+.form-section form .box {
+   width: 100%;
+   padding: 1rem;
+   font-size: 1.6rem;
+   border: 1px solid var(--border);
+   border-radius: .5rem;
+   background-color: var(--light-bg);
+   margin-top: 1rem;
+}
+
 .orders .box-container{
    display: grid;
    grid-template-columns: repeat(auto-fit, 33rem);

@@ -327,7 +327,7 @@ $select_products->execute();
         </select>
 
         <div class="btn-container">
-            <a href="placeholder.php">
+            <a href="artists.php">
                 <button type="button" class="btn">Add Artist</button>
             </a>
             <button type="button" class="btn cancel" onclick="toggleArtistForm()">Close</button>
@@ -383,7 +383,9 @@ $select_products->execute();
         <input type="text" id="tracklist_url" name="tracklist_url" required>
 
         <div class="btn-container">
-            <button type="submit" class="btn">Add Tracklist</button>
+            <a href="tracklist.php">
+                <button type="submit" class="btn">Add Tracklist</button>
+            </a>
             <button type="button" class="btn cancel" onclick="toggleTracklistForm()">Close</button>
         </div>
     </div>
@@ -439,7 +441,9 @@ $select_products->execute();
         <input type="text" id="credit_type" name="credit_type" required>
 
         <div class="btn-container">
-            <button type="submit" class="btn">Add Credit</button>
+            <a href="credits.php">
+                <button type="submit" class="btn">Add Credit</button>
+            </a>
             <button type="button" class="btn cancel" onclick="toggleCreditForm()">Close</button>
         </div>
     </div>
