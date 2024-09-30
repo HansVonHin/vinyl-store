@@ -70,35 +70,6 @@ if (isset($_POST['add_product'])) {
             move_uploaded_file($image_tmp_name_02, $image_folder_02);
             move_uploaded_file($image_tmp_name_03, $image_folder_03);
             $message[] = 'New Product Added!';
-
-            // Insert associated media credits
-            if (isset($_POST['credits'])) {
-                foreach ($_POST['credits'] as $credit) {
-                    $credit_type = filter_var($credit['type'], FILTER_SANITIZE_STRING);
-                    $artist_id = filter_var($credit['artist_id'], FILTER_SANITIZE_NUMBER_INT);
-                    $insert_credit = $conn->prepare("INSERT INTO `media_credits` (product_id, credit_type, artist_id) VALUES (?, ?, ?)");
-                    $insert_credit->execute([$product_id, $credit_type, $artist_id]);
-                }
-            }
-
-            // Insert tracklist information
-            if (isset($_POST['tracklists'])) {
-                foreach ($_POST['tracklists'] as $tracklist) {
-                    $platform = filter_var($tracklist['platform'], FILTER_SANITIZE_STRING);
-                    $tracklist_url = filter_var($tracklist['url'], FILTER_SANITIZE_URL);
-                    $insert_tracklist = $conn->prepare("INSERT INTO `media_tracklists` (product_id, platform, tracklist_url) VALUES (?, ?, ?)");
-                    $insert_tracklist->execute([$product_id, $platform, $tracklist_url]);
-                }
-            }
-
-            // Insert artist associations
-            if (isset($_POST['artists'])) {
-                foreach ($_POST['artists'] as $artist_id) {
-                    $artist_id = filter_var($artist_id, FILTER_SANITIZE_NUMBER_INT);
-                    $insert_artist = $conn->prepare("INSERT INTO `product_artists` (product_id, artist_id) VALUES (?, ?)");
-                    $insert_artist->execute([$product_id, $artist_id]);
-                }
-            }
         }
     }
 }
@@ -121,6 +92,21 @@ if (isset($_GET['delete'])) {
 
 // Fetch products for display
 $products = $conn->query("SELECT * FROM `products` ORDER BY id DESC")->fetchAll(PDO::FETCH_ASSOC);
+
+// Fetch artists
+$artists = $conn->query("SELECT * FROM `artists` ORDER BY id ASC")->fetchAll(PDO::FETCH_ASSOC);
+
+// Fetch tracklists
+$tracklists = $conn->query("SELECT * FROM `media_tracklists` ORDER BY id ASC")->fetchAll(PDO::FETCH_ASSOC);
+
+// Fetch credits
+$credits = $conn->query("
+    SELECT media_credits.id, products.id AS product_name, media_credits.credit_type, artists.id AS artist_name
+    FROM `media_credits`
+    LEFT JOIN `products` ON media_credits.product_id = products.id
+    LEFT JOIN `artists` ON media_credits.artist_id = artists.id
+    ORDER BY media_credits.id ASC
+")->fetchAll(PDO::FETCH_ASSOC);
 
 $select_products = $conn->prepare("
     SELECT p.*, g.genre_name, c.category_name, mt.media_type_name, i.quantity, i.status as inventory_status 
@@ -172,6 +158,7 @@ $select_products->execute();
                 </tr>
             </thead>
             <tbody id="product_list">
+                <?php if (!empty($products)): ?>
                 <?php foreach ($products as $product): ?>
                 <tr>
                     <td><?= $product['name']; ?></td>
@@ -188,6 +175,9 @@ $select_products->execute();
                     </td>
                 </tr>
                 <?php endforeach; ?>
+            <?php else: ?>
+                <tr><td colspan="3">No products found.</td></tr>
+            <?php endif; ?>
             </tbody>
         </table>
     </section>
@@ -241,24 +231,6 @@ $select_products->execute();
                         <option value="6">Electronic</option>
                     </select>
                 </div>
-
-                <!-- New Media fields in one line -->
-                <!--div class="flex-media">
-                    <div class="inputBox-media">
-                        <span>Artist (Required)</span>
-                        <input type="text" class="box" name="artist_name" placeholder="Enter artist name" maxlength="100" required>
-                    </div>
-
-                    <div class="inputBox-media">
-                        <span>Credits (Required)</span>
-                        <input type="text" class="box" name="credits" placeholder="Enter credits (e.g., Composer, Producer)" maxlength="255" required>
-                    </div>
-
-                    <div class="inputBox-media">
-                        <span>Tracklist URL (Required)</span>
-                        <input type="url" class="box" name="tracklist_url" placeholder="Enter tracklist URL" maxlength="255" required>
-                    </div>
-                </div-->
             </div>
             <!-- Media fields end -->
             
@@ -310,6 +282,169 @@ $select_products->execute();
     </form>
 </section>
 
+<!-- Section 3: Artist Management -->
+<section id="artist_section">
+    <h1 class="heading">Manage Artists</h1>
+    <table class="artists-table">
+        <thead>
+            <tr>
+                <th>Artist ID</th>
+                <th>Artist Name</th>
+                <th>Bio</th>
+            </tr>
+        </thead>
+        <tbody id="artist_list">
+        <?php if (!empty($artists)): ?>
+            <?php foreach ($artists as $artist): ?>
+            <tr>
+                <td><?= $artist['id']; ?></td>
+                <td><?= $artist['name']; ?></td>
+                <td><?= $artist['bio']; ?></td>
+            </tr>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <tr><td colspan="3">No artists found.</td></tr>
+        <?php endif; ?>
+        </tbody>
+    </table>
+
+    <!-- Add artist to product form -->
+    <button id="add_artist_button" onclick="toggleArtistForm()">Add Artist to Product</button>
+    <div id="artistForm" class="form-container hidden">
+
+        <label for="product">Select Product</label>
+        <select id="product" name="product_id">
+            <?php foreach ($products as $product): ?>
+            <option value="<?= $product['id']; ?>"><?= $product['name']; ?></option>
+            <?php endforeach; ?>
+        </select>
+
+        <label for="artist">Select Artist</label>
+        <select id="artist" name="artist_id">
+            <?php foreach ($artists as $artist): ?>
+            <option value="<?= $artist['id']; ?>"><?= $artist['name']; ?></option>
+            <?php endforeach; ?>
+        </select>
+
+        <div class="btn-container">
+            <a href="placeholder.php">
+                <button type="button" class="btn">Add Artist</button>
+            </a>
+            <button type="button" class="btn cancel" onclick="toggleArtistForm()">Close</button>
+        </div>
+    </div>
+</section>
+
+<!-- Section 4: Tracklist Management -->
+<section id="tracklist_section">
+    <h1 class="heading">Manage Tracklist</h1>
+    <table class="tracklist-table">
+        <thead>
+            <tr>
+                <th>Tracklist ID</th>
+                <th>Platform</th>
+                <th>Tracklist URL</th>
+            </tr>
+        </thead>
+        <id="tracklist_list">
+        <?php if (!empty($tracklists)): ?>
+            <?php foreach ($tracklists as $tracklist): ?>
+            <tr class="<?= strtolower($tracklist['platform']); ?>">
+                <td><?= $tracklist['id']; ?></td>
+                <td><?= $tracklist['platform']; ?></td>
+                <td><a href="<?= $tracklist['tracklist_url']; ?>" target="_blank"><?= $tracklist['tracklist_url']; ?></a></td>
+            </tr>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <tr><td colspan="3">No tracklists found.</td></tr>
+        <?php endif; ?>
+        </tbody>
+    </table>
+
+    <!-- Add tracklist form -->
+    <button id="add_tracklist_button" onclick="toggleTracklistForm()">Add Tracklist to Product</button>
+    <div id="tracklistForm" class="form-container hidden">
+
+        <label for="product">Select Product</label>
+        <select id="product" name="product_id">
+            <?php foreach ($products as $product): ?>
+            <option value="<?= $product['id']; ?>"><?= $product['name']; ?></option>
+            <?php endforeach; ?>
+        </select>
+
+        <label for="platform">Select Platform</label>
+        <select id="platform" name="platform" onchange="updateTracklistStyle(this.value)">
+            <option value="YouTube">YouTube</option>
+            <option value="Spotify">Spotify</option>
+            <option value="AppleMusic">Apple Music</option>
+        </select>
+
+        <label for="tracklist_url">Tracklist URL</label>
+        <input type="text" id="tracklist_url" name="tracklist_url" required>
+
+        <div class="btn-container">
+            <button type="submit" class="btn">Add Tracklist</button>
+            <button type="button" class="btn cancel" onclick="toggleTracklistForm()">Close</button>
+        </div>
+    </div>
+</section>
+
+<!-- Section 4: Credits Management -->
+<section id="credits_section">
+    <h1 class="heading">Manage Credits</h1>
+    <table class="credits-table">
+        <thead>
+            <tr>
+                <th>Credit ID</th>
+                <th>Product Name</th>
+                <th>Credit Type</th>
+                <th>Artist Name</th>
+            </tr>
+        </thead>
+        <tbody id="credits_list">
+        <?php if (!empty($credits)): ?>
+            <?php foreach ($credits as $credit): ?>
+            <tr>
+                <td><?= $credit['id']; ?></td>
+                <td><?= $credit['product_name']; ?></td>
+                <td><?= $credit['credit_type']; ?></td>
+                <td><?= $credit['artist_name']; ?></td>
+            </tr>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <tr><td colspan="3">No credits found.</td></tr>
+        <?php endif; ?>
+        </tbody>
+    </table>
+
+    <!-- Add credit form -->
+    <button id="add_credit_button" onclick="toggleCreditForm()">Add Credits to Product</button>
+    <div id="creditForm" class="form-container hidden">
+
+        <label for="product">Select Product</label>
+        <select id="product" name="product_id">
+            <?php foreach ($products as $product): ?>
+            <option value="<?= $product['id']; ?>"><?= $product['name']; ?></option>
+            <?php endforeach; ?>
+        </select>
+
+        <label for="artist">Select Artist</label>
+        <select id="artist" name="artist_id">
+            <?php foreach ($artists as $artist): ?>
+            <option value="<?= $artist['id']; ?>"><?= $artist['name']; ?></option>
+            <?php endforeach; ?>
+        </select>
+
+        <label for="credit_type">Credit Type</label>
+        <input type="text" id="credit_type" name="credit_type" required>
+
+        <div class="btn-container">
+            <button type="submit" class="btn">Add Credit</button>
+            <button type="button" class="btn cancel" onclick="toggleCreditForm()">Close</button>
+        </div>
+    </div>
+</section>
+
 <section class="show-products">
 
     <h1><!--class="heading"-->Products Added</h1>
@@ -344,19 +479,6 @@ $select_products->execute();
             <span><?= isset($fetch_products['category_name']) ? $fetch_products['category_name'] : 'No category specified'; ?></span>
         </div>
         <?php endif; ?>
-        
-        <!-- Display inventory status and quantity 
-        </?php if (isset($fetch_products['quantity'])): ?>
-        <div class="stock">
-            <span>Stock: </?= isset($fetch_products['quantity']) ? $fetch_products['quantity'] : 'N/A'; ?></span>
-        </div>
-        </?php endif; ?>
-        
-        </?php if (isset($fetch_products['quantity'])): ?>
-        <div class="inventory">
-        <span>Status: </?= isset($fetch_products['inventory_status']) ? $fetch_products['inventory_status'] : 'Unknown'; ?></span>
-        </div>
-        </?php endif; ?>-->
 
         <div class="details"><span><?= $fetch_products['details']; ?></span></div>
         <div class="flex-btn">
@@ -374,7 +496,7 @@ $select_products->execute();
 
 </section>
 
-<!-- Section 3: Product Statistics -->
+<!-- Section 5: Product Statistics -->
 <section id="product_statistics_section">
     <h1>Product Statistics</h1>
     <p>Total Products: <?= count($products); ?></p>
@@ -430,6 +552,50 @@ function sortProducts() {
     rows.forEach(function(row) {
         tbody.appendChild(row);
     });
+}
+
+function toggleArtistForm() {
+    var form = document.getElementById("artistForm");
+    if (form.classList.contains("open")) {
+        form.classList.remove("open");
+        form.classList.add("hidden");
+    } else {
+        form.classList.remove("hidden");
+        form.classList.add("open");
+    }
+}
+
+function toggleTracklistForm() {
+    var form = document.getElementById("tracklistForm");
+    if (form.classList.contains("open")) {
+        form.classList.remove("open");
+        form.classList.add("hidden");
+    } else {
+        form.classList.remove("hidden");
+        form.classList.add("open");
+    }
+}
+
+function toggleCreditForm() {
+    var form = document.getElementById("creditForm");
+    if (form.classList.contains("open")) {
+        form.classList.remove("open");
+        form.classList.add("hidden");
+    } else {
+        form.classList.remove("hidden");
+        form.classList.add("open");
+    }
+}
+
+function updateTracklistStyle(platform) {
+    const form = document.getElementById("tracklistForm");
+    if (platform === 'YouTube') {
+        form.style.backgroundColor = 'red';
+    } else if (platform === 'Spotify') {
+        form.style.backgroundColor = 'green';
+    } else if (platform === 'AppleMusic') {
+        form.style.backgroundColor = 'white';
+    }
 }
 
 </script>

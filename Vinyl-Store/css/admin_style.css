@@ -156,7 +156,6 @@ section{
 }
 
 .form-container{
-   min-height: 100vh;
    display: flex;
    align-items: center;
    justify-content: center;
@@ -727,7 +726,287 @@ h1 {
    color: var(--white);
 }
 
-/* Section 3: Product Statistics Styling */
+/* Section 3: Artist Section */
+.artists-table {
+   width: 100%;
+   border-collapse: collapse;
+}
+
+.artists-table th, .artists-table td {
+   border: 1px solid #ddd;
+   padding: 8px;
+   text-align: left;
+}
+
+#add_artist_button {
+   margin-top: 20px;
+   padding: 10px 15px;
+   background-color: #28a745;
+   color: white;
+   border: none;
+   cursor: pointer;
+}
+
+/* Popup Form */
+.form-popup {
+   display: none;
+   position: fixed;
+   bottom: 0;
+   right: 0;
+   border: 3px solid #f1f1f1;
+   z-index: 9;
+}
+
+.artist_section, .tracklist_section, .credits_section .form-container {
+   margin-top: 20px;
+   padding: 20px;
+   border: 1px solid #ddd;
+   background-color: var(--white);
+   display: none;
+   transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out;
+   max-height: 0;
+   opacity: 0;
+   overflow: hidden;
+   width: 400px; /* Limit width */
+   box-sizing: border-box;
+}
+
+.artist_section, .tracklist_section, .credits_section .form-container h2 {
+   font-size: 22px; /* Increased size */
+   margin-bottom: 15px;
+}
+
+/* When the form is toggled open */
+.artist_section, .tracklist_section, .credits_section .form-container.open {
+   display: inline-block;
+   max-height: 500px; /* Adjust as needed */
+   opacity: 1;
+}
+
+/* Form input elements spacing */
+.artist_section, .tracklist_section, .credits_section .form-container label,
+.artist_section, .tracklist_section, .credits_section .form-container select,
+.artist_section, .tracklist_section, .credits_section .form-container button {
+   width: 100%;
+   font-size: 16px; /* Slightly larger */
+   margin-bottom: 5px;
+   display: inline-block;
+}
+
+.artist_section .form-container select, .artist_section .form-container input[type="text"],
+.tracklist_section .form-container select, .tracklist_section .form-container input[type="text"],
+.credits_section .form-container select, .credits_section .form-container input[type="text"] {
+   width: 100%; /* Limit width */
+   padding: 8px;
+   margin-bottom: 10px;
+   border: 1px solid #ccc;
+   border-radius: 4px;
+   box-sizing: border-box;
+}
+
+/* Button styling */
+.artist_section, .tracklist_section, .credits_section .btn {
+   padding: 10px;
+   background-color: #4CAF50;
+   color: white;
+   border: none;
+   cursor: pointer;
+   width: 48%; /* Reduce button width */
+   display: inline-block;
+   text-align: center;
+}
+
+.artist_section, .tracklist_section, .credits_section .btn.cancel {
+   background-color: #f44336;
+   margin-left: 4%; /* Space between the two buttons */
+}
+
+/* Smooth transition helper class */
+.hidden {
+   max-height: 0;
+   opacity: 0;
+   border-radius: .5rem;
+   box-shadow: var(--box-shadow);
+   background-color: var(--white);
+   display: block;
+   transition: max-height 0.4s ease, opacity 0.4s ease;
+}
+
+.hidden h2 {
+   font-size: 18px; /* Increased size */
+   top: 1%;
+   margin-left: 1%;
+}
+
+/* Form input elements spacing */
+.hidden label,
+.hidden select,
+.hidden button {
+   font-size: 18px; /* Increased size */
+   margin-top: 1%;
+   margin-left: 1%;
+   width: 47%;
+   font-size: 16px; /* Slightly larger */
+   margin-bottom: 5px;
+   display: inline-block;
+}
+
+.hidden input[type="text"] {
+   font-size: 18px; /* Increased size */
+   top: 1%;
+   margin-top: 1%;
+   margin-left: 1%;
+   width: 47%; /* Limit width */
+   padding: 8px;
+   margin-bottom: 10px;
+   border: 1px solid #ccc;
+   border-radius: 4px;
+   box-sizing: border-box;
+}
+
+.hidden .btn {
+   padding: 10px;
+   background-color: #4CAF50;
+   color: white;
+   border: none;
+   cursor: pointer;
+   width: 47%; /* Reduce button width */
+   display: inline-block;
+   text-align: center;
+}
+
+.hidden .btn.cancel {
+   background-color: #f44336;
+   margin-left: 4%; /* Space between the two buttons */
+}
+
+.open {
+   max-height: 500px; /* Adjust based on content size */
+   opacity: 1;
+   border-radius: .5rem;
+   box-shadow: var(--box-shadow);
+   background-color: var(--white);
+   display: block;
+   transition: max-height 0.4s ease, opacity 0.4s ease;
+}
+
+.open h2 {
+   font-size: 18px; /* Increased size */
+   top: 1%;
+   margin-left: 1%;
+}
+
+/* Form input elements spacing */
+.open label,
+.open select,
+.open button {
+   font-size: 18px; /* Increased size */
+   margin-top: 1%;
+   margin-left: 1%;
+   width: 47%;
+   font-size: 16px; /* Slightly larger */
+   margin-bottom: 5px;
+   display: inline-block;
+}
+
+.open input[type="text"] {
+   font-size: 18px; /* Increased size */
+   top: 1%;
+   margin-top: 1%;
+   margin-left: 1%;
+   width: 47%; /* Limit width */
+   padding: 8px;
+   margin-bottom: 10px;
+   border: 1px solid #ccc;
+   border-radius: 4px;
+   box-sizing: border-box;
+}
+
+.open .btn {
+   padding: 10px;
+   background-color: #4CAF50;
+   color: white;
+   border: none;
+   cursor: pointer;
+   width: 47%; /* Reduce button width */
+   display: inline-block;
+   text-align: center;
+}
+
+.open .btn.cancel {
+   background-color: #f44336;
+   margin-left: 4%; /* Space between the two buttons */
+}
+
+.artist_section, .tracklist_section, .credits_section .form-container .btn-container {
+   display: flex;
+   justify-content: space-between;
+   margin-top: 15px;
+}
+
+/* Section 4: Tracklist Section */
+.tracklist-table {
+   width: 100%;
+   border-collapse: collapse;
+}
+
+.tracklist-table th, .tracklist-table td {
+   border: 1px solid #ddd;
+   padding: 8px;
+   text-align: left;
+}
+
+.tracklist-table tr.youtube {
+   background-color: #ffdddd;
+}
+
+.tracklist-table tr.spotify {
+   background-color: #ddffdd;
+}
+
+.tracklist-table tr.applemusic {
+   background-color: #f1f1f1;
+}
+
+.form-container .btn {
+   background-color: #4CAF50;
+   color: white;
+   padding: 10px 20px;
+   border: none;
+   cursor: pointer;
+}
+
+#add_tracklist_button {
+   margin-top: 20px;
+   padding: 10px 15px;
+   background-color: #28a745;
+   color: white;
+   border: none;
+   cursor: pointer;
+}
+
+/* Section 5: Credits Section */
+.credits-table {
+   width: 100%;
+   border-collapse: collapse;
+}
+
+.credits-table th, .credits-table td {
+   border: 1px solid #ddd;
+   padding: 8px;
+   text-align: left;
+}
+
+#add_credit_button {
+   margin-top: 20px;
+   padding: 10px 15px;
+   background-color: #28a745;
+   color: white;
+   border: none;
+   cursor: pointer;
+}
+
+/* Section 6: Product Statistics Styling */
 #product_statistics_section {
    margin-top: 4rem;
    text-align: center;
