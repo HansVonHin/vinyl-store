@@ -74,6 +74,49 @@ if (isset($_POST['add_product'])) {
     }
 }
 
+// Handle Add Artist
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_artist'])) {
+    $artist_name = $mysqli->real_escape_string($_POST['artist_name']);
+    $bio = $mysqli->real_escape_string($_POST['bio']);
+    
+    $sql = "INSERT INTO artists (artist_name, bio) VALUES ('$artist_name', '$bio')";
+    
+    if ($mysqli->query($sql) === TRUE) {
+        echo "New artist added successfully";
+    } else {
+        echo "Error: " . $sql;
+    }
+}
+
+// Handle Add Tracklist
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['tracklist_url'])) {
+    $platform = $mysqli->real_escape_string($_POST['platform']);
+    $tracklist_url = $mysqli->real_escape_string($_POST['tracklist_url']);
+    
+    $sql = "INSERT INTO media_tracklists (platform, tracklist_url) VALUES ('$platform', '$tracklist_url')";
+    
+    if ($mysqli->query($sql) === TRUE) {
+        echo "New tracklist added successfully";
+    } else {
+        echo "Error: " . $sql;
+    }
+}
+
+// Handle Add Credits
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['credit_type'])) {
+    $product_id = (int)$_POST['product_id'];
+    $artist_id = (int)$_POST['artist_id'];
+    $credit_type = $mysqli->real_escape_string($_POST['credit_type']);
+    
+    $sql = "INSERT INTO media_credits (product_id, artist_id, credit_type) VALUES ($product_id, $artist_id, '$credit_type')";
+    
+    if ($mysqli->query($sql) === TRUE) {
+        echo "Credit assigned successfully";
+    } else {
+        echo "Error: " . $sql;
+    }
+}
+
 // Delete a product
 if (isset($_GET['delete'])) {
     $delete_id = $_GET['delete'];
@@ -309,7 +352,7 @@ $select_products->execute();
     </table>
 
     <!-- Add artist to product form -->
-    <button id="add_artist_button" onclick="toggleArtistForm()">Add Artist to Product</button>
+    <button id="toggleArtistButton">Assign Artist to Product</button><button id="toggleNewArtistButton">Add New Artist</button>
     <div id="artistForm" class="form-container hidden">
 
         <label for="product">Select Product</label>
@@ -328,10 +371,29 @@ $select_products->execute();
 
         <div class="btn-container">
             <a href="artists.php">
-                <button type="button" class="btn">Add Artist</button>
+                <button type="button" class="btn">Confirm</button>
             </a>
-            <button type="button" class="btn cancel" onclick="toggleArtistForm()">Close</button>
+            <button id="toggleArtistButton" class="btn cancel">Close</button>
         </div>
+    </div>
+    <div id="new_artistForm" class="form-container hidden">
+        <form action="" method="POST" enctype="multipart/form-data">
+            <div class="inputBox">
+                <span>Artist Name (Required)</span>
+                <input type="text" class="box" required maxlength="100" name="artist_name" placeholder="Enter artist name..." required>
+            </div>
+            <div class="inputBox">
+                <span>Artist Bio (Required)</span>
+                <textarea name="bio" placeholder="Enter artist bio..." required class="box" required maxlength="500" cols="30" rows="5"></textarea>
+            </div>
+            <?php if (isset($message)): ?>
+                <p><?= implode(', ', $message); ?></p>
+            <?php endif; ?>
+            <div class="btn-container">
+                    <button type="button" class="btn" name="add_artist">Add Artist</button>
+            <button id="toggleNewArtistButton" class="btn cancel">Close</button>
+            </div>
+        </form>
     </div>
 </section>
 
@@ -362,7 +424,7 @@ $select_products->execute();
     </table>
 
     <!-- Add tracklist form -->
-    <button id="add_tracklist_button" onclick="toggleTracklistForm()">Add Tracklist to Product</button>
+    <button id="toggleTracklistButton">Assign Tracklist to Product</button><button id="toggleNewTracklistButton">Add New Tracklist</button>
     <div id="tracklistForm" class="form-container hidden">
 
         <label for="product">Select Product</label>
@@ -386,8 +448,32 @@ $select_products->execute();
             <a href="tracklist.php">
                 <button type="submit" class="btn">Add Tracklist</button>
             </a>
-            <button type="button" class="btn cancel" onclick="toggleTracklistForm()">Close</button>
+            <button id="toggleTracklistButton" class="btn cancel">Close</button>
         </div>
+    </div>
+    <div id="new_tracklistForm" class="form-container hidden">
+        <form action="" method="POST">
+            <div class="inputBox">
+            <span>Platform (Required)</span>
+                <select name="platform" required>
+                    <option value="YouTube">YouTube</option>
+                    <option value="Spotify">Spotify</option>
+                    <option value="AppleMusic">AppleMusic</option>
+                </select>
+            </div>
+            <div class="inputBox">
+            <span>Tracklist URL (Required)</span>
+                <input type="url" name="tracklist_url" placeholder="Tracklist URL" required>
+            </div>
+
+        <?php if (isset($message)): ?>
+            <p><?= implode(', ', $message); ?></p>
+        <?php endif; ?>
+            <div class="btn-container">
+                    <button type="button" class="btn">Add Tracklist</button>
+            <button id="toggleNewTracklistButton" class="btn cancel">Close</button>
+            </div>
+        </form>
     </div>
 </section>
 
@@ -420,7 +506,7 @@ $select_products->execute();
     </table>
 
     <!-- Add credit form -->
-    <button id="add_credit_button" onclick="toggleCreditForm()">Add Credits to Product</button>
+    <button id="toggleCreditButton">Assign Credits to Product</button><button id="toggleNewCreditsButton">Add New Credits</button>
     <div id="creditForm" class="form-container hidden">
 
         <label for="product">Select Product</label>
@@ -444,8 +530,35 @@ $select_products->execute();
             <a href="credits.php">
                 <button type="submit" class="btn">Add Credit</button>
             </a>
-            <button type="button" class="btn cancel" onclick="toggleCreditForm()">Close</button>
+            <button id="toggleCreditButton" class="btn cancel">Close</button>
         </div>
+    </div>
+    <div id="new_creditsForm" class="form-container hidden">
+        <form action="" method="POST">
+        <div class="inputBox">
+        <span>Product ID (Required)</span>
+            <input type="number" name="product_id" placeholder="Product ID" required>
+        </div>
+        <div class="inputBox">
+        <span>Artist ID (Required)</span>
+            <input type="number" name="artist_id" placeholder="Artist ID" required>
+        </div>
+        <div class="inputBox">
+        <span>Credit Type (Required)</span>
+            <select name="credit_type" required>
+                <option value="songwriter">Songwriter</option>
+                <option value="producer">Producer</option>
+            </select>
+        </div>
+
+        <?php if (isset($message)): ?>
+            <p><?= implode(', ', $message); ?></p>
+        <?php endif; ?>
+            <div class="btn-container">
+                    <button type="button" class="btn">Add Tracklist</button>
+            <button id="toggleNewCreditsButton" class="btn cancel">Close</button>
+            </div>
+        </form>
     </div>
 </section>
 
@@ -558,38 +671,52 @@ function sortProducts() {
     });
 }
 
-function toggleArtistForm() {
-    var form = document.getElementById("artistForm");
-    if (form.classList.contains("open")) {
-        form.classList.remove("open");
-        form.classList.add("hidden");
-    } else {
+function toggleForm(formId) {
+    // Array of all form elements
+    var forms = [
+        document.getElementById("artistForm"),
+        document.getElementById("new_artistForm"),
+        document.getElementById("tracklistForm"),
+        document.getElementById("new_tracklistForm"),
+        document.getElementById("creditForm"),
+        document.getElementById("new_creditsForm")
+    ];
+    
+    // Loop through all forms and close them
+    forms.forEach(function(form) {
+        if (form && form.classList.contains("open")) {
+            form.classList.remove("open");
+            form.classList.add("hidden");
+        }
+    });
+    
+    // Toggle the clicked form
+    var form = document.getElementById(formId);
+    if (form.classList.contains("hidden")) {
         form.classList.remove("hidden");
         form.classList.add("open");
     }
 }
 
-function toggleTracklistForm() {
-    var form = document.getElementById("tracklistForm");
-    if (form.classList.contains("open")) {
-        form.classList.remove("open");
-        form.classList.add("hidden");
-    } else {
-        form.classList.remove("hidden");
-        form.classList.add("open");
-    }
-}
-
-function toggleCreditForm() {
-    var form = document.getElementById("creditForm");
-    if (form.classList.contains("open")) {
-        form.classList.remove("open");
-        form.classList.add("hidden");
-    } else {
-        form.classList.remove("hidden");
-        form.classList.add("open");
-    }
-}
+// Assign this function to buttons
+document.getElementById("toggleArtistButton").onclick = function() {
+    toggleForm("artistForm");
+};
+document.getElementById("toggleNewArtistButton").onclick = function() {
+    toggleForm("new_artistForm");
+};
+document.getElementById("toggleTracklistButton").onclick = function() {
+    toggleForm("tracklistForm");
+};
+document.getElementById("toggleNewTracklistButton").onclick = function() {
+    toggleForm("new_tracklistForm");
+};
+document.getElementById("toggleCreditButton").onclick = function() {
+    toggleForm("creditForm");
+};
+document.getElementById("toggleNewCreditsButton").onclick = function() {
+    toggleForm("new_creditsForm");
+};
 
 function updateTracklistStyle(platform) {
     const form = document.getElementById("tracklistForm");
@@ -602,6 +729,18 @@ function updateTracklistStyle(platform) {
     }
 }
 
+var count = 1;
+    function setColor(btn, color) {
+        var property = document.getElementById(btn);
+        if (count == 0) {
+            property.style.backgroundColor = "#FFFFFF"
+            count = 1;        
+        }
+        else {
+            property.style.backgroundColor = "#7FFF00"
+            count = 0;
+        }
+    }
 </script>
 
 <script src="../Vinyl-Store/js/admin_script.js"></script>

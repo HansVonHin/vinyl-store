@@ -738,13 +738,18 @@ h1 {
    text-align: left;
 }
 
-#add_artist_button {
+#toggleArtistButton, #toggleNewArtistButton {
    margin-top: 20px;
    padding: 10px 15px;
    background-color: #28a745;
    color: white;
    border: none;
    cursor: pointer;
+}
+
+#toggleArtistButton:hover, #toggleNewArtistButton:hover {
+   background-color: var(--black);
+   transition: background-color 0.5s ease-in;
 }
 
 /* Popup Form */
@@ -816,9 +821,70 @@ h1 {
    text-align: center;
 }
 
-.artist_section, .tracklist_section, .credits_section .btn.cancel {
+#artistForm .btn.cancel, #tracklistForm .btn.cancel, #creditForm .btn.cancel {
    background-color: #f44336;
    margin-left: 4%; /* Space between the two buttons */
+}
+
+#new_artistForm {
+   width: 0%;
+}
+
+#new_artistForm .form-container, #new_tracklistForm .form-container, #new_creditsForm .form-container {
+   margin: 20px 0;
+   padding: 20px;
+   border: 1px solid #ddd;
+   background-color: var(--white);
+   max-width: 100%; /* Full width */
+   display: none;
+   transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out;
+   opacity: 0;
+}
+
+#new_artistForm .form-container.open, #new_tracklistForm .form-container.open, #new_creditsForm .form-container.open {
+   display: block;
+   opacity: 1;
+   max-height: 500px; /* Adjust based on content */
+}
+
+#new_artistForm form .inputBox, #new_tracklistForm form .inputBox, #new_creditsForm form .inputBox {
+   margin-bottom: 10px;
+}
+
+#new_artistForm form .inputBox span, #new_tracklistForm form .inputBox span, #new_creditsForm form .inputBox span {
+   display: block;
+   font-size: 1.6rem;
+}
+
+#new_artistForm .inputBox .box, #new_tracklistForm .inputBox .box, #new_creditsForm .inputBox .box {
+   width: 100%; /* Full width */
+   padding: 8px;
+   margin-bottom: 10px;
+   border: 1px solid #ccc;
+   border-radius: 4px;
+   box-sizing: border-box;
+}
+
+#new_tracklistForm {
+   width: 0%;
+}
+
+#new_creditsForm {
+   width: 0%;
+}
+
+#new_tracklistForm .btn-container .btn {
+   padding: 10px;
+   background-color: #4CAF50;
+   color: white;
+   border: none;
+   cursor: pointer;
+   display: inline-block;
+   width: 47%;
+}
+
+#new_artistForm .btn.cancel, #new_tracklistForm .btn.cancel, #new_creditsForm .btn.cancel {
+   background-color: #f44336;
 }
 
 /* Smooth transition helper class */
@@ -830,6 +896,8 @@ h1 {
    background-color: var(--white);
    display: block;
    transition: max-height 0.4s ease, opacity 0.4s ease;
+   visibility: hidden;
+   pointer-events: none;
 }
 
 .hidden h2 {
@@ -881,6 +949,7 @@ h1 {
 }
 
 .open {
+   min-height: auto;
    max-height: 500px; /* Adjust based on content size */
    opacity: 1;
    border-radius: .5rem;
@@ -976,13 +1045,18 @@ h1 {
    cursor: pointer;
 }
 
-#add_tracklist_button {
+#toggleTracklistButton, #toggleNewTracklistButton {
    margin-top: 20px;
    padding: 10px 15px;
    background-color: #28a745;
    color: white;
    border: none;
    cursor: pointer;
+}
+
+#toggleTracklistButton:hover, #toggleNewTracklistButton:hover {
+   background-color: var(--black);
+   transition: background-color 0.5s ease-in;
 }
 
 /* Section 5: Credits Section */
@@ -997,13 +1071,53 @@ h1 {
    text-align: left;
 }
 
-#add_credit_button {
+#toggleCreditButton, #toggleNewCreditsButton {
    margin-top: 20px;
    padding: 10px 15px;
    background-color: #28a745;
    color: white;
    border: none;
    cursor: pointer;
+}
+
+#toggleCreditButton:hover, #toggleNewCreditsButton:hover {
+   background-color: var(--black);
+   transition: background-color 0.5s ease-in;
+}
+
+/* Artists, Tracklists, and Credits table */
+.list-section, .artists-table, .tracklist-table, .credits-table {
+   width: 100%;
+   border-collapse: collapse;
+   margin-bottom: 2rem;
+}
+
+.list-section h2 {
+   font-size: 22px; /* Increased size */
+   margin-bottom: 15px;
+}
+
+.list-section th, .artists-table th, .tracklist-table th, .credits-table th
+.list-section td, .artists-table td, .tracklist-table td, .credits-table td {
+   text-align: left;
+   padding: 1.5rem;
+   border-bottom: 1px solid var(--border);
+}
+
+.list-section th, .artists-table th, .tracklist-table th, .credits-table th {
+   font-size: 1.8rem;
+   background-color: var(--main-color);
+   color: var(--white);
+}
+
+.list-section td, .artists-table td, .tracklist-table td, .credits-table td {
+   font-size: 1.6rem;
+   background-color: var(--light-bg);
+   color: var(--black);
+}
+
+.list-section tr:hover, .artists-table tr:hover, .tracklist-table tr:hover, .credits-table tr:hover {
+   background-color: var(--hover-bg);
 }
 
 /* Section 6: Product Statistics Styling */
