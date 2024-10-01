@@ -354,7 +354,7 @@ $select_products->execute();
     <!-- Add artist to product form -->
     <button id="toggleArtistButton">Assign Artist to Product</button><button id="toggleNewArtistButton">Add New Artist</button>
     <div id="artistForm" class="form-container hidden">
-
+        <form action="" method="POST" enctype="multipart/form-data">
         <label for="product">Select Product</label>
         <select id="product" name="product_id">
             <?php foreach ($products as $product): ?>
@@ -370,14 +370,13 @@ $select_products->execute();
         </select>
 
         <div class="btn-container">
-            <a href="artists.php">
-                <button type="button" class="btn">Confirm</button>
-            </a>
+            <input type="button" class="btn" value="Confirm" name="assign_artist">
             <button id="toggleArtistButton" class="btn cancel">Close</button>
         </div>
+        </form>
     </div>
     <div id="new_artistForm" class="form-container hidden">
-        <form action="" method="POST" enctype="multipart/form-data">
+        <form action="" method="POST">
             <div class="inputBox">
                 <span>Artist Name (Required)</span>
                 <input type="text" class="box" required maxlength="100" name="artist_name" placeholder="Enter artist name..." required>
@@ -390,7 +389,7 @@ $select_products->execute();
                 <p><?= implode(', ', $message); ?></p>
             <?php endif; ?>
             <div class="btn-container">
-                    <button type="button" class="btn" name="add_artist">Add Artist</button>
+                    <input type="button" class="btn" value="Add Artist" name="add_artist">
             <button id="toggleNewArtistButton" class="btn cancel">Close</button>
             </div>
         </form>
@@ -426,7 +425,7 @@ $select_products->execute();
     <!-- Add tracklist form -->
     <button id="toggleTracklistButton">Assign Tracklist to Product</button><button id="toggleNewTracklistButton">Add New Tracklist</button>
     <div id="tracklistForm" class="form-container hidden">
-
+        <form action="" method="POST">
         <label for="product">Select Product</label>
         <select id="product" name="product_id">
             <?php foreach ($products as $product): ?>
@@ -445,11 +444,10 @@ $select_products->execute();
         <input type="text" id="tracklist_url" name="tracklist_url" required>
 
         <div class="btn-container">
-            <a href="tracklist.php">
-                <button type="submit" class="btn">Add Tracklist</button>
-            </a>
+            <input type="submit" class="btn" value="Confirm" name="assign_tracklist">
             <button id="toggleTracklistButton" class="btn cancel">Close</button>
         </div>
+        </form>
     </div>
     <div id="new_tracklistForm" class="form-container hidden">
         <form action="" method="POST">
@@ -470,7 +468,7 @@ $select_products->execute();
             <p><?= implode(', ', $message); ?></p>
         <?php endif; ?>
             <div class="btn-container">
-                    <button type="button" class="btn">Add Tracklist</button>
+                    <input type="button" class="btn" value="Add Tracklist" name="add_tracklist"></input>
             <button id="toggleNewTracklistButton" class="btn cancel">Close</button>
             </div>
         </form>
@@ -508,7 +506,7 @@ $select_products->execute();
     <!-- Add credit form -->
     <button id="toggleCreditButton">Assign Credits to Product</button><button id="toggleNewCreditsButton">Add New Credits</button>
     <div id="creditForm" class="form-container hidden">
-
+        <form action="" method="POST">
         <label for="product">Select Product</label>
         <select id="product" name="product_id">
             <?php foreach ($products as $product): ?>
@@ -527,11 +525,10 @@ $select_products->execute();
         <input type="text" id="credit_type" name="credit_type" required>
 
         <div class="btn-container">
-            <a href="credits.php">
-                <button type="submit" class="btn">Add Credit</button>
-            </a>
+            <input type="submit" class="btn" value="Confirm" name="assign_credits">
             <button id="toggleCreditButton" class="btn cancel">Close</button>
         </div>
+        </form>
     </div>
     <div id="new_creditsForm" class="form-container hidden">
         <form action="" method="POST">
@@ -555,7 +552,7 @@ $select_products->execute();
             <p><?= implode(', ', $message); ?></p>
         <?php endif; ?>
             <div class="btn-container">
-                    <button type="button" class="btn">Add Tracklist</button>
+                    <input type="button" class="btn" value="Add Credits" name="add_credits">
             <button id="toggleNewCreditsButton" class="btn cancel">Close</button>
             </div>
         </form>

@@ -826,11 +826,16 @@ h1 {
    margin-left: 4%; /* Space between the two buttons */
 }
 
-#new_artistForm {
+#creditForm, #artistForm, #tracklistForm, #new_artistForm {
    width: 0%;
 }
 
-#new_artistForm .form-container, #new_tracklistForm .form-container, #new_creditsForm .form-container {
+#artistForm .form-container, 
+#tracklistForm .form-container, 
+#creditsForm .form-container, 
+#new_artistForm .form-container, 
+#new_tracklistForm .form-container, 
+#new_creditsForm .form-container {
    margin: 20px 0;
    padding: 20px;
    border: 1px solid #ddd;
@@ -841,22 +846,42 @@ h1 {
    opacity: 0;
 }
 
-#new_artistForm .form-container.open, #new_tracklistForm .form-container.open, #new_creditsForm .form-container.open {
+#artistForm .form-container.open, 
+#tracklistForm .form-container.open, 
+#creditsForm .form-container.open, 
+#new_artistForm .form-container.open, 
+#new_tracklistForm .form-container.open, 
+#new_creditsForm .form-container.open {
    display: block;
    opacity: 1;
    max-height: 500px; /* Adjust based on content */
 }
 
-#new_artistForm form .inputBox, #new_tracklistForm form .inputBox, #new_creditsForm form .inputBox {
+#artistForm form .inputBox,
+#tracklistForm form .inputBox, 
+#creditsForm form .inputBox,
+#new_artistForm form .inputBox, 
+#new_tracklistForm form .inputBox, 
+#new_creditsForm form .inputBox {
    margin-bottom: 10px;
 }
 
-#new_artistForm form .inputBox span, #new_tracklistForm form .inputBox span, #new_creditsForm form .inputBox span {
+#artistForm form .inputBox span,
+#tracklistForm form .inputBox span,
+#creditsForm form .inputBox span, 
+#new_artistForm form .inputBox span, 
+#new_tracklistForm form .inputBox span, 
+#new_creditsForm form .inputBox span {
    display: block;
    font-size: 1.6rem;
 }
 
-#new_artistForm .inputBox .box, #new_tracklistForm .inputBox .box, #new_creditsForm .inputBox .box {
+#artistForm form .inputBox .box,
+#tracklistForm form .inputBox .box,
+#creditsForm form .inputBox .box,
+#new_artistForm .inputBox .box, 
+#new_tracklistForm .inputBox .box, 
+#new_creditsForm .inputBox .box {
    width: 100%; /* Full width */
    padding: 8px;
    margin-bottom: 10px;
