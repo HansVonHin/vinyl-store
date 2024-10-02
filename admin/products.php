@@ -214,6 +214,42 @@ $select_products = $conn->prepare("
     LEFT JOIN `inventory` i ON p.id = i.product_id
 ");
 $select_products->execute();
+
+$rows_per_page = isset($_GET['rows']) ? (int)$_GET['rows'] : 10;
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$offset = ($page - 1) * $rows_per_page;
+
+$credits_query = $conn->prepare("SELECT credit_id, credit_name, credit_type FROM media_credits LIMIT $offset, $rows_per_page");
+$credits_query->execute();
+$credits = $credits_query->fetchAll(PDO::FETCH_ASSOC);
+
+// Get the total number of credits for pagination controls
+$total_credits_query = $conn->query("SELECT COUNT(*) FROM media_credits");
+$total_credits = $total_credits_query->fetchColumn();
+$total_pages = ceil($total_credits / $rows_per_page);
+
+$sort = isset($_GET['sort']) ? $_GET['sort'] : 'newest';
+$order_by = '';
+
+switch ($sort) {
+    case 'newest':
+        $order_by = 'credit_id DESC';
+        break;
+    case 'oldest':
+        $order_by = 'credit_id ASC';
+        break;
+    case 'az':
+        $order_by = 'credit_name ASC';
+        break;
+    case 'za':
+        $order_by = 'credit_name DESC';
+        break;
+}
+
+$credits_query = $conn->prepare("SELECT credit_id, credit_name, credit_type FROM media_credits ORDER BY $order_by LIMIT $offset, $rows_per_page");
+$credits_query->execute();
+$credits = $credits_query->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
@@ -242,6 +278,8 @@ $select_products->execute();
             <select id="sort" name="sort" onchange="sortProducts()">
                 <option value="new">Newest</option>
                 <option value="old">Oldest</option>
+                <option value="az">A-Z</option>
+                <option value="za">Z-A</option>
             </select>
         </div>
         <table class="products-table">
@@ -380,6 +418,7 @@ $select_products->execute();
 </section>
 
 <!-- Section 3: Artist Management -->
+<div class="clearfix">
 <section id="artist_section">
     <h1 class="heading">Manage Artists</h1>
     <table class="artists-table">
@@ -529,6 +568,16 @@ $select_products->execute();
 <!-- Section 4: Credits Management -->
 <section id="credits_section">
     <h1 class="heading">Manage Credits</h1>
+    
+    <input type="text" id="searchBox" onkeyup="searchCredits()" placeholder="Search credits...">
+    
+    <select id="sort" onchange="sortCredits()">
+        <option value="newest">Newest</option>
+        <option value="oldest">Oldest</option>
+        <option value="az">A-Z</option>
+        <option value="za">Z-A</option>
+    </select>
+
     <table class="credits-table">
         <thead>
             <tr>
@@ -551,6 +600,24 @@ $select_products->execute();
         <?php endif; ?>
         </tbody>
     </table>
+    <div>
+        <label for="rows">Show </label>
+        <select id="rows" onchange="setRowsPerPage()">
+            <option value="10">10</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+        </select>
+        rows per page
+    </div>
+    <div>
+        <?php if ($page > 1): ?>
+            <a href="?rows=<?= $rows_per_page ?>&page=<?= $page - 1 ?>">Previous</a>
+        <?php endif; ?>
+    
+        <?php if ($page < $total_pages): ?>
+            <a href="?rows=<?= $rows_per_page ?>&page=<?= $page + 1 ?>">Next</a>
+        <?php endif; ?>
+    </div>
 
     <!-- Add credit form -->
     <button id="toggleCreditButton">Assign Credits to Product</button><button id="toggleNewCreditsButton">Add New Credits</button>
@@ -660,7 +727,7 @@ $select_products->execute();
     })); ?></p>
 </section>
 </div>
-
+</div>
 <script>
 // Function to toggle media/non-media fields
 function toggleFields() {
@@ -779,6 +846,36 @@ var count = 1;
             count = 0;
         }
     }
+    
+function setRowsPerPage() {
+    var rows = document.getElementById("rows").value;
+    window.location.href = "?rows=" + rows + "&page=1";
+}
+
+function searchCredits() {
+    var input = document.getElementById('searchBox');
+    var filter = input.value.toLowerCase();
+    var table = document.getElementById('credits_list');
+    var rows = table.getElementsByTagName('tr');
+    
+    for (var i = 0; i < rows.length; i++) {
+        var creditName = rows[i].getElementsByTagName('td')[1]; // Get the credit_name column
+        if (creditName) {
+            var txtValue = creditName.textContent || creditName.innerText;
+            if (txtValue.toLowerCase().indexOf(filter) > -1) {
+                rows[i].style.display = "";
+            } else {
+                rows[i].style.display = "none";
+            }
+        }       
+    }
+}
+
+//function sortCredits() {
+    //var sort = document.getElementById("sort").value;
+    //window.location.href = "?sort=" + sort;
+//}
+
 </script>
 
 <script src="../Vinyl-Store/js/admin_script.js"></script>

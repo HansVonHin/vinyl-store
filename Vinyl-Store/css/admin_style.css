@@ -62,6 +62,12 @@ section{
    margin:0 auto;
 }
 
+.clearfix::after {
+   content: "";
+   clear: both;
+   display: table;
+}
+
 .heading{
    font-size: 4rem;
    color:var(--black);
