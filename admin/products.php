@@ -111,7 +111,7 @@ if (isset($_POST['add_tracklist'])) {
 }
 
 // Add a new credit
-if (isset($_POST['add_credit'])) {
+if (isset($_POST['add_credits'])) {
     $credit_name = filter_var($_POST['credit_name'], FILTER_SANITIZE_STRING);
     $credit_type = filter_var($_POST['credit_type'], FILTER_SANITIZE_STRING);
 
@@ -415,7 +415,7 @@ $select_products->execute();
             <?php foreach ($artists as $artist): ?>
             <tr>
                 <td><?= $artist['id']; ?></td>
-                <td><?= $artist['name']; ?></td>
+                <td><?= $artist['artist_name']; ?></td>
                 <td><?= $artist['bio']; ?></td>
             </tr>
             <?php endforeach; ?>
@@ -463,7 +463,7 @@ $select_products->execute();
                 <p><?= implode(', ', $message); ?></p>
             <?php endif; ?>
             <div class="btn-container">
-                    <input type="button" class="btn" value="Add Artist" name="add_artist">
+                    <input type="submit" class="btn" value="Add Artist" name="add_artist">
             <button id="toggleNewArtistButton" class="btn cancel">Close</button>
             </div>
         </form>
@@ -542,7 +542,7 @@ $select_products->execute();
             <p><?= implode(', ', $message); ?></p>
         <?php endif; ?>
             <div class="btn-container">
-                    <input type="button" class="btn" value="Add Tracklist" name="add_tracklist"></input>
+                    <input type="submit" class="btn" value="Add Tracklist" name="add_tracklist"></input>
             <button id="toggleNewTracklistButton" class="btn cancel">Close</button>
             </div>
         </form>
@@ -556,9 +556,8 @@ $select_products->execute();
         <thead>
             <tr>
                 <th>Credit ID</th>
-                <th>Product Name</th>
+                <th>Credit Name</th>
                 <th>Credit Type</th>
-                <th>Artist Name</th>
             </tr>
         </thead>
         <tbody id="credits_list">
@@ -566,9 +565,8 @@ $select_products->execute();
             <?php foreach ($credits as $credit): ?>
             <tr>
                 <td><?= $credit['id']; ?></td>
-                <td><?= $credit['product_name']; ?></td>
+                <td><?= $credit['credit_name']; ?></td>
                 <td><?= $credit['credit_type']; ?></td>
-                <td><?= $credit['artist_name']; ?></td>
             </tr>
             <?php endforeach; ?>
         <?php else: ?>
@@ -607,17 +605,9 @@ $select_products->execute();
     <div id="new_creditsForm" class="form-container hidden">
         <form action="" method="POST">
         <div class="inputBox">
-        <span>Product ID (Required)</span>
-            <input type="number" name="product_id" placeholder="Product ID" required>
+            <span>Credit Name (Required)</span>
+            <input type="text" class="box" required maxlength="100" name="credit_name" placeholder="Enter artist name..." required>
         </div>
-        <div class="inputBox">
-        <span>Artist ID (Required)</span>
-            <input type="number" name="artist_id" placeholder="Artist ID" required>
-        </div>
-        <div class="inputBox">
-                <span>Credit Name (Required)</span>
-                <input type="text" class="box" required maxlength="100" name="credit_name" placeholder="Enter artist name..." required>
-            </div>
         <div class="inputBox">
         <span>Credit Type (Required)</span>
             <select name="credit_type" required>
@@ -625,12 +615,11 @@ $select_products->execute();
                 <option value="producer">Producer</option>
             </select>
         </div>
-
         <?php if (isset($message)): ?>
             <p><?= implode(', ', $message); ?></p>
         <?php endif; ?>
             <div class="btn-container">
-                    <input type="button" class="btn" value="Add Credits" name="add_credits">
+                    <input type="submit" class="btn" value="Add Credits" name="add_credits">
             <button id="toggleNewCreditsButton" class="btn cancel">Close</button>
             </div>
         </form>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 29, 2024 at 08:38 PM
+-- Generation Time: Oct 02, 2024 at 05:20 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -52,6 +52,13 @@ CREATE TABLE `artists` (
   `artist_name` varchar(255) DEFAULT NULL,
   `bio` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `artists`
+--
+
+INSERT INTO `artists` (`id`, `artist_name`, `bio`) VALUES
+(1, 'The Beatles', 'Legendary British rock band formed in Liverpool');
 
 -- --------------------------------------------------------
 
@@ -136,9 +143,17 @@ CREATE TABLE `inventory` (
 CREATE TABLE `media_credits` (
   `id` int(11) NOT NULL,
   `product_id` int(11) DEFAULT NULL,
+  `credit_name` varchar(255) NOT NULL,
   `credit_type` enum('songwriter','producer') DEFAULT NULL,
   `artist_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `media_credits`
+--
+
+INSERT INTO `media_credits` (`id`, `product_id`, `credit_name`, `credit_type`, `artist_id`) VALUES
+(3, NULL, 'George Martin', 'producer', NULL);
 
 -- --------------------------------------------------------
 
@@ -152,6 +167,13 @@ CREATE TABLE `media_tracklists` (
   `platform` enum('YouTube','Spotify','AppleMusic') DEFAULT NULL,
   `tracklist_url` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `media_tracklists`
+--
+
+INSERT INTO `media_tracklists` (`id`, `product_id`, `platform`, `tracklist_url`) VALUES
+(1, NULL, 'Spotify', 'https://open.spotify.com/album/0ETFjACtuP2ADo6LFhL6HN');
 
 -- --------------------------------------------------------
 
@@ -401,7 +423,7 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT for table `artists`
 --
 ALTER TABLE `artists`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `cart`
@@ -431,13 +453,13 @@ ALTER TABLE `inventory`
 -- AUTO_INCREMENT for table `media_credits`
 --
 ALTER TABLE `media_credits`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `media_tracklists`
 --
 ALTER TABLE `media_tracklists`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `media_types`
