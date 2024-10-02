@@ -74,46 +74,120 @@ if (isset($_POST['add_product'])) {
     }
 }
 
-// Handle Add Artist
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_artist'])) {
-    $artist_name = $mysqli->real_escape_string($_POST['artist_name']);
-    $bio = $mysqli->real_escape_string($_POST['bio']);
-    
-    $sql = "INSERT INTO artists (artist_name, bio) VALUES ('$artist_name', '$bio')";
-    
-    if ($mysqli->query($sql) === TRUE) {
-        echo "New artist added successfully";
+// Add a new artist
+if (isset($_POST['add_artist'])) {
+    $artist_name = filter_var($_POST['artist_name'], FILTER_SANITIZE_STRING);
+    $bio = filter_var($_POST['bio'], FILTER_SANITIZE_STRING);
+
+    // Check if the artist already exists
+    $select_artists = $conn->prepare("SELECT * FROM `artists` WHERE artist_name = ?");
+    $select_artists->execute([$artist_name]);
+
+    if ($select_artists->rowCount() > 0) {
+        $message[] = 'Artist Already Exists!';
     } else {
-        echo "Error: " . $sql;
+        // Insert new artist
+        $insert_artist = $conn->prepare("INSERT INTO `artists` (artist_name, bio) VALUES (?, ?)");
+        $insert_artist->execute([$artist_name, $bio]);
+
+        if ($insert_artist) {
+            $message[] = 'New Artist Added!';
+        }
     }
 }
 
-// Handle Add Tracklist
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['tracklist_url'])) {
-    $platform = $mysqli->real_escape_string($_POST['platform']);
-    $tracklist_url = $mysqli->real_escape_string($_POST['tracklist_url']);
-    
-    $sql = "INSERT INTO media_tracklists (platform, tracklist_url) VALUES ('$platform', '$tracklist_url')";
-    
-    if ($mysqli->query($sql) === TRUE) {
-        echo "New tracklist added successfully";
-    } else {
-        echo "Error: " . $sql;
+// Add a new tracklist
+if (isset($_POST['add_tracklist'])) {
+    $platform = filter_var($_POST['platform'], FILTER_SANITIZE_STRING);
+    $tracklist_url = filter_var($_POST['tracklist_url'], FILTER_SANITIZE_URL);
+
+    // Insert new tracklist
+    $insert_tracklist = $conn->prepare("INSERT INTO `media_tracklists` (platform, tracklist_url) VALUES (?, ?)");
+    $insert_tracklist->execute([$platform, $tracklist_url]);
+
+    if ($insert_tracklist) {
+        $message[] = 'New Tracklist Added!';
     }
 }
 
-// Handle Add Credits
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['credit_type'])) {
-    $product_id = (int)$_POST['product_id'];
-    $artist_id = (int)$_POST['artist_id'];
-    $credit_type = $mysqli->real_escape_string($_POST['credit_type']);
-    
-    $sql = "INSERT INTO media_credits (product_id, artist_id, credit_type) VALUES ($product_id, $artist_id, '$credit_type')";
-    
-    if ($mysqli->query($sql) === TRUE) {
-        echo "Credit assigned successfully";
+// Add a new credit
+if (isset($_POST['add_credit'])) {
+    $credit_name = filter_var($_POST['credit_name'], FILTER_SANITIZE_STRING);
+    $credit_type = filter_var($_POST['credit_type'], FILTER_SANITIZE_STRING);
+
+    // Insert new credit
+    $insert_credit = $conn->prepare("INSERT INTO `media_credits` (credit_name, credit_type) VALUES (?, ?)");
+    $insert_credit->execute([$credit_name, $credit_type]);
+
+    if ($insert_credit) {
+        $message[] = 'New Credit Added!';
+    }
+}
+
+// Assign an artist to a product
+if (isset($_POST['assign_artist'])) {
+    $product_id = filter_var($_POST['product_id'], FILTER_SANITIZE_NUMBER_INT);
+    $artist_id = filter_var($_POST['artist_id'], FILTER_SANITIZE_NUMBER_INT);
+
+    // Check if assignment already exists
+    $select_assignment = $conn->prepare("SELECT * FROM `artists` WHERE product_id = ? AND artist_id = ?");
+    $select_assignment->execute([$product_id, $artist_id]);
+
+    if ($select_assignment->rowCount() > 0) {
+        $message[] = 'Artist Already Assigned to This Product!';
     } else {
-        echo "Error: " . $sql;
+        // Assign artist to product
+        $assign_artist = $conn->prepare("INSERT INTO `artists` (product_id, artist_id) VALUES (?, ?)");
+        $assign_artist->execute([$product_id, $artist_id]);
+
+        if ($assign_artist) {
+            $message[] = 'Artist Assigned to Product!';
+        }
+    }
+}
+
+// Assign a tracklist to a product
+if (isset($_POST['assign_tracklist'])) {
+    $product_id = filter_var($_POST['product_id'], FILTER_SANITIZE_NUMBER_INT);
+    $tracklist_id = filter_var($_POST['tracklist_id'], FILTER_SANITIZE_NUMBER_INT);
+
+    // Check if assignment already exists
+    $select_assignment = $conn->prepare("SELECT * FROM `media_tracklists` WHERE product_id = ? AND tracklist_id = ?");
+    $select_assignment->execute([$product_id, $tracklist_id]);
+
+    if ($select_assignment->rowCount() > 0) {
+        $message[] = 'Tracklist Already Assigned to This Product!';
+    } else {
+        // Assign tracklist to product
+        $assign_tracklist = $conn->prepare("INSERT INTO `media_tracklists` (product_id, tracklist_id) VALUES (?, ?)");
+        $assign_tracklist->execute([$product_id, $tracklist_id]);
+
+        if ($assign_tracklist) {
+            $message[] = 'Tracklist Assigned to Product!';
+        }
+    }
+}
+
+// Assign a credit to a product
+if (isset($_POST['assign_credit'])) {
+    $product_id = filter_var($_POST['product_id'], FILTER_SANITIZE_NUMBER_INT);
+    $artist_id = filter_var($_POST['artist_id'], FILTER_SANITIZE_NUMBER_INT);
+    $credit_id = filter_var($_POST['credit_id'], FILTER_SANITIZE_NUMBER_INT);
+
+    // Check if assignment already exists
+    $select_assignment = $conn->prepare("SELECT * FROM `media_credits` WHERE product_id = ? AND artist_id = ? AND credit_id = ?");
+    $select_assignment->execute([$product_id, $artist_id, $credit_id]);
+
+    if ($select_assignment->rowCount() > 0) {
+        $message[] = 'Credit Already Assigned to This Product!';
+    } else {
+        // Assign credit to product
+        $assign_credit = $conn->prepare("INSERT INTO `media_credits` (product_id, artist_id, credit_id) VALUES (?, ?, ?)");
+        $assign_credit->execute([$product_id, $artist_id, $credit_id]);
+
+        if ($assign_credit) {
+            $message[] = 'Credit Assigned to Product!';
+        }
     }
 }
 
@@ -540,6 +614,10 @@ $select_products->execute();
         <span>Artist ID (Required)</span>
             <input type="number" name="artist_id" placeholder="Artist ID" required>
         </div>
+        <div class="inputBox">
+                <span>Credit Name (Required)</span>
+                <input type="text" class="box" required maxlength="100" name="credit_name" placeholder="Enter artist name..." required>
+            </div>
         <div class="inputBox">
         <span>Credit Type (Required)</span>
             <select name="credit_type" required>
