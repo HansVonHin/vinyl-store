@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 02, 2024 at 05:20 PM
+-- Generation Time: Oct 02, 2024 at 08:32 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -48,7 +48,7 @@ INSERT INTO `admins` (`id`, `name`, `position`, `password`) VALUES
 --
 
 CREATE TABLE `artists` (
-  `id` int(11) NOT NULL,
+  `artist_id` int(11) NOT NULL,
   `artist_name` varchar(255) DEFAULT NULL,
   `bio` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -57,7 +57,7 @@ CREATE TABLE `artists` (
 -- Dumping data for table `artists`
 --
 
-INSERT INTO `artists` (`id`, `artist_name`, `bio`) VALUES
+INSERT INTO `artists` (`artist_id`, `artist_name`, `bio`) VALUES
 (1, 'The Beatles', 'Legendary British rock band formed in Liverpool');
 
 -- --------------------------------------------------------
@@ -141,7 +141,7 @@ CREATE TABLE `inventory` (
 --
 
 CREATE TABLE `media_credits` (
-  `id` int(11) NOT NULL,
+  `credit_id` int(11) NOT NULL,
   `product_id` int(11) DEFAULT NULL,
   `credit_name` varchar(255) NOT NULL,
   `credit_type` enum('songwriter','producer') DEFAULT NULL,
@@ -152,8 +152,8 @@ CREATE TABLE `media_credits` (
 -- Dumping data for table `media_credits`
 --
 
-INSERT INTO `media_credits` (`id`, `product_id`, `credit_name`, `credit_type`, `artist_id`) VALUES
-(3, NULL, 'George Martin', 'producer', NULL);
+INSERT INTO `media_credits` (`credit_id`, `product_id`, `credit_name`, `credit_type`, `artist_id`) VALUES
+(1, NULL, 'George Martin', 'producer', NULL);
 
 -- --------------------------------------------------------
 
@@ -162,18 +162,19 @@ INSERT INTO `media_credits` (`id`, `product_id`, `credit_name`, `credit_type`, `
 --
 
 CREATE TABLE `media_tracklists` (
-  `id` int(11) NOT NULL,
+  `tracklist_id` int(11) NOT NULL,
   `product_id` int(11) DEFAULT NULL,
   `platform` enum('YouTube','Spotify','AppleMusic') DEFAULT NULL,
-  `tracklist_url` varchar(255) DEFAULT NULL
+  `tracklist_url` varchar(255) DEFAULT NULL,
+  `tracklist_name` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `media_tracklists`
 --
 
-INSERT INTO `media_tracklists` (`id`, `product_id`, `platform`, `tracklist_url`) VALUES
-(1, NULL, 'Spotify', 'https://open.spotify.com/album/0ETFjACtuP2ADo6LFhL6HN');
+INSERT INTO `media_tracklists` (`tracklist_id`, `product_id`, `platform`, `tracklist_url`, `tracklist_name`) VALUES
+(1, NULL, 'Spotify', 'https://open.spotify.com/album/0ETFjACtuP2ADo6LFhL6HN', 'Abbey Road (Remastered)');
 
 -- --------------------------------------------------------
 
@@ -259,10 +260,10 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `details`, `price`, `image_01`, `image_02`, `image_03`, `genre_id`, `media_type_id`, `vinyl_size`, `category_id`, `release_date`, `inventory_status`, `quantity`) VALUES
-(9, 'Abbey Road', 'test', 6665, 'abbey-road-1.jpg', 'abbey-road-2.jpg', 'abbey-road-3.jpg', 1, 1, '12', NULL, '2024-09-28', 'in stock', 50),
-(12, 'Pro-Ject Debut Carbon EVO', 'test', 33605, 'pro-ject-1.jpg', 'pro-ject-2.jpg', 'pro-ject-3.jpg', NULL, NULL, NULL, 1, '2024-09-28', 'in stock', 5),
-(13, 'Dark Side of the Moon', 'Pink Floyd Legendary Album', 3200, 'dark-side-1.jpg', 'dark-side-2.jpg', 'dark-side-3.jpg', 2, 1, '12', NULL, '2024-09-29', 'in stock', 30),
-(16, 'Back in Black', 'AC/DC Hit Album', 2800, 'back-in-black-1.jpg', 'back-in-black-2.jpg', 'back-in-black-3.jpg', 1, 1, '12', NULL, '2024-09-30', 'in stock', 40);
+(1, 'Abbey Road', 'test', 6665, 'abbey-road-1.jpg', 'abbey-road-2.jpg', 'abbey-road-3.jpg', 1, 1, '12', NULL, '2024-09-28', 'in stock', 50),
+(2, 'Dark Side of the Moon', 'Pink Floyd Legendary Album', 3200, 'dark-side-1.jpg', 'dark-side-2.jpg', 'dark-side-3.jpg', 2, 1, '12', NULL, '2024-09-29', 'in stock', 30),
+(3, 'Back in Black', 'AC/DC Hit Album', 2800, 'back-in-black-1.jpg', 'back-in-black-2.jpg', 'back-in-black-3.jpg', 1, 1, '12', NULL, '2024-09-30', 'in stock', 40),
+(4, 'Pro-Ject Debut Carbon EVO', 'test', 33605, 'pro-ject-1.jpg', 'pro-ject-2.jpg', 'pro-ject-3.jpg', NULL, NULL, NULL, 1, '2024-09-28', 'in stock', 5);
 
 -- --------------------------------------------------------
 
@@ -273,6 +274,24 @@ INSERT INTO `products` (`id`, `name`, `details`, `price`, `image_01`, `image_02`
 CREATE TABLE `product_artists` (
   `product_id` int(11) DEFAULT NULL,
   `artist_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `product_artists`
+--
+
+INSERT INTO `product_artists` (`product_id`, `artist_id`) VALUES
+(1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_credits`
+--
+
+CREATE TABLE `product_credits` (
+  `product_id` int(11) DEFAULT NULL,
+  `credits_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -321,7 +340,7 @@ ALTER TABLE `admins`
 -- Indexes for table `artists`
 --
 ALTER TABLE `artists`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`artist_id`);
 
 --
 -- Indexes for table `cart`
@@ -352,7 +371,7 @@ ALTER TABLE `inventory`
 -- Indexes for table `media_credits`
 --
 ALTER TABLE `media_credits`
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`credit_id`),
   ADD KEY `product_id` (`product_id`),
   ADD KEY `artist_id` (`artist_id`);
 
@@ -360,8 +379,8 @@ ALTER TABLE `media_credits`
 -- Indexes for table `media_tracklists`
 --
 ALTER TABLE `media_tracklists`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `product_id` (`product_id`);
+  ADD PRIMARY KEY (`tracklist_id`),
+  ADD KEY `media_tracklists_ibfk_1` (`product_id`);
 
 --
 -- Indexes for table `media_types`
@@ -398,6 +417,13 @@ ALTER TABLE `product_artists`
   ADD KEY `artist_id` (`artist_id`);
 
 --
+-- Indexes for table `product_credits`
+--
+ALTER TABLE `product_credits`
+  ADD KEY `product_credits_ibfk_1` (`credits_id`),
+  ADD KEY `product_credits_ibfk_2` (`product_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -423,7 +449,7 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT for table `artists`
 --
 ALTER TABLE `artists`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `artist_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `cart`
@@ -453,13 +479,13 @@ ALTER TABLE `inventory`
 -- AUTO_INCREMENT for table `media_credits`
 --
 ALTER TABLE `media_credits`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `credit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 
 --
 -- AUTO_INCREMENT for table `media_tracklists`
 --
 ALTER TABLE `media_tracklists`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `tracklist_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `media_types`
@@ -512,7 +538,7 @@ ALTER TABLE `inventory`
 --
 ALTER TABLE `media_credits`
   ADD CONSTRAINT `media_credits_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `media_credits_ibfk_2` FOREIGN KEY (`artist_id`) REFERENCES `artists` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `media_credits_ibfk_2` FOREIGN KEY (`artist_id`) REFERENCES `artists` (`artist_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `media_tracklists`
@@ -533,7 +559,14 @@ ALTER TABLE `products`
 --
 ALTER TABLE `product_artists`
   ADD CONSTRAINT `product_artists_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
-  ADD CONSTRAINT `product_artists_ibfk_2` FOREIGN KEY (`artist_id`) REFERENCES `artists` (`id`);
+  ADD CONSTRAINT `product_artists_ibfk_2` FOREIGN KEY (`artist_id`) REFERENCES `artists` (`artist_id`);
+
+--
+-- Constraints for table `product_credits`
+--
+ALTER TABLE `product_credits`
+  ADD CONSTRAINT `product_credits_ibfk_1` FOREIGN KEY (`credits_id`) REFERENCES `media_credits` (`credit_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `product_credits_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

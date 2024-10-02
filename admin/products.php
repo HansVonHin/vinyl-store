@@ -129,21 +129,9 @@ if (isset($_POST['assign_artist'])) {
     $product_id = filter_var($_POST['product_id'], FILTER_SANITIZE_NUMBER_INT);
     $artist_id = filter_var($_POST['artist_id'], FILTER_SANITIZE_NUMBER_INT);
 
-    // Check if assignment already exists
-    $select_assignment = $conn->prepare("SELECT * FROM `artists` WHERE product_id = ? AND artist_id = ?");
-    $select_assignment->execute([$product_id, $artist_id]);
-
-    if ($select_assignment->rowCount() > 0) {
-        $message[] = 'Artist Already Assigned to This Product!';
-    } else {
-        // Assign artist to product
-        $assign_artist = $conn->prepare("INSERT INTO `artists` (product_id, artist_id) VALUES (?, ?)");
-        $assign_artist->execute([$product_id, $artist_id]);
-
-        if ($assign_artist) {
-            $message[] = 'Artist Assigned to Product!';
-        }
-    }
+    $assign_artist = $conn->prepare("INSERT INTO `product_artists` (product_id, artist_id) VALUES (?, ?)");
+    $assign_artist->execute([$product_id, $artist_id]);
+    $message[] = 'Artist Assigned to Product (New Entry)!';
 }
 
 // Assign a tracklist to a product
@@ -151,44 +139,31 @@ if (isset($_POST['assign_tracklist'])) {
     $product_id = filter_var($_POST['product_id'], FILTER_SANITIZE_NUMBER_INT);
     $tracklist_id = filter_var($_POST['tracklist_id'], FILTER_SANITIZE_NUMBER_INT);
 
-    // Check if assignment already exists
-    $select_assignment = $conn->prepare("SELECT * FROM `media_tracklists` WHERE product_id = ? AND tracklist_id = ?");
-    $select_assignment->execute([$product_id, $tracklist_id]);
+    // Check if there is already a tracklist with NULL product_id
+    $select_null_tracklist = $conn->prepare("SELECT * FROM `media_tracklists` WHERE tracklist_id = ? AND product_id IS NULL");
+    $select_null_tracklist->execute([$tracklist_id]);
 
-    if ($select_assignment->rowCount() > 0) {
-        $message[] = 'Tracklist Already Assigned to This Product!';
+    if ($select_null_tracklist->rowCount() > 0) {
+        // Update the row with the NULL product_id
+        $update_tracklist = $conn->prepare("UPDATE `media_tracklists` SET product_id = ? WHERE tracklist_id = ? AND product_id IS NULL");
+        $update_tracklist->execute([$product_id, $tracklist_id]);
+        $message[] = 'Tracklist Assigned to Product (Updated NULL entry)!';
     } else {
-        // Assign tracklist to product
+        // Insert new if no existing NULL entry found
         $assign_tracklist = $conn->prepare("INSERT INTO `media_tracklists` (product_id, tracklist_id) VALUES (?, ?)");
         $assign_tracklist->execute([$product_id, $tracklist_id]);
-
-        if ($assign_tracklist) {
-            $message[] = 'Tracklist Assigned to Product!';
-        }
+        $message[] = 'Tracklist Assigned to Product (New Entry)!';
     }
 }
 
 // Assign a credit to a product
 if (isset($_POST['assign_credit'])) {
     $product_id = filter_var($_POST['product_id'], FILTER_SANITIZE_NUMBER_INT);
-    $artist_id = filter_var($_POST['artist_id'], FILTER_SANITIZE_NUMBER_INT);
     $credit_id = filter_var($_POST['credit_id'], FILTER_SANITIZE_NUMBER_INT);
 
-    // Check if assignment already exists
-    $select_assignment = $conn->prepare("SELECT * FROM `media_credits` WHERE product_id = ? AND artist_id = ? AND credit_id = ?");
-    $select_assignment->execute([$product_id, $artist_id, $credit_id]);
-
-    if ($select_assignment->rowCount() > 0) {
-        $message[] = 'Credit Already Assigned to This Product!';
-    } else {
-        // Assign credit to product
-        $assign_credit = $conn->prepare("INSERT INTO `media_credits` (product_id, artist_id, credit_id) VALUES (?, ?, ?)");
-        $assign_credit->execute([$product_id, $artist_id, $credit_id]);
-
-        if ($assign_credit) {
-            $message[] = 'Credit Assigned to Product!';
-        }
-    }
+    $assign_credit = $conn->prepare("INSERT INTO `product_credits` (product_id, credit_id) VALUES (?, ?)");
+    $assign_credit->execute([$product_id, $credit_id]);
+    $message[] = 'Credit Assigned to Product (New Entry)!';
 }
 
 // Delete a product
@@ -211,18 +186,23 @@ if (isset($_GET['delete'])) {
 $products = $conn->query("SELECT * FROM `products` ORDER BY id DESC")->fetchAll(PDO::FETCH_ASSOC);
 
 // Fetch artists
-$artists = $conn->query("SELECT * FROM `artists` ORDER BY id ASC")->fetchAll(PDO::FETCH_ASSOC);
+$artists = $conn->query("SELECT * FROM `artists` ORDER BY artist_id ASC")->fetchAll(PDO::FETCH_ASSOC);
+
+// Fetch product_artists
+$product_artists = $conn->query("SELECT * FROM `product_artists` ORDER BY artist_id ASC")->fetchAll(PDO::FETCH_ASSOC);
+
+// Fetch product_credits
+$product_credits = $conn->query("SELECT * FROM `product_credits` ORDER BY credit_id ASC")->fetchAll(PDO::FETCH_ASSOC);
 
 // Fetch tracklists
-$tracklists = $conn->query("SELECT * FROM `media_tracklists` ORDER BY id ASC")->fetchAll(PDO::FETCH_ASSOC);
+$media_tracklists = $conn->query("SELECT * FROM `media_tracklists` ORDER BY tracklist_id ASC")->fetchAll(PDO::FETCH_ASSOC);
 
 // Fetch credits
-$credits = $conn->query("
-    SELECT media_credits.id, products.id AS product_name, media_credits.credit_type, artists.id AS artist_name
+$media_credits = $conn->query("
+    SELECT media_credits.credit_id, products.id AS product_id, media_credits.credit_name, media_credits.credit_type, artists.artist_id AS artist_id
     FROM `media_credits`
     LEFT JOIN `products` ON media_credits.product_id = products.id
-    LEFT JOIN `artists` ON media_credits.artist_id = artists.id
-    ORDER BY media_credits.id ASC
+    LEFT JOIN `artists` ON media_credits.artist_id = artists.artist_id
 ")->fetchAll(PDO::FETCH_ASSOC);
 
 $select_products = $conn->prepare("
@@ -414,7 +394,7 @@ $select_products->execute();
         <?php if (!empty($artists)): ?>
             <?php foreach ($artists as $artist): ?>
             <tr>
-                <td><?= $artist['id']; ?></td>
+                <td><?= $artist['artist_id']; ?></td>
                 <td><?= $artist['artist_name']; ?></td>
                 <td><?= $artist['bio']; ?></td>
             </tr>
@@ -439,12 +419,12 @@ $select_products->execute();
         <label for="artist">Select Artist</label>
         <select id="artist" name="artist_id">
             <?php foreach ($artists as $artist): ?>
-            <option value="<?= $artist['id']; ?>"><?= $artist['name']; ?></option>
+            <option value="<?= $artist['artist_id']; ?>"><?= $artist['artist_name']; ?></option>
             <?php endforeach; ?>
         </select>
 
         <div class="btn-container">
-            <input type="button" class="btn" value="Confirm" name="assign_artist">
+            <input type="submit" class="btn" value="Confirm" name="assign_artist">
             <button id="toggleArtistButton" class="btn cancel">Close</button>
         </div>
         </form>
@@ -482,10 +462,10 @@ $select_products->execute();
             </tr>
         </thead>
         <id="tracklist_list">
-        <?php if (!empty($tracklists)): ?>
-            <?php foreach ($tracklists as $tracklist): ?>
+        <?php if (!empty($media_tracklists)): ?>
+            <?php foreach ($media_tracklists as $tracklist): ?>
             <tr class="<?= strtolower($tracklist['platform']); ?>">
-                <td><?= $tracklist['id']; ?></td>
+                <td><?= $tracklist['tracklist_id']; ?></td>
                 <td><?= $tracklist['platform']; ?></td>
                 <td><a href="<?= $tracklist['tracklist_url']; ?>" target="_blank"><?= $tracklist['tracklist_url']; ?></a></td>
             </tr>
@@ -507,15 +487,12 @@ $select_products->execute();
             <?php endforeach; ?>
         </select>
 
-        <label for="platform">Select Platform</label>
-        <select id="platform" name="platform" onchange="updateTracklistStyle(this.value)">
-            <option value="YouTube">YouTube</option>
-            <option value="Spotify">Spotify</option>
-            <option value="AppleMusic">Apple Music</option>
+        <label for="platform">Select Tracklist</label>
+        <select id="platform" name="tracklist_id" onchange="updateTracklistStyle(this.value)">
+            <?php foreach ($media_tracklists as $tracklist): ?>
+            <option value="<?= $tracklist['tracklist_id']; ?>"><?= $tracklist['tracklist_name']; ?></option>
+            <?php endforeach; ?>
         </select>
-
-        <label for="tracklist_url">Tracklist URL</label>
-        <input type="text" id="tracklist_url" name="tracklist_url" required>
 
         <div class="btn-container">
             <input type="submit" class="btn" value="Confirm" name="assign_tracklist">
@@ -561,10 +538,10 @@ $select_products->execute();
             </tr>
         </thead>
         <tbody id="credits_list">
-        <?php if (!empty($credits)): ?>
-            <?php foreach ($credits as $credit): ?>
+        <?php if (!empty($media_credits)): ?>
+            <?php foreach ($media_credits as $credit): ?>
             <tr>
-                <td><?= $credit['id']; ?></td>
+                <td><?= $credit['credit_id']; ?></td>
                 <td><?= $credit['credit_name']; ?></td>
                 <td><?= $credit['credit_type']; ?></td>
             </tr>
@@ -586,18 +563,15 @@ $select_products->execute();
             <?php endforeach; ?>
         </select>
 
-        <label for="artist">Select Artist</label>
-        <select id="artist" name="artist_id">
-            <?php foreach ($artists as $artist): ?>
-            <option value="<?= $artist['id']; ?>"><?= $artist['name']; ?></option>
+        <label for="product">Credit Name</label>
+        <select id="product" name="credit_id">
+            <?php foreach ($media_credits as $credit): ?>
+            <option value="<?= $credit['credit_id']; ?>"><?= $credit['credit_name']; ?></option>
             <?php endforeach; ?>
         </select>
 
-        <label for="credit_type">Credit Type</label>
-        <input type="text" id="credit_type" name="credit_type" required>
-
         <div class="btn-container">
-            <input type="submit" class="btn" value="Confirm" name="assign_credits">
+            <input type="submit" class="btn" value="Confirm" name="assign_credit">
             <button id="toggleCreditButton" class="btn cancel">Close</button>
         </div>
         </form>
