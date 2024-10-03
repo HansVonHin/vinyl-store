@@ -219,17 +219,71 @@ $rows_per_page = isset($_GET['rows']) ? (int)$_GET['rows'] : 10;
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $rows_per_page;
 
+$artist_query = $conn->prepare("SELECT artist_id, artist_name, bio FROM artists LIMIT $offset, $rows_per_page");
+$artist_query->execute();
+$artist = $artist_query->fetchAll(PDO::FETCH_ASSOC);
+
+$tracklist_query = $conn->prepare("SELECT tracklist_id, platform, tracklist_url FROM media_tracklists LIMIT $offset, $rows_per_page");
+$tracklist_query->execute();
+$tracklist = $tracklist_query->fetchAll(PDO::FETCH_ASSOC);
+
 $credits_query = $conn->prepare("SELECT credit_id, credit_name, credit_type FROM media_credits LIMIT $offset, $rows_per_page");
 $credits_query->execute();
 $credits = $credits_query->fetchAll(PDO::FETCH_ASSOC);
 
 // Get the total number of credits for pagination controls
+$total_artist_query = $conn->query("SELECT COUNT(*) FROM artists");
+$total_artist = $total_artist_query->fetchColumn();
+$total_pages = ceil($total_artist / $rows_per_page);
+
+$total_tracklist_query = $conn->query("SELECT COUNT(*) FROM media_tracklists");
+$total_tracklist = $total_tracklist_query->fetchColumn();
+$total_pages = ceil($total_tracklist / $rows_per_page);
+
 $total_credits_query = $conn->query("SELECT COUNT(*) FROM media_credits");
 $total_credits = $total_credits_query->fetchColumn();
 $total_pages = ceil($total_credits / $rows_per_page);
 
 $sort = isset($_GET['sort']) ? $_GET['sort'] : 'newest';
 $order_by = '';
+
+switch ($sort) {
+    case 'newest':
+        $order_by = 'artist_id DESC';
+        break;
+    case 'oldest':
+        $order_by = 'artist_id ASC';
+        break;
+    case 'az':
+        $order_by = 'artist_name ASC';
+        break;
+    case 'za':
+        $order_by = 'artist_name DESC';
+        break;
+}
+
+$credits_query = $conn->prepare("SELECT artist_id, artist_name, bio FROM artists ORDER BY $order_by LIMIT $offset, $rows_per_page");
+$credits_query->execute();
+$credits = $credits_query->fetchAll(PDO::FETCH_ASSOC);
+
+switch ($sort) {
+    case 'newest':
+        $order_by = 'tracklist_id DESC';
+        break;
+    case 'oldest':
+        $order_by = 'tracklist_id ASC';
+        break;
+    case 'az':
+        $order_by = 'tracklist_name ASC';
+        break;
+    case 'za':
+        $order_by = 'tracklist_name DESC';
+        break;
+}
+
+$credits_query = $conn->prepare("SELECT tracklist_id, platform, tracklist_url FROM media_tracklists ORDER BY $order_by LIMIT $offset, $rows_per_page");
+$credits_query->execute();
+$credits = $credits_query->fetchAll(PDO::FETCH_ASSOC);
 
 switch ($sort) {
     case 'newest':
@@ -315,6 +369,24 @@ $credits = $credits_query->fetchAll(PDO::FETCH_ASSOC);
             <?php endif; ?>
             </tbody>
         </table>
+        <div>
+        <label for="rows">Show </label>
+        <select id="rows" onchange="setRowsPerPage()">
+            <option value="10">10</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+        </select>
+        rows per page
+        </div>
+        <div>
+            <?php if ($page > 1): ?>
+                <a href="?rows=<?= $rows_per_page ?>&page=<?= $page - 1 ?>">Previous</a>
+            <?php endif; ?>
+    
+            <?php if ($page < $total_pages): ?>
+                <a href="?rows=<?= $rows_per_page ?>&page=<?= $page + 1 ?>">Next</a>
+            <?php endif; ?>
+        </div>
     </section>
 
 <!-- Section 2: Add Product Form -->
@@ -421,6 +493,16 @@ $credits = $credits_query->fetchAll(PDO::FETCH_ASSOC);
 <div class="clearfix">
 <section id="artist_section">
     <h1 class="heading">Manage Artists</h1>
+
+    <input type="text" id="searchBox" onkeyup="searchArtists()" placeholder="Search artists...">
+
+    <select id="sort" onchange="sortArtists()">
+        <option value="newest">Newest</option>
+        <option value="oldest">Oldest</option>
+        <option value="az">A-Z</option>
+        <option value="za">Z-A</option>
+    </select>
+
     <table class="artists-table">
         <thead>
             <tr>
@@ -443,6 +525,24 @@ $credits = $credits_query->fetchAll(PDO::FETCH_ASSOC);
         <?php endif; ?>
         </tbody>
     </table>
+    <div>
+        <label for="rows">Show </label>
+        <select id="rows" onchange="setRowsPerPage()">
+            <option value="10">10</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+        </select>
+        rows per page
+    </div>
+    <div>
+        <?php if ($page > 1): ?>
+            <a href="?rows=<?= $rows_per_page ?>&page=<?= $page - 1 ?>">Previous</a>
+        <?php endif; ?>
+    
+        <?php if ($page < $total_pages): ?>
+            <a href="?rows=<?= $rows_per_page ?>&page=<?= $page + 1 ?>">Next</a>
+        <?php endif; ?>
+    </div>
 
     <!-- Add artist to product form -->
     <button id="toggleArtistButton">Assign Artist to Product</button><button id="toggleNewArtistButton">Add New Artist</button>
@@ -492,19 +592,31 @@ $credits = $credits_query->fetchAll(PDO::FETCH_ASSOC);
 <!-- Section 4: Tracklist Management -->
 <section id="tracklist_section">
     <h1 class="heading">Manage Tracklist</h1>
+
+    <input type="text" id="searchBox" onkeyup="searchTracklists()" placeholder="Search tracklists...">
+
+    <select id="sort" onchange="sortTracklists()">
+        <option value="newest">Newest</option>
+        <option value="oldest">Oldest</option>
+        <option value="az">A-Z</option>
+        <option value="za">Z-A</option>
+    </select>
+
     <table class="tracklist-table">
         <thead>
             <tr>
                 <th>Tracklist ID</th>
+                <th>Tracklist Name</th>
                 <th>Platform</th>
                 <th>Tracklist URL</th>
             </tr>
         </thead>
-        <id="tracklist_list">
+        <tbody id="tracklist_list">
         <?php if (!empty($media_tracklists)): ?>
             <?php foreach ($media_tracklists as $tracklist): ?>
             <tr class="<?= strtolower($tracklist['platform']); ?>">
                 <td><?= $tracklist['tracklist_id']; ?></td>
+                <td><?= $tracklist['tracklist_name']; ?></td>
                 <td><?= $tracklist['platform']; ?></td>
                 <td><a href="<?= $tracklist['tracklist_url']; ?>" target="_blank"><?= $tracklist['tracklist_url']; ?></a></td>
             </tr>
@@ -514,6 +626,24 @@ $credits = $credits_query->fetchAll(PDO::FETCH_ASSOC);
         <?php endif; ?>
         </tbody>
     </table>
+    <div>
+        <label for="rows">Show </label>
+        <select id="rows" onchange="setRowsPerPage()">
+            <option value="10">10</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+        </select>
+        rows per page
+    </div>
+    <div>
+        <?php if ($page > 1): ?>
+            <a href="?rows=<?= $rows_per_page ?>&page=<?= $page - 1 ?>">Previous</a>
+        <?php endif; ?>
+    
+        <?php if ($page < $total_pages): ?>
+            <a href="?rows=<?= $rows_per_page ?>&page=<?= $page + 1 ?>">Next</a>
+        <?php endif; ?>
+    </div>
 
     <!-- Add tracklist form -->
     <button id="toggleTracklistButton">Assign Tracklist to Product</button><button id="toggleNewTracklistButton">Add New Tracklist</button>
@@ -871,10 +1001,77 @@ function searchCredits() {
     }
 }
 
-//function sortCredits() {
-    //var sort = document.getElementById("sort").value;
-    //window.location.href = "?sort=" + sort;
-//}
+function searchArtists() {
+    var input = document.getElementById('searchBox');
+    var filter = input.value.toLowerCase();
+    var table = document.getElementById('artist_list');
+    var rows = table.getElementsByTagName('tr');
+    
+    for (var i = 0; i < rows.length; i++) {
+        var creditName = rows[i].getElementsByTagName('td')[1]; // Get the credit_name column
+        if (creditName) {
+            var txtValue = creditName.textContent || creditName.innerText;
+            if (txtValue.toLowerCase().indexOf(filter) > -1) {
+                rows[i].style.display = "";
+            } else {
+                rows[i].style.display = "none";
+            }
+        }       
+    }
+}
+
+function searchTracklists() {
+    var input = document.getElementById('searchBox');
+    var filter = input.value.toLowerCase();
+    var table = document.getElementById('tracklist_list');
+    var rows = table.getElementsByTagName('tr');
+    
+    for (var i = 0; i < rows.length; i++) {
+        var creditName = rows[i].getElementsByTagName('td')[1]; // Get the credit_name column
+        if (creditName) {
+            var txtValue = creditName.textContent || creditName.innerText;
+            if (txtValue.toLowerCase().indexOf(filter) > -1) {
+                rows[i].style.display = "";
+            } else {
+                rows[i].style.display = "none";
+            }
+        }       
+    }
+}
+
+function searchCredits() {
+    var input = document.getElementById('searchBox');
+    var filter = input.value.toLowerCase();
+    var table = document.getElementById('credits_list');
+    var rows = table.getElementsByTagName('tr');
+    
+    for (var i = 0; i < rows.length; i++) {
+        var creditName = rows[i].getElementsByTagName('td')[1]; // Get the credit_name column
+        if (creditName) {
+            var txtValue = creditName.textContent || creditName.innerText;
+            if (txtValue.toLowerCase().indexOf(filter) > -1) {
+                rows[i].style.display = "";
+            } else {
+                rows[i].style.display = "none";
+            }
+        }       
+    }
+}
+
+function sortArtists() {
+    var sort = document.getElementById("sort").value;
+    window.location.href = "?sort=" + sort;
+}
+
+function sortTracklists() {
+    var sort = document.getElementById("sort").value;
+    window.location.href = "?sort=" + sort;
+}
+
+function sortCredits() {
+    var sort = document.getElementById("sort").value;
+    window.location.href = "?sort=" + sort;
+}
 
 </script>
 
