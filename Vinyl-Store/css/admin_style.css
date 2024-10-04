@@ -589,7 +589,7 @@ h1 {
 }
 
 #searchBox {
-   width: 40%; /* Adjust width as necessary */
+   width: auto; /* Adjust width as necessary */
    padding: 8px;
    font-size: 16px;
    border: 1px solid #ccc;

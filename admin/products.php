@@ -332,15 +332,19 @@ $products_filtered = $filtered_products->fetchAll(PDO::FETCH_ASSOC);
     <!-- Section 1: Product Table with Sorting -->
     <section id="product_table_section">
         <h1 class="heading">Product List</h1>
-        <div class="sort-options">
-            <label for="sort">Sort by: </label>
-            <select id="sort" name="sort" onchange="sortProducts()">
-                <option value="new">Newest</option>
-                <option value="old">Oldest</option>
-                <option value="az">A-Z</option>
-                <option value="za">Z-A</option>
-            </select>
+        <div class="top-controls">
+            <input type="text" id="searchBox" onkeyup="searchProducts()" placeholder="Search products...">
+            <div class="sort-options">
+                <label for="sort">Sort by: </label>
+                <select id="sort" name="sort" onchange="sortProducts()">
+                    <option value="new">Newest</option>
+                    <option value="old">Oldest</option>
+                    <option value="az">A-Z</option>
+                    <option value="za">Z-A</option>
+                </select>
+            </div>
         </div>
+
         <table class="products-table">
             <thead>
                 <tr>
