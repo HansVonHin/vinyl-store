@@ -305,6 +305,10 @@ $credits_query = $conn->prepare("SELECT credit_id, credit_name, credit_type FROM
 $credits_query->execute();
 $credits = $credits_query->fetchAll(PDO::FETCH_ASSOC);
 
+$filtered_products = $conn->prepare("SELECT * FROM `products` WHERE `media_type_id` IS NOT NULL AND `genre_id` IS NOT NULL AND `category_id` IS NULL");
+$filtered_products->execute();
+$products_filtered = $filtered_products->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
@@ -495,16 +499,18 @@ $credits = $credits_query->fetchAll(PDO::FETCH_ASSOC);
 <section id="artist_section">
     <h1 class="heading">Manage Artists</h1>
 
+<div class="top-controls">
     <input type="text" id="searchBox" onkeyup="searchArtists()" placeholder="Search artists...">
     <div class="sort-options">
     <label for="sort">Sort by: </label>
-    <select id="sort" onchange="sortArtists()">
-        <option value="newest">Newest</option>
-        <option value="oldest">Oldest</option>
-        <option value="az">A-Z</option>
-        <option value="za">Z-A</option>
-    </select>
+        <select id="sort" onchange="sortArtists()">
+            <option value="newest">Newest</option>
+            <option value="oldest">Oldest</option>
+            <option value="az">A-Z</option>
+            <option value="za">Z-A</option>
+        </select>
     </div>
+</div>
 
     <table class="artists-table">
         <thead>
@@ -512,6 +518,7 @@ $credits = $credits_query->fetchAll(PDO::FETCH_ASSOC);
                 <th>Artist ID</th>
                 <th>Artist Name</th>
                 <th>Bio</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody id="artist_list">
@@ -521,6 +528,14 @@ $credits = $credits_query->fetchAll(PDO::FETCH_ASSOC);
                 <td><?= $artist['artist_id']; ?></td>
                 <td><?= $artist['artist_name']; ?></td>
                 <td><?= $artist['bio']; ?></td>
+                <td>
+                    <a href="update_artists.php?update=<?= $artist['artist_id']; ?>" class="update-icon">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <a href="artists.php?delete=<?= $artist['artist_id']; ?>" onclick="return confirm('Are you sure you want to delete this artist?');" class="delete-icon">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                </td>
             </tr>
             <?php endforeach; ?>
         <?php else: ?>
@@ -528,7 +543,7 @@ $credits = $credits_query->fetchAll(PDO::FETCH_ASSOC);
         <?php endif; ?>
         </tbody>
     </table>
-    <div>
+    <div class="bottom-controls">
         <label for="rows">Show </label>
         <select id="rows" onchange="setRowsPerPage()">
             <option value="10">10</option>
@@ -553,7 +568,7 @@ $credits = $credits_query->fetchAll(PDO::FETCH_ASSOC);
         <form action="" method="POST" enctype="multipart/form-data">
         <label for="product">Select Product</label>
         <select id="product" name="product_id">
-            <?php foreach ($products as $product): ?>
+            <?php foreach ($products_filtered as $product): ?>
             <option value="<?= $product['id']; ?>"><?= $product['name']; ?></option>
             <?php endforeach; ?>
         </select>
@@ -596,16 +611,18 @@ $credits = $credits_query->fetchAll(PDO::FETCH_ASSOC);
 <section id="tracklist_section">
     <h1 class="heading">Manage Tracklist</h1>
 
+<div class="top-controls">
     <input type="text" id="searchBox" onkeyup="searchTracklists()" placeholder="Search tracklists...">
     <div class="sort-options">
-    <label for="sort">Sort by: </label>
-    <select id="sort" onchange="sortTracklists()">
-        <option value="newest">Newest</option>
-        <option value="oldest">Oldest</option>
-        <option value="az">A-Z</option>
-        <option value="za">Z-A</option>
-    </select>
+        <label for="sort">Sort by: </label>
+        <select id="sort" onchange="sortTracklists()">
+            <option value="newest">Newest</option>
+            <option value="oldest">Oldest</option>
+            <option value="az">A-Z</option>
+            <option value="za">Z-A</option>
+        </select>
     </div>
+</div>
     
     <table class="tracklist-table">
         <thead>
@@ -614,6 +631,7 @@ $credits = $credits_query->fetchAll(PDO::FETCH_ASSOC);
                 <th>Tracklist Name</th>
                 <th>Platform</th>
                 <th>Tracklist URL</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody id="tracklist_list">
@@ -624,6 +642,14 @@ $credits = $credits_query->fetchAll(PDO::FETCH_ASSOC);
                 <td><?= $tracklist['tracklist_name']; ?></td>
                 <td><?= $tracklist['platform']; ?></td>
                 <td><a href="<?= $tracklist['tracklist_url']; ?>" target="_blank"><?= $tracklist['tracklist_url']; ?></a></td>
+                <td>
+                    <a href="update_tracklists.php?update=<?= $tracklist['tracklist_id']; ?>" class="update-icon">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <a href="tracklists.php?delete=<?= $tracklist['tracklist_id']; ?>" onclick="return confirm('Are you sure you want to delete this tracklist?');" class="delete-icon">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                </td>
             </tr>
             <?php endforeach; ?>
         <?php else: ?>
@@ -631,7 +657,7 @@ $credits = $credits_query->fetchAll(PDO::FETCH_ASSOC);
         <?php endif; ?>
         </tbody>
     </table>
-    <div>
+    <div class="bottom-controls">
         <label for="rows">Show </label>
         <select id="rows" onchange="setRowsPerPage()">
             <option value="10">10</option>
@@ -656,7 +682,7 @@ $credits = $credits_query->fetchAll(PDO::FETCH_ASSOC);
         <form action="" method="POST">
         <label for="product">Select Product</label>
         <select id="product" name="product_id">
-            <?php foreach ($products as $product): ?>
+            <?php foreach ($products_filtered as $product): ?>
             <option value="<?= $product['id']; ?>"><?= $product['name']; ?></option>
             <?php endforeach; ?>
         </select>
@@ -708,16 +734,18 @@ $credits = $credits_query->fetchAll(PDO::FETCH_ASSOC);
 <section id="credits_section">
     <h1 class="heading">Manage Credits</h1>
     
+<div class="top-controls">
     <input type="text" id="searchBox" onkeyup="searchCredits()" placeholder="Search credits...">
     <div class="sort-options">
     <label for="sort">Sort by: </label>
-    <select id="sort" onchange="sortCredits()">
-        <option value="newest">Newest</option>
-        <option value="oldest">Oldest</option>
-        <option value="az">A-Z</option>
-        <option value="za">Z-A</option>
-    </select>
+        <select id="sort" onchange="sortCredits()">
+            <option value="newest">Newest</option>
+            <option value="oldest">Oldest</option>
+            <option value="az">A-Z</option>
+            <option value="za">Z-A</option>
+        </select>
     </div>
+</div>
 
     <table class="credits-table">
         <thead>
@@ -725,6 +753,7 @@ $credits = $credits_query->fetchAll(PDO::FETCH_ASSOC);
                 <th>Credit ID</th>
                 <th>Credit Name</th>
                 <th>Credit Type</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody id="credits_list">
@@ -734,6 +763,14 @@ $credits = $credits_query->fetchAll(PDO::FETCH_ASSOC);
                 <td><?= $credit['credit_id']; ?></td>
                 <td><?= $credit['credit_name']; ?></td>
                 <td><?= $credit['credit_type']; ?></td>
+                <td>
+                    <a href="update_credits.php?update=<?= $credit['credit_id']; ?>" class="update-icon">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <a href="credits.php?delete=<?= $credit['credit_id']; ?>" onclick="return confirm('Are you sure you want to delete this credit?');" class="delete-icon">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                </td>
             </tr>
             <?php endforeach; ?>
         <?php else: ?>
@@ -741,7 +778,7 @@ $credits = $credits_query->fetchAll(PDO::FETCH_ASSOC);
         <?php endif; ?>
         </tbody>
     </table>
-    <div>
+    <div class="bottom-controls">
         <label for="rows">Show </label>
         <select id="rows" onchange="setRowsPerPage()">
             <option value="10">10</option>
@@ -766,7 +803,7 @@ $credits = $credits_query->fetchAll(PDO::FETCH_ASSOC);
         <form action="" method="POST">
         <label for="product">Select Product</label>
         <select id="product" name="product_id">
-            <?php foreach ($products as $product): ?>
+            <?php foreach ($products_filtered as $product): ?>
             <option value="<?= $product['id']; ?>"><?= $product['name']; ?></option>
             <?php endforeach; ?>
         </select>
@@ -990,26 +1027,13 @@ var count = 1;
     
 function setRowsPerPage() {
     var rows = document.getElementById("rows").value;
-    window.location.href = "?rows=" + rows + "&page=1";
-}
-
-function searchCredits() {
-    var input = document.getElementById('searchBox');
-    var filter = input.value.toLowerCase();
-    var table = document.getElementById('credits_list');
-    var rows = table.getElementsByTagName('tr');
-    
-    for (var i = 0; i < rows.length; i++) {
-        var creditName = rows[i].getElementsByTagName('td')[1]; // Get the credit_name column
-        if (creditName) {
-            var txtValue = creditName.textContent || creditName.innerText;
-            if (txtValue.toLowerCase().indexOf(filter) > -1) {
-                rows[i].style.display = "";
-            } else {
-                rows[i].style.display = "none";
-            }
-        }       
-    }
+    // Fetch the products dynamically here, using AJAX or a similar approach.
+    // Example of AJAX call to a PHP endpoint:
+    fetch(`your-endpoint.php?rows=${rows}&page=1`)
+        .then(response => response.json())
+        .then(data => {
+            // Update your table content dynamically
+        });
 }
 
 function searchArtists() {
@@ -1083,6 +1107,16 @@ function sortCredits() {
     var sort = document.getElementById("sort").value;
     window.location.href = "?sort=" + sort;
 }
+
+document.getElementById('searchBox').addEventListener('keyup', function() {
+    var query = this.value;
+    fetch(`search_endpoint.php?q=${query}`)
+        .then(response => response.json())
+        .then(data => {
+            // Populate your search results dynamically
+            // Display search results with matching sections on top
+        });
+});
 
 </script>
 

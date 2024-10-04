@@ -581,6 +581,21 @@ h1 {
    margin-bottom: 4rem;
 }
 
+.top-controls {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   margin-bottom: 15px;
+}
+
+#searchBox {
+   width: 40%; /* Adjust width as necessary */
+   padding: 8px;
+   font-size: 16px;
+   border: 1px solid #ccc;
+   border-radius: 4px;
+}
+
 .sort-options {
    margin-bottom: 1.5rem;
    display: flex;
@@ -629,6 +644,22 @@ h1 {
 
 .products-table tr:hover {
    background-color: var(--hover-bg);
+}
+
+/* Styling for rows per page */
+.bottom-controls {
+   display: flex;
+   justify-content: flex-start;
+   align-items: center;
+   margin-top: 20px;
+   font-size: 1.6rem;
+}
+
+#rows {
+   padding: 8px;
+   border: 1px solid #ccc;
+   border-radius: 4px;
+   font-size: 16px;
 }
 
 /* Action icons */
@@ -1308,6 +1339,14 @@ h1 {
 .form-section form .inputBox span {
    font-size: 1.6rem;
    color: var(--light-color);
+}
+
+.inputBox input[type="url"] {
+   width: auto; /* Adjust width as per content */
+   padding: 8px;
+   border: 1px solid #ccc;
+   border-radius: 4px;
+   font-size: 16px;
 }
 
 .form-section form .box {
