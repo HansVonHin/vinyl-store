@@ -21,8 +21,6 @@ if(isset($_POST['update'])){
    $details = filter_var($details, FILTER_SANITIZE_STRING);
    $vinyl_size = $_POST['vinyl_size'];
    $vinyl_size = filter_var($vinyl_size, FILTER_SANITIZE_STRING);
-   $category_id = $_POST['category_id'];
-   $category_id = filter_var($category_id, FILTER_SANITIZE_STRING);
    $release_date = $_POST['release_date'];
    $release_date = filter_var($release_date, FILTER_SANITIZE_STRING);
    $inventory_status = $_POST['inventory_status'];
@@ -30,8 +28,8 @@ if(isset($_POST['update'])){
    $quantity = $_POST['quantity'];
    $quantity = filter_var($quantity, FILTER_SANITIZE_NUMBER_INT);
 
-   $update_product = $conn->prepare("UPDATE `products` SET name = ?, price = ?, details = ?, /*genre_id = ?, media_type_id = ?,*/ vinyl_size = ?, /*category_id = ?,*/ release_date = ?, inventory_status = ?, quantity = ? WHERE id = ?");
-   $update_product->execute([$name, $price, $details, /*$genre_id, $media_type_id,*/ $vinyl_size, /*$category_id,*/ $release_date, $inventory_status, $quantity, $pid]);
+   $update_product = $conn->prepare("UPDATE `products` SET name = ?, price = ?, details = ?, vinyl_size = ?, release_date = ?, inventory_status = ?, quantity = ? WHERE id = ?");
+   $update_product->execute([$name, $price, $details, $vinyl_size, $release_date, $inventory_status, $quantity, $pid]);
 
    $message[] = 'Product Updated Successfully!';
 
@@ -155,19 +153,10 @@ if(isset($_POST['update'])){
       <span>Update Details</span>
       <textarea name="details" class="box" required cols="30" rows="10"><?= $fetch_products['details']; ?></textarea>
 
-      <!--<span>Update Genre</span>
-      <input type="text" name="genre_name" required class="box" maxlength="100" value="</*?= $fetch_products['genre_name']; ?>">-->
-
-      <!--<span>Update Media Type</span>
-      <input type="text" name="media_type_name" required class="box" maxlength="100" value="</*?=  $fetch_products['media_type_name']; */ ?>">-->
-
       <?php if (isset($fetch_products['vinyl_size'])): ?>
       <span>Update Vinyl Size</span>
       <input type="text" name="vinyl_size" class="box" value="<?= $fetch_products['vinyl_size']; ?>">
       <?php endif; ?>
-
-      <!--<span>Update Category</span>
-      <input type="text" name="category_name" required class="box" maxlength="100" value="</*?= $fetch_products['category_name']; ?>">-->
 
       <span>Update Release Date</span>
       <input type="date" name="release_date" class="box" value="<?= $fetch_products['release_date']; ?>">

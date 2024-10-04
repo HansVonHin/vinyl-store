@@ -496,13 +496,15 @@ $credits = $credits_query->fetchAll(PDO::FETCH_ASSOC);
     <h1 class="heading">Manage Artists</h1>
 
     <input type="text" id="searchBox" onkeyup="searchArtists()" placeholder="Search artists...">
-
+    <div class="sort-options">
+    <label for="sort">Sort by: </label>
     <select id="sort" onchange="sortArtists()">
         <option value="newest">Newest</option>
         <option value="oldest">Oldest</option>
         <option value="az">A-Z</option>
         <option value="za">Z-A</option>
     </select>
+    </div>
 
     <table class="artists-table">
         <thead>
@@ -595,14 +597,16 @@ $credits = $credits_query->fetchAll(PDO::FETCH_ASSOC);
     <h1 class="heading">Manage Tracklist</h1>
 
     <input type="text" id="searchBox" onkeyup="searchTracklists()" placeholder="Search tracklists...">
-
+    <div class="sort-options">
+    <label for="sort">Sort by: </label>
     <select id="sort" onchange="sortTracklists()">
         <option value="newest">Newest</option>
         <option value="oldest">Oldest</option>
         <option value="az">A-Z</option>
         <option value="za">Z-A</option>
     </select>
-
+    </div>
+    
     <table class="tracklist-table">
         <thead>
             <tr>
@@ -705,13 +709,15 @@ $credits = $credits_query->fetchAll(PDO::FETCH_ASSOC);
     <h1 class="heading">Manage Credits</h1>
     
     <input type="text" id="searchBox" onkeyup="searchCredits()" placeholder="Search credits...">
-    
+    <div class="sort-options">
+    <label for="sort">Sort by: </label>
     <select id="sort" onchange="sortCredits()">
         <option value="newest">Newest</option>
         <option value="oldest">Oldest</option>
         <option value="az">A-Z</option>
         <option value="za">Z-A</option>
     </select>
+    </div>
 
     <table class="credits-table">
         <thead>
@@ -782,7 +788,7 @@ $credits = $credits_query->fetchAll(PDO::FETCH_ASSOC);
         <form action="" method="POST">
         <div class="inputBox">
             <span>Credit Name (Required)</span>
-            <input type="text" class="box" required maxlength="100" name="credit_name" placeholder="Enter artist name..." required>
+            <input type="text" class="box" required maxlength="100" name="credit_name" placeholder="Enter credits name..." required>
         </div>
         <div class="inputBox">
         <span>Credit Type (Required)</span>
