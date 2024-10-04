@@ -98,12 +98,13 @@ if (isset($_POST['add_artist'])) {
 
 // Add a new tracklist
 if (isset($_POST['add_tracklist'])) {
+    $tracklist_name = filter_var($_POST['tracklist_name'], FILTER_SANITIZE_STRING);
     $platform = filter_var($_POST['platform'], FILTER_SANITIZE_STRING);
     $tracklist_url = filter_var($_POST['tracklist_url'], FILTER_SANITIZE_URL);
 
     // Insert new tracklist
-    $insert_tracklist = $conn->prepare("INSERT INTO `media_tracklists` (platform, tracklist_url) VALUES (?, ?)");
-    $insert_tracklist->execute([$platform, $tracklist_url]);
+    $insert_tracklist = $conn->prepare("INSERT INTO `media_tracklists` (platform, tracklist_url, tracklist_name) VALUES (?, ?, ?)");
+    $insert_tracklist->execute([$platform, $tracklist_url, $tracklist_name]);
 
     if ($insert_tracklist) {
         $message[] = 'New Tracklist Added!';
@@ -678,6 +679,10 @@ $credits = $credits_query->fetchAll(PDO::FETCH_ASSOC);
                     <option value="Spotify">Spotify</option>
                     <option value="AppleMusic">AppleMusic</option>
                 </select>
+            </div>
+            <div class="inputBox">
+            <span>Tracklist Name (Required)</span>
+                <input type="text" name="tracklist_name" placeholder="Tracklist Name" required>
             </div>
             <div class="inputBox">
             <span>Tracklist URL (Required)</span>
