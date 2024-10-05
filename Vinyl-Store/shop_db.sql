@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 02, 2024 at 08:32 PM
+-- Generation Time: Oct 05, 2024 at 06:28 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -50,15 +50,16 @@ INSERT INTO `admins` (`id`, `name`, `position`, `password`) VALUES
 CREATE TABLE `artists` (
   `artist_id` int(11) NOT NULL,
   `artist_name` varchar(255) DEFAULT NULL,
-  `bio` text DEFAULT NULL
+  `bio` text DEFAULT NULL,
+  `image_url` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `artists`
 --
 
-INSERT INTO `artists` (`artist_id`, `artist_name`, `bio`) VALUES
-(1, 'The Beatles', 'Legendary British rock band formed in Liverpool');
+INSERT INTO `artists` (`artist_id`, `artist_name`, `bio`, `image_url`) VALUES
+(8, 'The Beatles', 'Legendary British rock band formed in Liverpool', '');
 
 -- --------------------------------------------------------
 
@@ -145,15 +146,16 @@ CREATE TABLE `media_credits` (
   `product_id` int(11) DEFAULT NULL,
   `credit_name` varchar(255) NOT NULL,
   `credit_type` enum('songwriter','producer') DEFAULT NULL,
-  `artist_id` int(11) DEFAULT NULL
+  `artist_id` int(11) DEFAULT NULL,
+  `image_url` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `media_credits`
 --
 
-INSERT INTO `media_credits` (`credit_id`, `product_id`, `credit_name`, `credit_type`, `artist_id`) VALUES
-(1, NULL, 'George Martin', 'producer', NULL);
+INSERT INTO `media_credits` (`credit_id`, `product_id`, `credit_name`, `credit_type`, `artist_id`, `image_url`) VALUES
+(1, NULL, 'George Martin', 'producer', NULL, '');
 
 -- --------------------------------------------------------
 
@@ -174,7 +176,7 @@ CREATE TABLE `media_tracklists` (
 --
 
 INSERT INTO `media_tracklists` (`tracklist_id`, `product_id`, `platform`, `tracklist_url`, `tracklist_name`) VALUES
-(1, NULL, 'Spotify', 'https://open.spotify.com/album/0ETFjACtuP2ADo6LFhL6HN', 'Abbey Road (Remastered)');
+(1, 1, 'Spotify', 'https://open.spotify.com/album/0ETFjACtuP2ADo6LFhL6HN', 'Abbey Road (Remastered)');
 
 -- --------------------------------------------------------
 
@@ -276,13 +278,6 @@ CREATE TABLE `product_artists` (
   `artist_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `product_artists`
---
-
-INSERT INTO `product_artists` (`product_id`, `artist_id`) VALUES
-(1, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -291,8 +286,15 @@ INSERT INTO `product_artists` (`product_id`, `artist_id`) VALUES
 
 CREATE TABLE `product_credits` (
   `product_id` int(11) DEFAULT NULL,
-  `credits_id` int(11) DEFAULT NULL
+  `credit_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `product_credits`
+--
+
+INSERT INTO `product_credits` (`product_id`, `credit_id`) VALUES
+(1, 1);
 
 -- --------------------------------------------------------
 
@@ -420,7 +422,7 @@ ALTER TABLE `product_artists`
 -- Indexes for table `product_credits`
 --
 ALTER TABLE `product_credits`
-  ADD KEY `product_credits_ibfk_1` (`credits_id`),
+  ADD KEY `product_credits_ibfk_1` (`credit_id`),
   ADD KEY `product_credits_ibfk_2` (`product_id`);
 
 --
@@ -449,7 +451,7 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT for table `artists`
 --
 ALTER TABLE `artists`
-  MODIFY `artist_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `artist_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `cart`
@@ -485,7 +487,7 @@ ALTER TABLE `media_credits`
 -- AUTO_INCREMENT for table `media_tracklists`
 --
 ALTER TABLE `media_tracklists`
-  MODIFY `tracklist_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `tracklist_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `media_types`
@@ -565,7 +567,7 @@ ALTER TABLE `product_artists`
 -- Constraints for table `product_credits`
 --
 ALTER TABLE `product_credits`
-  ADD CONSTRAINT `product_credits_ibfk_1` FOREIGN KEY (`credits_id`) REFERENCES `media_credits` (`credit_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `product_credits_ibfk_1` FOREIGN KEY (`credit_id`) REFERENCES `media_credits` (`credit_id`) ON DELETE CASCADE,
   ADD CONSTRAINT `product_credits_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
 COMMIT;
 

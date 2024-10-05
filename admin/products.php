@@ -201,16 +201,16 @@ if (isset($_GET['delete'])) {
 $products = $conn->query("SELECT * FROM `products` ORDER BY id DESC")->fetchAll(PDO::FETCH_ASSOC);
 
 // Fetch artists
-$artists = $conn->query("SELECT * FROM `artists` ORDER BY artist_id ASC")->fetchAll(PDO::FETCH_ASSOC);
+$artists = $conn->query("SELECT * FROM `artists` ORDER BY artist_id DESC")->fetchAll(PDO::FETCH_ASSOC);
 
 // Fetch product_artists
-$product_artists = $conn->query("SELECT * FROM `product_artists` ORDER BY artist_id ASC")->fetchAll(PDO::FETCH_ASSOC);
+$product_artists = $conn->query("SELECT * FROM `product_artists` ORDER BY artist_id DESC")->fetchAll(PDO::FETCH_ASSOC);
 
 // Fetch product_credits
-$product_credits = $conn->query("SELECT * FROM `product_credits` ORDER BY credit_id ASC")->fetchAll(PDO::FETCH_ASSOC);
+$product_credits = $conn->query("SELECT * FROM `product_credits` ORDER BY credit_id DESC")->fetchAll(PDO::FETCH_ASSOC);
 
 // Fetch tracklists
-$media_tracklists = $conn->query("SELECT * FROM `media_tracklists` ORDER BY tracklist_id ASC")->fetchAll(PDO::FETCH_ASSOC);
+$media_tracklists = $conn->query("SELECT * FROM `media_tracklists` ORDER BY tracklist_id DESC")->fetchAll(PDO::FETCH_ASSOC);
 
 // Fetch credits
 $media_credits = $conn->query("
