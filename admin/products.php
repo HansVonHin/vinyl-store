@@ -79,6 +79,11 @@ if (isset($_POST['add_artist'])) {
     $artist_name = filter_var($_POST['artist_name'], FILTER_SANITIZE_STRING);
     $bio = filter_var($_POST['bio'], FILTER_SANITIZE_STRING);
 
+    // Handle image uploads
+    $image_url = filter_var($_FILES['image_url']['artist_name'], FILTER_SANITIZE_STRING);
+    $image_tmp_artist_name = $_FILES['image_url']['tmp_artist_name'];
+    $image_folder = '../Vinyl-Store/uploaded_img/' . $image_url;
+
     // Check if the artist already exists
     $select_artists = $conn->prepare("SELECT * FROM `artists` WHERE artist_name = ?");
     $select_artists->execute([$artist_name]);
@@ -87,10 +92,12 @@ if (isset($_POST['add_artist'])) {
         $message[] = 'Artist Already Exists!';
     } else {
         // Insert new artist
-        $insert_artist = $conn->prepare("INSERT INTO `artists` (artist_name, bio) VALUES (?, ?)");
-        $insert_artist->execute([$artist_name, $bio]);
+        $insert_artist = $conn->prepare("INSERT INTO `artists` (artist_name, bio, image_url) VALUES (?, ?, ?)");
+        $insert_artist->execute([$artist_name, $bio, $image_url]);
 
         if ($insert_artist) {
+            // Move the uploaded images to the appropriate folders
+            move_uploaded_file($image_tmp_artist_name, $image_folder);
             $message[] = 'New Artist Added!';
         }
     }
@@ -116,11 +123,18 @@ if (isset($_POST['add_credits'])) {
     $credit_name = filter_var($_POST['credit_name'], FILTER_SANITIZE_STRING);
     $credit_type = filter_var($_POST['credit_type'], FILTER_SANITIZE_STRING);
 
+    // Handle image uploads
+    $image_url = filter_var($_FILES['image_url']['artist_name'], FILTER_SANITIZE_STRING);
+    $image_tmp_name_01 = $_FILES['image_url']['tmp_name'];
+    $image_folder_01 = '../Vinyl-Store/uploaded_img/' . $image_url;
+    
     // Insert new credit
-    $insert_credit = $conn->prepare("INSERT INTO `media_credits` (credit_name, credit_type) VALUES (?, ?)");
-    $insert_credit->execute([$credit_name, $credit_type]);
+    $insert_credit = $conn->prepare("INSERT INTO `media_credits` (credit_name, credit_type, image_url) VALUES (?, ?, ?)");
+    $insert_credit->execute([$credit_name, $credit_type, $image_url]);
 
     if ($insert_credit) {
+        // Move the uploaded images to the appropriate folders
+        move_uploaded_file($image_tmp_name_01, $image_folder_01);
         $message[] = 'New Credit Added!';
     }
 }
@@ -200,7 +214,7 @@ $media_tracklists = $conn->query("SELECT * FROM `media_tracklists` ORDER BY trac
 
 // Fetch credits
 $media_credits = $conn->query("
-    SELECT media_credits.credit_id, products.id AS product_id, media_credits.credit_name, media_credits.credit_type, artists.artist_id AS artist_id
+    SELECT media_credits.credit_id, products.id AS product_id, media_credits.credit_name, media_credits.credit_type, artists.artist_id AS artist_id, media_credits.image_url
     FROM `media_credits`
     LEFT JOIN `products` ON media_credits.product_id = products.id
     LEFT JOIN `artists` ON media_credits.artist_id = artists.artist_id
@@ -600,6 +614,10 @@ $products_filtered = $filtered_products->fetchAll(PDO::FETCH_ASSOC);
                 <span>Artist Bio (Required)</span>
                 <textarea name="bio" placeholder="Enter artist bio..." required class="box" required maxlength="500" cols="30" rows="5"></textarea>
             </div>
+            <div class="inputBox">
+                <span>Image (Required)</span>
+                <input type="file" name="image_url" accept="image/jpg, image/jpeg, image/png, image/webp" class="box" required>
+            </div>
             <?php if (isset($message)): ?>
                 <p><?= implode(', ', $message); ?></p>
             <?php endif; ?>
@@ -837,6 +855,10 @@ $products_filtered = $filtered_products->fetchAll(PDO::FETCH_ASSOC);
                 <option value="songwriter">Songwriter</option>
                 <option value="producer">Producer</option>
             </select>
+        </div>
+        <div class="inputBox">
+            <span>Image (Required)</span>
+            <input type="file" name="image_url" accept="image/jpg, image/jpeg, image/png, image/webp" class="box" required>
         </div>
         <?php if (isset($message)): ?>
             <p><?= implode(', ', $message); ?></p>
