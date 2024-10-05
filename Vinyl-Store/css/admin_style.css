@@ -1250,7 +1250,10 @@ h1 {
    justify-content: space-between;
 }
 
-.update-product form{
+.update-product form,
+.update-artist form,
+.update-tracklist form,
+.update-credit form {
    background-color: var(--white);
    box-shadow: var(--box-shadow);
    border-radius: .5rem;
@@ -1291,7 +1294,10 @@ h1 {
    transform: scale(1.1);
 }
 
-.update-product form .box{
+.update-product form .box, 
+.update-artist form .box, 
+.update-tracklist form .box, 
+.update-credit form .box {
    width: 100%;
    border-radius: .5rem;
    padding:1.4rem;
@@ -1301,12 +1307,18 @@ h1 {
    margin:1rem 0;
 }
 
-.update-product form span{
+.update-product form span, 
+.update-artist form span, 
+.update-tracklist form span, 
+.update-credit form span {
    font-size: 1.7rem;
    color:var(--light-color);
 }
 
-.update-product form textarea{
+.update-product form textarea, 
+.update-artist form textarea, 
+.update-tracklist form textarea, 
+.update-credit form textarea {
    height: 15rem;
    resize: none;
 }
