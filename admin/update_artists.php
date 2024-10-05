@@ -24,6 +24,26 @@ if (isset($_POST['update_artist'])) {
    $message[] = 'Artist Updated Successfully!';
 }
 
+   // Image handling for image_01
+   $old_image_01 = $_POST['old_image'];
+   $image_01 = $_FILES['image_url']['artist_name'];
+   $image_01 = filter_var($image_url, FILTER_SANITIZE_STRING);
+   $image_size_01 = $_FILES['image_url']['size'];
+   $image_tmp_name_01 = $_FILES['image_url']['tmp_name'];
+   $image_folder_01 = '/Vinyl-Store/uploaded_img/'.$image_url;
+
+   if(!empty($image_01)){
+      if($image_size_01 > 2000000){
+         $message[] = 'Image Size Is Too Large!';
+      }else{
+         $update_image_01 = $conn->prepare("UPDATE `artists` SET image_url = ? WHERE artist_id = ?");
+         $update_image_01->execute([$image_url, $artist_id]);
+         move_uploaded_file($image_tmp_name_01, $image_folder_01);
+         unlink('/Vinyl-Store/uploaded_img/'.$old_image_01);
+         $message[] = '1st Image Updated Successfully!';
+      }
+   }
+
 ?>
 
 <!DOCTYPE html>
@@ -52,7 +72,17 @@ if (isset($_POST['update_artist'])) {
       if($select_artist->rowCount() > 0){
          while($fetch_artist = $select_artist->fetch(PDO::FETCH_ASSOC)){ 
    ?>
+
    <form action="" method="post" enctype="multipart/form-data">
+   <input type="hidden" name="artist_id" value="<?= $fetch_artists['artist_id']; ?>">
+   <input type="hidden" name="old_image_01" value="<?= $fetch_artists['image_url']; ?>">
+
+      <!-- Display images -->
+      <div class="image-container">
+         <div class="main-image">
+            <img src="../Vinyl-Store/uploaded_img/<?= $fetch_artists['image_url']; ?>" alt="">
+         </div>
+      </div>
       <span>Update Artist Name</span>
       <input type="text" name="artist_name" required class="box" maxlength="100" value="<?= $fetch_artist['artist_name']; ?>">
 
