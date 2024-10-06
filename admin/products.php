@@ -80,9 +80,9 @@ if (isset($_POST['add_artist'])) {
     $bio = filter_var($_POST['bio'], FILTER_SANITIZE_STRING);
 
     // Handle image uploads
-    $image_url = filter_var($_FILES['image_url']['artist_name'], FILTER_SANITIZE_STRING);
+    $image_url = filter_var($_FILES['image_url']['name'], FILTER_SANITIZE_STRING);
     $image_tmp_artist_name = $_FILES['image_url']['tmp_name'];
-    $image_folder = '/Vinyl-Store/uploaded_img/' . $image_url;
+    $image_folder_artist = '../Vinyl-Store/uploaded_img/' . $image_url;
 
     // Check if the artist already exists
     $select_artists = $conn->prepare("SELECT * FROM `artists` WHERE artist_name = ?");
@@ -96,9 +96,12 @@ if (isset($_POST['add_artist'])) {
         $insert_artists->execute([$artist_name, $bio, $image_url]);
 
         if ($insert_artists) {
-            // Move the uploaded images to the appropriate folders
-            move_uploaded_file($image_tmp_artist_name, $image_folder);
-            $message[] = 'New Artist Added!';
+            // Move the uploaded image to the appropriate folder
+            if (move_uploaded_file($image_tmp_artist_name, $image_folder_artist)) {
+                $message[] = 'New Artist Added!';
+            } else {
+                $message[] = 'Failed to upload artist image!';
+            }
         }
     }
 }
@@ -124,18 +127,21 @@ if (isset($_POST['add_credits'])) {
     $credit_type = filter_var($_POST['credit_type'], FILTER_SANITIZE_STRING);
 
     // Handle image uploads
-    $image_url = filter_var($_FILES['image_url']['artist_name'], FILTER_SANITIZE_STRING);
+    $image_url = filter_var($_FILES['image_url']['name'], FILTER_SANITIZE_STRING);
     $image_tmp_name_01 = $_FILES['image_url']['tmp_name'];
     $image_folder_01 = '../Vinyl-Store/uploaded_img/' . $image_url;
-    
+
     // Insert new credit
     $insert_credit = $conn->prepare("INSERT INTO `media_credits` (credit_name, credit_type, image_url) VALUES (?, ?, ?)");
     $insert_credit->execute([$credit_name, $credit_type, $image_url]);
 
     if ($insert_credit) {
-        // Move the uploaded images to the appropriate folders
-        move_uploaded_file($image_tmp_name_01, $image_folder_01);
-        $message[] = 'New Credit Added!';
+        // Move the uploaded image to the appropriate folder
+        if (move_uploaded_file($image_tmp_name_01, $image_folder_01)) {
+            $message[] = 'New Credit Added!';
+        } else {
+            $message[] = 'Failed to upload credit image!';
+        }
     }
 }
 
@@ -213,12 +219,7 @@ $product_credits = $conn->query("SELECT * FROM `product_credits` ORDER BY credit
 $media_tracklists = $conn->query("SELECT * FROM `media_tracklists` ORDER BY tracklist_id DESC")->fetchAll(PDO::FETCH_ASSOC);
 
 // Fetch credits
-$media_credits = $conn->query("
-    SELECT media_credits.credit_id, products.id AS product_id, media_credits.credit_name, media_credits.credit_type, artists.artist_id AS artist_id, media_credits.image_url
-    FROM `media_credits`
-    LEFT JOIN `products` ON media_credits.product_id = products.id
-    LEFT JOIN `artists` ON media_credits.artist_id = artists.artist_id
-")->fetchAll(PDO::FETCH_ASSOC);
+$media_credits = $conn->query("SELECT * FROM `media_credits` ORDER BY credit_id DESC")->fetchAll(PDO::FETCH_ASSOC);
 
 $select_products = $conn->prepare("
     SELECT p.*, g.genre_name, c.category_name, mt.media_type_name, i.quantity, i.status as inventory_status 
@@ -852,8 +853,9 @@ $products_filtered = $filtered_products->fetchAll(PDO::FETCH_ASSOC);
         <div class="inputBox">
         <span>Credit Type (Required)</span>
             <select name="credit_type" required>
-                <option value="songwriter">Songwriter</option>
-                <option value="producer">Producer</option>
+                <option value="Songwriter">Songwriter</option>
+                <option value="Producer">Producer</option>
+                <option value="Photography By">Photography By</option>
             </select>
         </div>
         <div class="inputBox">
