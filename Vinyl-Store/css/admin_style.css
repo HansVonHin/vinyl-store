@@ -47,13 +47,23 @@ html{
    overflow-x: hidden;
 }
 
-body{
+body {
    background-color: var(--light-bg);
-   /* padding-bottom: 10rem; */
-   margin-left: 250px; /* Ensures content fits next to sidebar */
+   margin-left: 250px;
    padding: 2rem;
-   padding-top: 0; /* Ensures no extra padding at the top */
-   width: calc(100% - 250px); /* Content width, accounting for sidebar */
+   padding-top: 0;
+   width: calc(100% - 250px);
+   transition: margin-left 0.3s ease, width 0.3s ease; /* Smooth content resizing */
+}
+
+body.sidebar-closed {
+   margin-left: 0;
+   width: 100%; /* Content expands fully when sidebar is hidden */
+}
+
+body.sidebar-closed .top-navbar {
+   left: 0;
+   width: 100%; /* Navbar also adjusts when sidebar is hidden */
 }
 
 section{
@@ -286,7 +296,7 @@ section{
    display: flex;
    flex-direction: column;
    justify-content: space-between;
-   transition: left 0.3s ease-in-out; /* Smooth animation for toggling */
+   transition: left 0.3s ease-in-out; /* Smooth transition */
    z-index: 1000;
 }
 
@@ -377,7 +387,7 @@ section{
 .top-navbar {
    position: fixed;
    top: 0;
-   left: 250px; /* To align with the sidebar */
+   left: 250px;
    width: calc(100% - 250px); /* Full width minus sidebar */
    background-color: var(--white);
    display: flex;
@@ -386,6 +396,7 @@ section{
    padding: 1rem;
    box-shadow: var(--box-shadow);
    z-index: 1000;
+   transition: left 0.3s ease, width 0.3s ease; /* Smooth transition */
 }
 
 .top-navbar .icons {
@@ -960,54 +971,6 @@ h1 {
    transition: max-height 0.4s ease, opacity 0.4s ease;
    visibility: hidden;
    pointer-events: none;
-}
-
-.hidden h2 {
-   font-size: 18px; /* Increased size */
-   top: 1%;
-   margin-left: 1%;
-}
-
-/* Form input elements spacing */
-.hidden label,
-.hidden select,
-.hidden button {
-   font-size: 18px; /* Increased size */
-   margin-top: 1%;
-   margin-left: 1%;
-   width: 47%;
-   font-size: 16px; /* Slightly larger */
-   margin-bottom: 5px;
-   display: inline-block;
-}
-
-.hidden input[type="text"] {
-   font-size: 18px; /* Increased size */
-   top: 1%;
-   margin-top: 1%;
-   margin-left: 1%;
-   width: 47%; /* Limit width */
-   padding: 8px;
-   margin-bottom: 10px;
-   border: 1px solid #ccc;
-   border-radius: 4px;
-   box-sizing: border-box;
-}
-
-.hidden .btn {
-   padding: 10px;
-   background-color: #4CAF50;
-   color: white;
-   border: none;
-   cursor: pointer;
-   width: 47%; /* Reduce button width */
-   display: inline-block;
-   text-align: center;
-}
-
-.hidden .btn.cancel {
-   background-color: #f44336;
-   margin-left: 4%; /* Space between the two buttons */
 }
 
 .open {

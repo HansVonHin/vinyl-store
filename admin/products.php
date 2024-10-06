@@ -983,27 +983,31 @@ function sortProducts() {
 }
 
 function toggleForm(formId) {
-    // Array of all form elements
-    var forms = [
-        document.getElementById("artistForm"),
-        document.getElementById("new_artistForm"),
-        document.getElementById("tracklistForm"),
-        document.getElementById("new_tracklistForm"),
-        document.getElementById("creditForm"),
-        document.getElementById("new_creditsForm")
-    ];
-    
-    // Loop through all forms and close them
-    forms.forEach(function(form) {
-        if (form && form.classList.contains("open")) {
-            form.classList.remove("open");
-            form.classList.add("hidden");
-        }
-    });
-    
-    // Toggle the clicked form
     var form = document.getElementById(formId);
-    if (form.classList.contains("hidden")) {
+    
+    // Check if form is open, if so close it, else open it
+    if (form.classList.contains("open")) {
+        form.classList.remove("open");
+        form.classList.add("hidden");
+    } else {
+        // Close all other forms
+        var forms = [
+            document.getElementById("artistForm"),
+            document.getElementById("new_artistForm"),
+            document.getElementById("tracklistForm"),
+            document.getElementById("new_tracklistForm"),
+            document.getElementById("creditForm"),
+            document.getElementById("new_creditsForm")
+        ];
+        
+        forms.forEach(function(f) {
+            if (f && f.classList.contains("open")) {
+                f.classList.remove("open");
+                f.classList.add("hidden");
+            }
+        });
+        
+        // Open the clicked form
         form.classList.remove("hidden");
         form.classList.add("open");
     }
