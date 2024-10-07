@@ -87,6 +87,7 @@ $media_credits = $conn->query("SELECT * FROM `media_credits` ORDER BY credit_id 
 
          <div class="content">
             <div class="name"><?= $fetch_product['name']; ?></div>
+            <div class="artist"><?= $fetch_product['artist_name']; ?></div>
             <div class="flex">
                <div class="price"><span>₱</span><?= $fetch_product['price']; ?><span>/-</span></div>
                <input type="number" name="qty" class="qty" min="1" max="99" onkeypress="if(this.value.length == 2) return false;" value="1">
@@ -107,7 +108,7 @@ $media_credits = $conn->query("SELECT * FROM `media_credits` ORDER BY credit_id 
             <!-- Credits section -->
             <div class="credits">
                <h3>Credits:</h3>
-               <p><?= nl2br($fetch_product['credit_id']); ?></p>
+               <p><?= nl2br($fetch_product['credit_name']); ?></p>
             </div>
 
             <div class="flex-btn">
@@ -127,6 +128,24 @@ $media_credits = $conn->query("SELECT * FROM `media_credits` ORDER BY credit_id 
 
 <?php include 'components/footer.php'; ?>
 
+<script>
+let header = document.querySelector('.header');
+   let lastScrollTop = 0;
+
+   window.addEventListener('scroll', () => {
+    let scrollTop = window.scrollY || document.documentElement.scrollTop;
+    
+    if (scrollTop > lastScrollTop && scrollTop > 250) {
+        // Scrolling down and past 100px, hide the header
+        header.classList.add('hidden');
+    } else if (scrollTop < lastScrollTop && scrollTop <= 250) {
+        // Scrolling up or near the top of the page, show the header
+        header.classList.remove('hidden');
+    }
+    
+    lastScrollTop = scrollTop;
+   });
+</script>
 <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
 <script src="js/script.js"></script>
 
