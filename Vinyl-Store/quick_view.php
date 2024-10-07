@@ -11,6 +11,24 @@ if(isset($_SESSION['user_id'])){
 
 include 'components/wishlist_cart.php';
 
+// Fetch products for display
+$products = $conn->query("SELECT * FROM `products` ORDER BY id DESC")->fetchAll(PDO::FETCH_ASSOC);
+
+// Fetch artists
+$artists = $conn->query("SELECT * FROM `artists` ORDER BY artist_id DESC")->fetchAll(PDO::FETCH_ASSOC);
+
+// Fetch product_artists
+$product_artists = $conn->query("SELECT * FROM `product_artists` ORDER BY artist_id DESC")->fetchAll(PDO::FETCH_ASSOC);
+
+// Fetch product_credits
+$product_credits = $conn->query("SELECT * FROM `product_credits` ORDER BY credit_id DESC")->fetchAll(PDO::FETCH_ASSOC);
+
+// Fetch tracklists
+$media_tracklists = $conn->query("SELECT * FROM `media_tracklists` ORDER BY tracklist_id DESC")->fetchAll(PDO::FETCH_ASSOC);
+
+// Fetch credits
+$media_credits = $conn->query("SELECT * FROM `media_credits` ORDER BY credit_id DESC")->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
@@ -35,9 +53,15 @@ include 'components/wishlist_cart.php';
 
    <?php
      $pid = $_GET['pid'];
-     $select_products = $conn->prepare("SELECT p.*, g.name AS genre, c.name AS category FROM `products` p 
+     $select_products = $conn->prepare("SELECT p.*, g.genre_name, c.category_name, mt.media_type_name, i.status, a.artist_name, t.tracklist_url, cr.credit_name, pr.credit_id FROM `products` p 
                                         LEFT JOIN genres g ON p.genre_id = g.id 
                                         LEFT JOIN categories c ON p.category_id = c.id
+                                        LEFT JOIN `media_types` mt ON p.media_type_id = mt.id
+                                        LEFT JOIN `inventory` i ON p.id = i.product_id
+                                        LEFT JOIN `artists` a ON a.artist_id = g.id
+                                        LEFT JOIN `media_tracklists` t ON t.tracklist_id = g.id
+                                        LEFT JOIN `media_credits` cr ON cr.credit_id = c.id
+                                        LEFT JOIN `product_credits` pr ON pr.credit_id = c.id
                                         WHERE p.id = ?");
      $select_products->execute([$pid]);
      if($select_products->rowCount() > 0){
@@ -69,7 +93,7 @@ include 'components/wishlist_cart.php';
             </div>
 
             <!-- Display genre, style, and release date -->
-            <div class="genre"><strong>Genre:</strong> <?= $fetch_product['genre']; ?></div>
+            <div class="genre"><strong>Genre:</strong> <?= $fetch_product['genre_name']; ?></div>
             <div class="style"><strong>Style:</strong> <?= $fetch_product['style']; ?></div>
             <div class="release-date"><strong>Release Date:</strong> <?= $fetch_product['release_date']; ?></div>
 
@@ -77,13 +101,13 @@ include 'components/wishlist_cart.php';
             <div class="details"><?= $fetch_product['details']; ?></div>
             <div class="tracklist">
                <h3>Tracklist:</h3>
-               <p><?= nl2br($fetch_product['tracklist']); ?></p>
+               <p><?= nl2br($fetch_product['tracklist_url']); ?></p>
             </div>
 
             <!-- Credits section -->
             <div class="credits">
                <h3>Credits:</h3>
-               <p><?= nl2br($fetch_product['credits']); ?></p>
+               <p><?= nl2br($fetch_product['credit_id']); ?></p>
             </div>
 
             <div class="flex-btn">
