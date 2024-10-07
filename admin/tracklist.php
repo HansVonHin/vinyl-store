@@ -36,7 +36,7 @@ if (isset($_POST['add_tracklist'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tracklists</title>
-    <link rel="icon" href="images/favicon.ico" type="images/x-icon">
+    <link rel="icon" href="../Vinyl-Store/images/favicon.ico" type="images/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link rel="stylesheet" href="../Vinyl-Store/css/admin_style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

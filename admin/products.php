@@ -380,7 +380,7 @@ $products_filtered = $filtered_products->fetchAll(PDO::FETCH_ASSOC);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Products</title>
-    <link rel="icon" href="images/favicon.ico" type="images/x-icon">
+    <link rel="icon" href="../Vinyl-Store/images/favicon.ico" type="images/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link rel="stylesheet" href="../Vinyl-Store/css/admin_style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -648,7 +648,7 @@ $products_filtered = $filtered_products->fetchAll(PDO::FETCH_ASSOC);
 
         <div class="btn-container">
             <input type="submit" class="btn" value="Confirm" name="assign_artist">
-            <button id="toggleArtistButton" class="btn cancel">Close</button>
+            <!--<button id="toggleArtistButton" class="btn cancel">Close</button>-->
         </div>
         </form>
     </div>
@@ -671,7 +671,7 @@ $products_filtered = $filtered_products->fetchAll(PDO::FETCH_ASSOC);
             <?php endif; ?>
             <div class="btn-container">
                     <input type="submit" class="btn" value="Add Artist" name="add_artist">
-            <button id="toggleNewArtistButton" class="btn cancel">Close</button>
+            <!--<button id="toggleNewArtistButton" class="btn cancel">Close</button>-->
             </div>
         </form>
     </div>
@@ -766,7 +766,7 @@ $products_filtered = $filtered_products->fetchAll(PDO::FETCH_ASSOC);
 
         <div class="btn-container">
             <input type="submit" class="btn" value="Confirm" name="assign_tracklist">
-            <button id="toggleTracklistButton" class="btn cancel">Close</button>
+            <!--<button id="toggleTracklistButton" class="btn cancel">Close</button>-->
         </div>
         </form>
     </div>
@@ -794,7 +794,7 @@ $products_filtered = $filtered_products->fetchAll(PDO::FETCH_ASSOC);
         <?php endif; ?>
             <div class="btn-container">
                     <input type="submit" class="btn" value="Add Tracklist" name="add_tracklist"></input>
-            <button id="toggleNewTracklistButton" class="btn cancel">Close</button>
+            <!--<button id="toggleNewTracklistButton" class="btn cancel">Close</button>-->
             </div>
         </form>
     </div>
@@ -887,7 +887,7 @@ $products_filtered = $filtered_products->fetchAll(PDO::FETCH_ASSOC);
 
         <div class="btn-container">
             <input type="submit" class="btn" value="Confirm" name="assign_credit">
-            <button id="toggleCreditButton" class="btn cancel">Close</button>
+            <!--<button id="toggleCreditButton" class="btn cancel">Close</button>-->
         </div>
         </form>
     </div>
@@ -914,7 +914,7 @@ $products_filtered = $filtered_products->fetchAll(PDO::FETCH_ASSOC);
         <?php endif; ?>
             <div class="btn-container">
                     <input type="submit" class="btn" value="Add Credits" name="add_credits">
-            <button id="toggleNewCreditsButton" class="btn cancel">Close</button>
+            <!--button id="toggleNewCreditsButton" class="btn cancel">Close</button>-->
             </div>
         </form>
     </div>
