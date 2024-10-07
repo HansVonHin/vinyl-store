@@ -203,6 +203,53 @@ if (isset($_GET['delete'])) {
     header('location:products.php');
 }
 
+// Delete an artist
+if (isset($_GET['delete'])) {
+    $delete_id = $_GET['delete'];
+    // Select the artist's image to delete it from the folder
+    $delete_artist_image = $conn->prepare("SELECT * FROM `artists` WHERE artist_id = ?");
+    $delete_artist_image->execute([$delete_id]);
+    $fetch_delete_image = $delete_artist_image->fetch(PDO::FETCH_ASSOC);
+
+    // Unlink (delete) the artist's image from the folder
+    unlink('../Vinyl-Store/uploaded_img/' . $fetch_delete_image['image_url']);
+
+    // Delete the artist from the database
+    $delete_artist = $conn->prepare("DELETE FROM `artists` WHERE artist_id = ?");
+    $delete_artist->execute([$delete_id]);
+    header('location:products.php');
+}
+
+// Delete a tracklist
+if (isset($_GET['delete'])) {
+    $delete_id = $_GET['delete'];
+    // Select the tracklist entry to ensure we can handle anything related if necessary (tracklist data typically wouldn't have an image, but if there was an image, it can be handled similarly)
+    $delete_tracklist = $conn->prepare("SELECT * FROM `media_tracklists` WHERE tracklist_id = ?");
+    $delete_tracklist->execute([$delete_id]);
+
+    // Delete the tracklist from the database
+    $delete_tracklist_query = $conn->prepare("DELETE FROM `media_tracklists` WHERE tracklist_id = ?");
+    $delete_tracklist_query->execute([$delete_id]);
+    header('location:products.php');
+}
+
+// Delete a credit
+if (isset($_GET['delete'])) {
+    $delete_id = $_GET['delete'];
+    // Select the credit's image to delete it from the folder
+    $delete_credit_image = $conn->prepare("SELECT * FROM `media_credits` WHERE credit_id = ?");
+    $delete_credit_image->execute([$delete_id]);
+    $fetch_delete_image = $delete_credit_image->fetch(PDO::FETCH_ASSOC);
+
+    // Unlink (delete) the credit's image from the folder
+    unlink('../Vinyl-Store/uploaded_img/' . $fetch_delete_image['image_url']);
+
+    // Delete the credit from the database
+    $delete_credit = $conn->prepare("DELETE FROM `media_credits` WHERE credit_id = ?");
+    $delete_credit->execute([$delete_id]);
+    header('location:products.php');
+}
+
 // Fetch products for display
 $products = $conn->query("SELECT * FROM `products` ORDER BY id DESC")->fetchAll(PDO::FETCH_ASSOC);
 
@@ -393,7 +440,7 @@ $products_filtered = $filtered_products->fetchAll(PDO::FETCH_ASSOC);
             <?php endif; ?>
             </tbody>
         </table>
-        <div>
+        <div class="bottom-controls">
         <label for="rows">Show </label>
         <select id="rows" onchange="setRowsPerPage()">
             <option value="10">10</option>
@@ -551,7 +598,7 @@ $products_filtered = $filtered_products->fetchAll(PDO::FETCH_ASSOC);
                     <a href="update_artists.php?update=<?= $artist['artist_id']; ?>" class="update-icon">
                         <i class="fas fa-edit"></i>
                     </a>
-                    <a href="artists.php?delete=<?= $artist['artist_id']; ?>" onclick="return confirm('Are you sure you want to delete this artist?');" class="delete-icon">
+                    <a href="products.php?delete=<?= $artist['artist_id']; ?>" onclick="return confirm('Are you sure you want to delete this artist?');" class="delete-icon">
                         <i class="fas fa-trash"></i>
                     </a>
                 </td>

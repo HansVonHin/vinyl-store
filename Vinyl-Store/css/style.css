@@ -1043,7 +1043,8 @@ section{
 /* Home Product Slider */
 .home-products .swiper-slide {
    position: relative;
-   padding:2rem;
+   padding:1rem;
+   width: 20rem;
    border-radius: .5rem;
    background-color: var(--white);
    box-shadow: var(--box-shadow);
@@ -1483,6 +1484,10 @@ section{
 
 .swiper-pagination-bullet-active {
    background-color: var(--red) !important;
+}
+
+.swiper-button-next, .swiper-button-prev {
+   color: var(--red);
 }
 
 /* Category Slider (category.php) */
