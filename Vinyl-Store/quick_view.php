@@ -79,69 +79,149 @@ $media_credits = $conn->query("SELECT * FROM `media_credits` ORDER BY credit_id 
      if($select_products->rowCount() > 0){
       while($fetch_product = $select_products->fetch(PDO::FETCH_ASSOC)){
    ?>
-   <form action="" method="post" class="box">
-      <input type="hidden" name="pid" value="<?= $fetch_product['id']; ?>">
-      <input type="hidden" name="name" value="<?= $fetch_product['name']; ?>">
-      <input type="hidden" name="price" value="<?= $fetch_product['price']; ?>">
-      <input type="hidden" name="image" value="<?= $fetch_product['image_01']; ?>">
+<div class="quick-view">
 
-      <div class="row">
-         <div class="image-container">
-            <div class="main-image">
-               <img src="../Vinyl-Store/uploaded_img/<?= $fetch_product['image_01']; ?>" alt="">
-            </div>
-            <div class="sub-image">
-               <img src="../Vinyl-Store/uploaded_img/<?= $fetch_product['image_01']; ?>" alt="">
-               <img src="../Vinyl-Store/uploaded_img/<?= $fetch_product['image_02']; ?>" alt="">
-               <img src="../Vinyl-Store/uploaded_img/<?= $fetch_product['image_03']; ?>" alt="">
-            </div>
-         </div>
+<!-- Left Section: Album Details -->
+<div class="left-section">
 
-         <div class="content">
-            <div class="name"><?= $fetch_product['name']; ?></div>
-            <div class="artist"><?= $fetch_product['artist_name']; ?></div>
-            <div class="flex">
-               <div class="price"><span>₱</span><?= $fetch_product['price']; ?><span>/-</span></div>
-               <input type="number" name="qty" class="qty" min="1" max="99" onkeypress="if(this.value.length == 2) return false;" value="1">
-            </div>
-
-            <!-- Display genre, style, and release date -->
-            <div class="genre"><strong>Genre:</strong> <?= $fetch_product['genre_name']; ?></div>
-            <!-- Styles section -->
-            <div class="style">
-            <strong>Style:</strong>
-               <ul>
-                  <?php foreach ($product_styles as $style): ?>
-                     <li><?= htmlspecialchars($style['style_name']) ?></li>
-                  <?php endforeach; ?>
-               </ul>
-            </div>
-            <div class="release-date"><strong>Release Date:</strong> <?= $fetch_product['release_date']; ?></div>
-
-            <!-- Product details and tracklist -->
-            <div class="details"><?= $fetch_product['details']; ?></div>
-            <div class="tracklist">
-               <h3>Tracklist:</h3>
-               <p><?= nl2br($fetch_product['tracklist_url']); ?></p>
-            </div>
-
-            <!-- Credits section -->
-            <div class="credits">
-               <h3>Credits:</h3>
-                  <ul>
-                  <?php foreach ($product_credits as $credit): ?>
-                     <li><?= htmlspecialchars($credit['credit_name']) ?> (<?= htmlspecialchars($credit['credit_type']) ?>)</li>
-                  <?php endforeach; ?>
-               </ul>
-            </div>
-
-            <div class="flex-btn">
-               <input type="submit" value="Add to Cart" class="btn" name="add_to_cart">
-               <input class="option-btn" type="submit" name="add_to_wishlist" value="Add to Wishlist">
-            </div>
-         </div>
+   <!-- General Details: Image, Artist, Album Name, Genre, Style, Release Year -->
+   <div class="general-details">
+      <div class="album-image">
+         <img src="../Vinyl-Store/uploaded_img/<?= $fetch_product['image_01']; ?>" alt="">
       </div>
-   </form>
+      <div class="album-info">
+         <h1><?= $fetch_product['name']; ?></h1>
+         <h2>by <?= $fetch_product['artist_name']; ?></h2>
+         <p><strong>Genre:</strong> <?= $fetch_product['genre_name']; ?></p>
+         <p><strong>Style:</strong> <?= implode(", ", array_column($product_styles, 'style_name')); ?></p>
+         <p><strong>Year:</strong> <?= $fetch_product['release_date']; ?></p>
+      </div>
+   </div>
+
+   <!-- Tracklist -->
+   <div class="tracklist">
+      <h3>Tracklist:</h3>
+
+      <!-- Side A -->
+      <table class="tracklist-table">
+         <thead>
+            <tr>
+               <th>#</th>
+               <th>Song Title</th>
+               <th>Length</th>
+            </tr>
+         </thead>
+         <tbody>
+            <?php foreach ($side_a_tracks as $track): ?>
+               <tr>
+                  <td><?= $track['track_number']; ?></td>
+                  <td><?= $track['track_title']; ?></td>
+                  <td><?= $track['track_length']; ?></td>
+               </tr>
+            <?php endforeach; ?>
+         </tbody>
+      </table>
+
+      <!-- Side B (if available) -->
+      <table class="tracklist-table">
+         <thead>
+            <tr>
+               <th>#</th>
+               <th>Song Title</th>
+               <th>Length</th>
+            </tr>
+         </thead>
+         <tbody>
+            <?php foreach ($side_b_tracks as $track): ?>
+               <tr>
+                  <td><?= $track['track_number']; ?></td>
+                  <td><?= $track['track_title']; ?></td>
+                  <td><?= $track['track_length']; ?></td>
+               </tr>
+            <?php endforeach; ?>
+         </tbody>
+      </table>
+   </div>
+
+   <!-- Credits -->
+   <div class="credits">
+      <h3>Credits:</h3>
+      <ul>
+         <?php foreach (array_slice($product_credits, 0, 4) as $credit): ?>
+            <li><?= htmlspecialchars($credit['credit_name']) ?> (<?= htmlspecialchars($credit['credit_type']) ?>)</li>
+         <?php endforeach; ?>
+      </ul>
+
+      <?php if (count($product_credits) > 4): ?>
+         <button id="show-more-credits">Show More</button>
+         <ul id="extra-credits" style="display: none;">
+            <?php foreach (array_slice($product_credits, 4) as $credit): ?>
+               <li><?= htmlspecialchars($credit['credit_name']) ?> (<?= htmlspecialchars($credit['credit_type']) ?>)</li>
+            <?php endforeach; ?>
+         </ul>
+      <?php endif; ?>
+   </div>
+
+   <!-- Details/Notes -->
+   <div class="details">
+      <h3>Details/Notes:</h3>
+      <p><?= $fetch_product['details']; ?></p>
+   </div>
+</div>
+
+<!-- Right Section: Quantity, Actions, Stats, Video -->
+<div class="right-section">
+   <!-- Quantity and Action Buttons -->
+   <div class="actions">
+      <div class="price">₱<?= $fetch_product['price']; ?>/-</div>
+      <input type="number" name="qty" class="qty" min="1" max="99" value="1">
+      <button class="btn add-to-cart">Add to Cart</button>
+      <button class="btn add-to-wishlist">Add to Wishlist</button>
+   </div>
+
+   <!-- Stats -->
+   <div class="stats">
+      <p><strong>In Collection:</strong> <?= $checkout_count; ?></p>
+      <p><strong>Want List:</strong> <?= $wishlist_count; ?></p>
+      <p><strong>Avg Rating:</strong> <?= $avg_rating; ?> / 5 (<?= $rating_count; ?> ratings)</p>
+   </div>
+
+   <!-- Embedded Youtube -->
+   <div class="video">
+      <iframe width="100%" height="315" src="https://www.youtube.com/embed/<?= $video_link ?>" frameborder="0"></iframe>
+   </div>
+</div>
+</div>
+
+<!-- Recommendations Section -->
+<div class="recommendations">
+<h3>Recommendations:</h3>
+<div class="swiper">
+   <?php foreach ($recommended_products as $recommended): ?>
+      <div class="swiper-slide">
+         <img src="../Vinyl-Store/uploaded_img/<?= $recommended['image_01']; ?>" alt="">
+         <p><?= $recommended['name']; ?></p>
+      </div>
+   <?php endforeach; ?>
+</div>
+</div>
+
+<!-- Reviews Section -->
+<div class="reviews">
+<h3>Reviews:</h3>
+<?php foreach ($reviews as $review): ?>
+   <div class="review">
+      <img src="<?= $review['user_image']; ?>" alt="User Image">
+      <div class="review-content">
+         <strong><?= $review['user_name']; ?></strong>
+         <span><?= $review['review_date']; ?></span>
+         <div class="rating"><?= str_repeat('★', $review['rating']); ?> / 5</div>
+         <p><?= htmlspecialchars($review['review_text']); ?></p>
+      </div>
+   </div>
+<?php endforeach; ?>
+</div>
+
    <?php
       }
    }else{
@@ -169,6 +249,12 @@ let header = document.querySelector('.header');
     
     lastScrollTop = scrollTop;
    });
+
+   document.getElementById('show-more-credits').addEventListener('click', function() {
+   document.getElementById('extra-credits').style.display = 'block';
+   this.style.display = 'none';
+});
+
 </script>
 <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
 <script src="js/script.js"></script>
