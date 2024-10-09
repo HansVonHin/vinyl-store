@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 05, 2024 at 06:28 PM
+-- Generation Time: Oct 09, 2024 at 05:52 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -59,7 +59,7 @@ CREATE TABLE `artists` (
 --
 
 INSERT INTO `artists` (`artist_id`, `artist_name`, `bio`, `image_url`) VALUES
-(8, 'The Beatles', 'Legendary British rock band formed in Liverpool', '');
+(1, 'The Beatles', 'Legendary British rock band formed in Liverpool', 'artist-1.jpg');
 
 -- --------------------------------------------------------
 
@@ -143,10 +143,8 @@ CREATE TABLE `inventory` (
 
 CREATE TABLE `media_credits` (
   `credit_id` int(11) NOT NULL,
-  `product_id` int(11) DEFAULT NULL,
   `credit_name` varchar(255) NOT NULL,
-  `credit_type` enum('songwriter','producer') DEFAULT NULL,
-  `artist_id` int(11) DEFAULT NULL,
+  `credit_type` enum('Songwriter','Producer','Photography By') DEFAULT NULL,
   `image_url` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -154,8 +152,9 @@ CREATE TABLE `media_credits` (
 -- Dumping data for table `media_credits`
 --
 
-INSERT INTO `media_credits` (`credit_id`, `product_id`, `credit_name`, `credit_type`, `artist_id`, `image_url`) VALUES
-(1, NULL, 'George Martin', 'producer', NULL, '');
+INSERT INTO `media_credits` (`credit_id`, `credit_name`, `credit_type`, `image_url`) VALUES
+(1, 'George Martin', 'Producer', 'credits-1.jpg'),
+(2, 'Iain MacMillan', 'Photography By', 'credits-2.jpg');
 
 -- --------------------------------------------------------
 
@@ -195,9 +194,8 @@ CREATE TABLE `media_types` (
 
 INSERT INTO `media_types` (`id`, `media_type_name`) VALUES
 (1, 'Vinyl'),
-(2, 'CD'),
-(3, 'Cassette'),
-(4, 'DVD');
+(2, 'CD & DVD'),
+(3, 'Cassette');
 
 -- --------------------------------------------------------
 
@@ -294,7 +292,49 @@ CREATE TABLE `product_credits` (
 --
 
 INSERT INTO `product_credits` (`product_id`, `credit_id`) VALUES
-(1, 1);
+(1, 1),
+(1, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_styles`
+--
+
+CREATE TABLE `product_styles` (
+  `product_id` int(11) NOT NULL,
+  `style_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `styles`
+--
+
+CREATE TABLE `styles` (
+  `style_id` int(11) NOT NULL,
+  `genre_id` int(11) NOT NULL,
+  `style_name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `styles`
+--
+
+INSERT INTO `styles` (`style_id`, `genre_id`, `style_name`) VALUES
+(1, 1, 'Hard Rock'),
+(2, 1, 'Grunge'),
+(3, 2, 'Funk'),
+(4, 2, 'R&B'),
+(5, 3, 'Baroque'),
+(6, 3, 'Classical Period'),
+(7, 4, 'EDM'),
+(8, 4, 'Trance'),
+(9, 5, 'Gangsta Rap'),
+(10, 5, 'Jazz Rap'),
+(11, 6, 'Synth-pop'),
+(12, 6, 'Dance-pop');
 
 -- --------------------------------------------------------
 
@@ -373,9 +413,7 @@ ALTER TABLE `inventory`
 -- Indexes for table `media_credits`
 --
 ALTER TABLE `media_credits`
-  ADD PRIMARY KEY (`credit_id`),
-  ADD KEY `product_id` (`product_id`),
-  ADD KEY `artist_id` (`artist_id`);
+  ADD PRIMARY KEY (`credit_id`);
 
 --
 -- Indexes for table `media_tracklists`
@@ -426,6 +464,20 @@ ALTER TABLE `product_credits`
   ADD KEY `product_credits_ibfk_2` (`product_id`);
 
 --
+-- Indexes for table `product_styles`
+--
+ALTER TABLE `product_styles`
+  ADD PRIMARY KEY (`product_id`,`style_id`),
+  ADD KEY `style_id` (`style_id`);
+
+--
+-- Indexes for table `styles`
+--
+ALTER TABLE `styles`
+  ADD PRIMARY KEY (`style_id`),
+  ADD KEY `genre_id` (`genre_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -451,7 +503,7 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT for table `artists`
 --
 ALTER TABLE `artists`
-  MODIFY `artist_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `artist_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `cart`
@@ -481,7 +533,7 @@ ALTER TABLE `inventory`
 -- AUTO_INCREMENT for table `media_credits`
 --
 ALTER TABLE `media_credits`
-  MODIFY `credit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `credit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT for table `media_tracklists`
@@ -511,7 +563,13 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT for table `styles`
+--
+ALTER TABLE `styles`
+  MODIFY `style_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -534,13 +592,6 @@ ALTER TABLE `wishlist`
 --
 ALTER TABLE `inventory`
   ADD CONSTRAINT `inventory_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `media_credits`
---
-ALTER TABLE `media_credits`
-  ADD CONSTRAINT `media_credits_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `media_credits_ibfk_2` FOREIGN KEY (`artist_id`) REFERENCES `artists` (`artist_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `media_tracklists`
@@ -569,6 +620,19 @@ ALTER TABLE `product_artists`
 ALTER TABLE `product_credits`
   ADD CONSTRAINT `product_credits_ibfk_1` FOREIGN KEY (`credit_id`) REFERENCES `media_credits` (`credit_id`) ON DELETE CASCADE,
   ADD CONSTRAINT `product_credits_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
+
+--
+-- Constraints for table `product_styles`
+--
+ALTER TABLE `product_styles`
+  ADD CONSTRAINT `product_styles_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
+  ADD CONSTRAINT `product_styles_ibfk_2` FOREIGN KEY (`style_id`) REFERENCES `styles` (`style_id`);
+
+--
+-- Constraints for table `styles`
+--
+ALTER TABLE `styles`
+  ADD CONSTRAINT `styles_ibfk_1` FOREIGN KEY (`genre_id`) REFERENCES `genres` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
