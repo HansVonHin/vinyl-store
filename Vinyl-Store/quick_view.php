@@ -20,8 +20,21 @@ $artists = $conn->query("SELECT * FROM `artists` ORDER BY artist_id DESC")->fetc
 // Fetch product_artists
 $product_artists = $conn->query("SELECT * FROM `product_artists` ORDER BY artist_id DESC")->fetchAll(PDO::FETCH_ASSOC);
 
+// Fetch product_styles
+$product_styles = $conn->query("
+    SELECT s.style_name 
+    FROM product_styles ps
+    JOIN styles s ON ps.style_id = s.style_id
+    WHERE ps.product_id = {$fetch_product['id']}
+")->fetchAll(PDO::FETCH_ASSOC);
+
 // Fetch product_credits
-$product_credits = $conn->query("SELECT * FROM `product_credits` ORDER BY credit_id DESC")->fetchAll(PDO::FETCH_ASSOC);
+$product_credits = $conn->query("
+    SELECT mc.credit_name, mc.credit_type 
+    FROM product_credits pc
+    JOIN media_credits mc ON pc.credit_id = mc.credit_id
+    WHERE pc.product_id = {$fetch_product['id']}
+")->fetchAll(PDO::FETCH_ASSOC);
 
 // Fetch tracklists
 $media_tracklists = $conn->query("SELECT * FROM `media_tracklists` ORDER BY tracklist_id DESC")->fetchAll(PDO::FETCH_ASSOC);
@@ -95,7 +108,15 @@ $media_credits = $conn->query("SELECT * FROM `media_credits` ORDER BY credit_id 
 
             <!-- Display genre, style, and release date -->
             <div class="genre"><strong>Genre:</strong> <?= $fetch_product['genre_name']; ?></div>
-            <div class="style"><strong>Style:</strong> <?= $fetch_product['style']; ?></div>
+            <!-- Styles section -->
+            <div class="style">
+            <strong>Style:</strong>
+               <ul>
+                  <?php foreach ($product_styles as $style): ?>
+                     <li><?= htmlspecialchars($style['style_name']) ?></li>
+                  <?php endforeach; ?>
+               </ul>
+            </div>
             <div class="release-date"><strong>Release Date:</strong> <?= $fetch_product['release_date']; ?></div>
 
             <!-- Product details and tracklist -->
@@ -108,7 +129,11 @@ $media_credits = $conn->query("SELECT * FROM `media_credits` ORDER BY credit_id 
             <!-- Credits section -->
             <div class="credits">
                <h3>Credits:</h3>
-               <p><?= nl2br($fetch_product['credit_name']); ?></p>
+                  <ul>
+                  <?php foreach ($product_credits as $credit): ?>
+                     <li><?= htmlspecialchars($credit['credit_name']) ?> (<?= htmlspecialchars($credit['credit_type']) ?>)</li>
+                  <?php endforeach; ?>
+               </ul>
             </div>
 
             <div class="flex-btn">
