@@ -21,15 +21,10 @@ $artists = $conn->query("SELECT * FROM `artists` ORDER BY artist_id DESC")->fetc
 $product_artists = $conn->query("SELECT * FROM `product_artists` ORDER BY artist_id DESC")->fetchAll(PDO::FETCH_ASSOC);
 
 // Fetch product_styles
-$product_styles = $conn->query("
-    SELECT s.style_name 
-    FROM product_styles ps
-    JOIN styles s ON ps.style_id = s.style_id
-    WHERE ps.product_id = {$fetch_product['id']}
-")->fetchAll(PDO::FETCH_ASSOC);
+$product_styles = $conn->query("SELECT * FROM `product_styles` ORDER BY style_id DESC")->fetchAll(PDO::FETCH_ASSOC);
 
 // Fetch product_credits
-$product_credits = $conn->query("
+$product_credits = $conn->query("SELECT * FROM `product_credits` ORDER BY style_id DESC")->fetchAll(PDO::FETCH_ASSOC);
     SELECT mc.credit_name, mc.credit_type 
     FROM product_credits pc
     JOIN media_credits mc ON pc.credit_id = mc.credit_id
