@@ -20,15 +20,19 @@ $artists = $conn->query("SELECT * FROM `artists` ORDER BY artist_id DESC")->fetc
 // Fetch product_artists
 $product_artists = $conn->query("SELECT * FROM `product_artists` ORDER BY artist_id DESC")->fetchAll(PDO::FETCH_ASSOC);
 
-// Fetch product_styles
-$product_styles = $conn->query("SELECT * FROM `product_styles` ORDER BY style_id DESC")->fetchAll(PDO::FETCH_ASSOC);
+// Fetch product_styles with styles using a join
+$product_styles = $conn->query("
+    SELECT styles.style_name 
+    FROM product_styles 
+    JOIN styles ON product_styles.style_id = styles.style_id 
+    WHERE product_styles.product_id = product_id
+")->fetchAll(PDO::FETCH_ASSOC);
 
-// Fetch product_credits
-$product_credits = $conn->query("SELECT * FROM `product_credits` ORDER BY style_id DESC")->fetchAll(PDO::FETCH_ASSOC);
-    SELECT mc.credit_name, mc.credit_type 
-    FROM product_credits pc
-    JOIN media_credits mc ON pc.credit_id = mc.credit_id
-    WHERE pc.product_id = {$fetch_product['id']}
+$product_credits = $conn->query("
+    SELECT media_credits.credit_name, media_credits.credit_type 
+    FROM product_credits 
+    JOIN media_credits ON product_credits.credit_id = media_credits.credit_id 
+    WHERE product_credits.product_id = product_id
 ")->fetchAll(PDO::FETCH_ASSOC);
 
 // Fetch tracklists
@@ -84,12 +88,12 @@ $media_credits = $conn->query("SELECT * FROM `media_credits` ORDER BY credit_id 
       <div class="row">
          <div class="image-container">
             <div class="main-image">
-               <img src="/Vinyl-Store/uploaded_img/<?= $fetch_product['image_01']; ?>" alt="">
+               <img src="../Vinyl-Store/uploaded_img/<?= $fetch_product['image_01']; ?>" alt="">
             </div>
             <div class="sub-image">
-               <img src="/Vinyl-Store/uploaded_img/<?= $fetch_product['image_01']; ?>" alt="">
-               <img src="/Vinyl-Store/uploaded_img/<?= $fetch_product['image_02']; ?>" alt="">
-               <img src="/Vinyl-Store/uploaded_img/<?= $fetch_product['image_03']; ?>" alt="">
+               <img src="../Vinyl-Store/uploaded_img/<?= $fetch_product['image_01']; ?>" alt="">
+               <img src="../Vinyl-Store/uploaded_img/<?= $fetch_product['image_02']; ?>" alt="">
+               <img src="../Vinyl-Store/uploaded_img/<?= $fetch_product['image_03']; ?>" alt="">
             </div>
          </div>
 
