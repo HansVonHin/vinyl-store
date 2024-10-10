@@ -127,7 +127,7 @@ $media_credits = $conn->query("SELECT * FROM `media_credits` ORDER BY credit_id 
          <thead>
             <tr>
                <th>#</th>
-               <th>Song Title</th>
+               <th>Title</th>
                <th>Length</th>
             </tr>
          </thead>
