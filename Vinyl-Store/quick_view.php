@@ -102,19 +102,23 @@ $media_credits = $conn->query("SELECT * FROM `media_credits` ORDER BY credit_id 
 <!-- Left Section: Album Details -->
 <div class="left-section">
 
-   <!-- General Details: Image, Artist, Album Name, Genre, Style, Release Year -->
-   <div class="general-details">
-      <div class="album-image">
-         <img src="../Vinyl-Store/uploaded_img/<?= $fetch_product['image_01']; ?>" alt="">
-      </div>
-      <div class="album-info">
-         <h1><?= $fetch_product['name']; ?></h1>
-         <h2>by <?= $fetch_product['artist_name']; ?></h2>
-         <p><strong>Genre:</strong> <?= $fetch_product['genre_name']; ?></p>
-         <p><strong>Style:</strong> <?= implode(", ", array_column($product_styles, 'style_name')); ?></p>
-         <p><strong>Year:</strong> <?= $fetch_product['release_date']; ?></p>
-      </div>
+<!-- General Details: Image, Artist, Album Name, Genre, Style, Release Year -->
+<div class="general-details">
+   <div class="album-image">
+      <img src="../Vinyl-Store/uploaded_img/<?= $fetch_product['image_01']; ?>" alt="">
    </div>
+   <div class="album-info">
+      <h1><?= $fetch_product['name']; ?></h1>
+      <h2>by <a href="artist_page.php?id=<?= $fetch_product['artist_id']; ?>" class="artist-link"><?= $fetch_product['artist_name']; ?></a></h2>
+      <p><strong>Genre:</strong> <a href="genre_page.php?id=<?= $fetch_product['genre_id']; ?>" class="genre-link"><?= $fetch_product['genre_name']; ?></a></p>
+      <p><strong>Style:</strong> 
+         <?php foreach ($product_styles as $style): ?>
+            <a href="style_page.php?id=<?= $style['style_id']; ?>" class="style-link"><?= $style['style_name']; ?></a><?php if (!$loop->last): ?>, <?php endif; ?>
+         <?php endforeach; ?>
+      </p>
+      <p><strong>Year:</strong> <?= $fetch_product['release_date']; ?></p>
+   </div>
+</div>
 
    <!-- Tracklist -->
    <div class="tracklist">
@@ -161,24 +165,40 @@ $media_credits = $conn->query("SELECT * FROM `media_credits` ORDER BY credit_id 
       </table>
    </div>
 
-   <!-- Credits -->
-   <div class="credits">
-      <h3>Credits:</h3>
-      <ul>
-         <?php foreach (array_slice($product_credits, 0, 4) as $credit): ?>
-            <li><?= htmlspecialchars($credit['credit_name']) ?> (<?= htmlspecialchars($credit['credit_type']) ?>)</li>
+<!-- Credits -->
+<div class="credits">
+   <h3>Credits:</h3>
+   <ul>
+      <?php foreach (array_slice($product_credits, 0, 4) as $credit): ?>
+         <li>
+            <a href="credit_page.php?id=<?= $credit['credit_id']; ?>" class="credit-link">
+               <img src="<?= $credit['image_url']; ?>" alt="Credit Image" class="credit-image">
+               <div class="credit-info">
+                  <strong><?= htmlspecialchars($credit['credit_name']) ?></strong>
+                  <span><?= htmlspecialchars($credit['credit_type']) ?></span>
+               </div>
+            </a>
+         </li>
+      <?php endforeach; ?>
+   </ul>
+
+   <?php if (count($product_credits) > 4): ?>
+      <button id="show-more-credits">Show More</button>
+      <ul id="extra-credits" style="display: none;">
+         <?php foreach (array_slice($product_credits, 4) as $credit): ?>
+            <li>
+               <a href="credit_page.php?id=<?= $credit['credit_id']; ?>" class="credit-link">
+                  <img src="<?= $credit['image_url']; ?>" alt="Credit Image" class="credit-image">
+                  <div class="credit-info">
+                     <strong><?= htmlspecialchars($credit['credit_name']) ?></strong>
+                     <span><?= htmlspecialchars($credit['credit_type']) ?></span>
+                  </div>
+               </a>
+            </li>
          <?php endforeach; ?>
       </ul>
-
-      <?php if (count($product_credits) > 4): ?>
-         <button id="show-more-credits">Show More</button>
-         <ul id="extra-credits" style="display: none;">
-            <?php foreach (array_slice($product_credits, 4) as $credit): ?>
-               <li><?= htmlspecialchars($credit['credit_name']) ?> (<?= htmlspecialchars($credit['credit_type']) ?>)</li>
-            <?php endforeach; ?>
-         </ul>
-      <?php endif; ?>
-   </div>
+   <?php endif; ?>
+</div>
 
    <!-- Details/Notes -->
    <div class="details">
@@ -269,9 +289,16 @@ let header = document.querySelector('.header');
    });
 
    document.getElementById('show-more-credits').addEventListener('click', function() {
-   document.getElementById('extra-credits').style.display = 'block';
-   this.style.display = 'none';
+   const extraCredits = document.getElementById('extra-credits');
+   if (extraCredits.style.display === 'none') {
+      extraCredits.style.display = 'block';
+      this.textContent = 'Show Less';
+   } else {
+      extraCredits.style.display = 'none';
+      this.textContent = 'Show More';
+   }
 });
+
 
 </script>
 <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
