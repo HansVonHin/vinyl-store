@@ -1243,6 +1243,16 @@ section{
    color: var(--red);
 }
 
+.actions .qty{
+   width: 5rem;
+   height: 2rem;
+   padding:1rem;
+   border:var(--border);
+   font-size: 1.8rem;
+   color:var(--black);
+   border-radius: .5rem;
+}
+
 .stats p {
    font-size: 1.6rem;
 }

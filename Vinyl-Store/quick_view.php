@@ -109,11 +109,11 @@ $media_credits = $conn->query("SELECT * FROM `media_credits` ORDER BY credit_id 
    </div>
    <div class="album-info">
       <h1><?= $fetch_product['name']; ?></h1>
-      <h2>by <a href="artist_page.php?id=<?= $fetch_product['artist_id']; ?>" class="artist-link"><?= $fetch_product['artist_name']; ?></a></h2>
-      <p><strong>Genre:</strong> <a href="genre_page.php?id=<?= $fetch_product['genre_id']; ?>" class="genre-link"><?= $fetch_product['genre_name']; ?></a></p>
+      <h2>by <a href="artist_page.php?id=<?= $fetch_product['artist_name']; ?>" class="artist-link"><?= $fetch_product['artist_name']; ?></a></h2>
+      <p><strong>Genre:</strong> <a href="genre.php?genre=<?= $fetch_product['genre_name']; ?>" class="genre-link"><?= $fetch_product['genre_name']; ?></a></p>
       <p><strong>Style:</strong> 
          <?php foreach ($product_styles as $style): ?>
-            <a href="style_page.php?id=<?= $style['style_id']; ?>" class="style-link"><?= $style['style_name']; ?></a><?php if (!$loop->last): ?>, <?php endif; ?>
+            <a href="style_page.php?id=<?= $style['style_id']; ?>" class="style-link"><?= $style['style_name']; ?></a>
          <?php endforeach; ?>
       </p>
       <p><strong>Year:</strong> <?= $fetch_product['release_date']; ?></p>
@@ -171,7 +171,7 @@ $media_credits = $conn->query("SELECT * FROM `media_credits` ORDER BY credit_id 
    <ul>
       <?php foreach (array_slice($product_credits, 0, 4) as $credit): ?>
          <li>
-            <a href="credit_page.php?id=<?= $credit['credit_id']; ?>" class="credit-link">
+            <a href="credit_page.php?id=<?= $credit['credit_name']; ?>" class="credit-link">
                <img src="<?= $credit['image_url']; ?>" alt="Credit Image" class="credit-image">
                <div class="credit-info">
                   <strong><?= htmlspecialchars($credit['credit_name']) ?></strong>
@@ -188,7 +188,7 @@ $media_credits = $conn->query("SELECT * FROM `media_credits` ORDER BY credit_id 
          <?php foreach (array_slice($product_credits, 4) as $credit): ?>
             <li>
                <a href="credit_page.php?id=<?= $credit['credit_id']; ?>" class="credit-link">
-                  <img src="<?= $credit['image_url']; ?>" alt="Credit Image" class="credit-image">
+                  <img src="../Vinyl-Store/uploaded_img/<?= $credit['image_url']; ?>" alt="Credit Image" class="credit-image">
                   <div class="credit-info">
                      <strong><?= htmlspecialchars($credit['credit_name']) ?></strong>
                      <span><?= htmlspecialchars($credit['credit_type']) ?></span>
@@ -200,35 +200,10 @@ $media_credits = $conn->query("SELECT * FROM `media_credits` ORDER BY credit_id 
    <?php endif; ?>
 </div>
 
-   <!-- Details/Notes -->
-   <div class="details">
-      <h3>Details/Notes:</h3>
-      <p><?= $fetch_product['details']; ?></p>
-   </div>
-</div>
-
-<!-- Right Section: Quantity, Actions, Stats, Video -->
-<div class="right-section">
-   <!-- Quantity and Action Buttons -->
-   <div class="actions">
-      <div class="price">₱<?= $fetch_product['price']; ?>/-</div>
-      <input type="number" name="qty" class="qty" min="1" max="99" value="1">
-      <button class="btn add-to-cart">Add to Cart</button>
-      <button class="btn add-to-wishlist">Add to Wishlist</button>
-   </div>
-
-   <!-- Stats -->
-   <div class="stats">
-      <p><strong>In Collection:</strong> <?= $checkout_count; ?></p>
-      <p><strong>Want List:</strong> <?= $wishlist_count; ?></p>
-      <p><strong>Avg Rating:</strong> <?= $avg_rating; ?> / 5 (<?= $rating_count; ?> ratings)</p>
-   </div>
-
-   <!-- Embedded Youtube -->
-   <div class="video">
-      <iframe width="100%" height="315" src="https://www.youtube.com/embed/<?= $video_link ?>" frameborder="0"></iframe>
-   </div>
-</div>
+<!-- Details/Notes -->
+<div class="details">
+   <h3>Details/Notes:</h3>
+   <p><?= $fetch_product['details']; ?></p>
 </div>
 
 <!-- Recommendations Section -->
@@ -258,6 +233,31 @@ $media_credits = $conn->query("SELECT * FROM `media_credits` ORDER BY credit_id 
       </div>
    </div>
 <?php endforeach; ?>
+</div>
+</div>
+
+<!-- Right Section: Quantity, Actions, Stats, Video -->
+<div class="right-section">
+   <!-- Quantity and Action Buttons -->
+   <div class="actions">
+      <div class="price">₱<?= $fetch_product['price']; ?>/-</div>
+      <input type="number" name="qty" class="qty" min="1" max="99" value="1">
+      <button class="btn add-to-cart">Add to Cart</button>
+      <button class="btn add-to-wishlist">Add to Wishlist</button>
+   </div>
+
+   <!-- Stats -->
+   <div class="stats">
+      <p><strong>In Collection:</strong> <?= $checkout_count; ?></p>
+      <p><strong>Want List:</strong> <?= $wishlist_count; ?></p>
+      <p><strong>Avg Rating:</strong> <?= $avg_rating; ?> / 5 (<?= $rating_count; ?> ratings)</p>
+   </div>
+
+   <!-- Embedded Youtube -->
+   <div class="video">
+      <iframe width="100%" height="315" src="https://www.youtube.com/embed/<?= $video_link ?>" frameborder="0"></iframe>
+   </div>
+</div>
 </div>
 
    <?php
