@@ -41,6 +41,21 @@ $media_tracklists = $conn->query("SELECT * FROM `media_tracklists` ORDER BY trac
 // Fetch credits
 $media_credits = $conn->query("SELECT * FROM `media_credits` ORDER BY credit_id DESC")->fetchAll(PDO::FETCH_ASSOC);
 
+$side_a_tracks = json_decode($product['side_a_tracks'], true);
+$side_b_tracks = json_decode($product['side_b_tracks'], true);
+
+if (isset($side_a_tracks) && is_array($side_a_tracks)) {
+   foreach ($side_a_tracks as $track) {
+       echo "<li>{$track}</li>";
+   }
+}
+
+$checkout_count = $db->query("SELECT COUNT(*) FROM orders WHERE product_id = $product_id")->fetchColumn();
+$rating_count = $db->query("SELECT COUNT(*) FROM reviews WHERE product_id = $product_id")->fetchColumn();
+$avg_rating = $db->query("SELECT AVG(rating) FROM reviews WHERE product_id = $product_id")->fetchColumn();
+$recommended_products = $db->query("SELECT * FROM products WHERE genre_id = {$product['genre_id']} AND id != $product_id LIMIT 5")->fetchAll();
+$reviews = $db->query("SELECT reviews.*, users.name AS user_name, users.profile_pic AS user_image FROM reviews JOIN users ON reviews.user_id = users.id WHERE product_id = $product_id")->fetchAll();
+
 ?>
 
 <!DOCTYPE html>
