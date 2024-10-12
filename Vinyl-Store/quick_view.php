@@ -47,12 +47,6 @@ $media_credits = $conn->query("SELECT * FROM `media_credits` ORDER BY credit_id 
 //$side_a_tracks = json_decode($product['side_a_tracks'], true);
 //$side_b_tracks = json_decode($product['side_b_tracks'], true);
 
-//if (isset($side_a_tracks) && is_array($side_a_tracks)) {
-   //foreach ($side_a_tracks as $track) {
-       //echo "<li>{$track}</li>";
-   //}
-//}
-
 //$checkout_count = $conn->query("SELECT COUNT(*) FROM orders WHERE id = $id")->fetchColumn();
 //$rating_count = $conn->query("SELECT COUNT(*) FROM reviews WHERE product_id = $product_id")->fetchColumn();
 //$avg_rating = $conn->query("SELECT AVG(rating) FROM reviews WHERE product_id = $product_id")->fetchColumn();
@@ -120,11 +114,23 @@ $media_credits = $conn->query("SELECT * FROM `media_credits` ORDER BY credit_id 
    </div>
 </div>
 
-   <!-- Tracklist -->
-   <div class="tracklist">
-      <h3>Tracklist:</h3>
+<!-- Tracklist -->
+<div class="tracklist">
+   <h3>Tracklist:</h3>
 
-      <!-- Side A -->
+   <!-- Embedded Spotify Album -->
+   <?php if (!empty($fetch_product['tracklist_url'])): ?>
+      <iframe style="border-radius:12px" 
+         src="<?= htmlspecialchars($fetch_product['tracklist_url']); ?>" 
+        width="100%" height="352" frameborder="0" allowfullscreen="" 
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+        loading="lazy">
+      </iframe>
+   <?php endif; ?>
+
+   <?php if ($fetch_product['media_type_name'] == 'Vinyl'): ?>
+      <!-- Vinyl with Sides A and B -->
+      <h4>Side A</h4>
       <table class="tracklist-table">
          <thead>
             <tr>
@@ -144,12 +150,12 @@ $media_credits = $conn->query("SELECT * FROM `media_credits` ORDER BY credit_id 
          </tbody>
       </table>
 
-      <!-- Side B (if available) -->
+      <h4>Side B</h4>
       <table class="tracklist-table">
          <thead>
             <tr>
                <th>#</th>
-               <th>Title</th>
+               <th>Song Title</th>
                <th>Length</th>
             </tr>
          </thead>
@@ -163,7 +169,29 @@ $media_credits = $conn->query("SELECT * FROM `media_credits` ORDER BY credit_id 
             <?php endforeach; ?>
          </tbody>
       </table>
-   </div>
+   
+   <?php else: ?>
+      <!-- Non-Vinyl Media (CD, Cassette, etc.) -->
+      <table class="tracklist-table">
+         <thead>
+            <tr>
+               <th>#</th>
+               <th>Song Title</th>
+               <th>Length</th>
+            </tr>
+         </thead>
+         <tbody>
+            <?php foreach ($all_tracks as $track): ?>
+               <tr>
+                  <td><?= $track['track_number']; ?></td>
+                  <td><?= $track['track_title']; ?></td>
+                  <td><?= $track['track_length']; ?></td>
+               </tr>
+            <?php endforeach; ?>
+         </tbody>
+      </table>
+   <?php endif; ?>
+</div>
 
 <!-- Credits -->
 <div class="credits">
@@ -171,8 +199,8 @@ $media_credits = $conn->query("SELECT * FROM `media_credits` ORDER BY credit_id 
    <ul>
       <?php foreach (array_slice($media_credits, 0, 4) as $credit): ?>
          <li>
-            <a href="credit_page.php?id=<?= $credit['credit_name']; ?>" class="credit-link">
-               <img src="<?= $credit['image_url']; ?>" alt="Credit Image" class="credit-image">
+            <a href="credit_page.php?id=<?= $credit['credit_id']; ?>" class="credit-link">
+               <img src="../Vinyl-Store/uploaded_img/<?= $credit['image_url']; ?>" alt="Credit Image" class="credit-image">
                <div class="credit-info">
                   <strong><?= htmlspecialchars($credit['credit_name']) ?></strong>
                   <span><?= htmlspecialchars($credit['credit_type']) ?></span>
@@ -181,23 +209,6 @@ $media_credits = $conn->query("SELECT * FROM `media_credits` ORDER BY credit_id 
          </li>
       <?php endforeach; ?>
    </ul>
-
-   <?php if (count($product_credits) > 4): ?>
-      <button id="show-more-credits">Show More</button>
-      <ul id="extra-credits" style="display: none;">
-         <?php foreach (array_slice($product_credits, 4) as $credit): ?>
-            <li>
-               <a href="credit_page.php?id=<?= $credit['credit_id']; ?>" class="credit-link">
-                  <img src="../Vinyl-Store/uploaded_img/<?= $credit['image_url']; ?>" alt="Credit Image" class="credit-image">
-                  <div class="credit-info">
-                     <strong><?= htmlspecialchars($credit['credit_name']) ?></strong>
-                     <span><?= htmlspecialchars($credit['credit_type']) ?></span>
-                  </div>
-               </a>
-            </li>
-         <?php endforeach; ?>
-      </ul>
-   <?php endif; ?>
 </div>
 
 <!-- Details/Notes -->
@@ -289,16 +300,25 @@ let header = document.querySelector('.header');
    });
 
    document.getElementById('show-more-credits').addEventListener('click', function() {
-   const extraCredits = document.getElementById('extra-credits');
-   if (extraCredits.style.display === 'none') {
+   var extraCredits = document.getElementById('extra-credits');
+   if (extraCredits.style.display === 'none' || extraCredits.style.display === '') {
       extraCredits.style.display = 'block';
-      this.textContent = 'Show Less';
+      this.innerText = 'Show Less';
    } else {
       extraCredits.style.display = 'none';
-      this.textContent = 'Show More';
+      this.innerText = 'Show More';
    }
 });
 
+// Fetch tracks depending on the media type
+if ($fetch_product['media_type_name'] == 'Vinyl') {
+    // Vinyl has Side A and Side B tracks
+    $side_a_tracks = json_decode($product['side_a_tracks'], true);
+    $side_b_tracks = json_decode($product['side_b_tracks'], true);
+} else {
+    // Non-vinyl formats
+    $all_tracks = json_decode($product['tracklist'], true);
+}
 
 </script>
 <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>

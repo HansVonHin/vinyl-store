@@ -1220,16 +1220,22 @@ section{
    color: var(--black);
 }
 
+/* Tracklist */
 .tracklist-table {
    width: 100%;
-   margin-bottom: 2rem;
    border-collapse: collapse;
+   margin-bottom: 2rem;
 }
 
 .tracklist-table th, .tracklist-table td {
-   border: 1px solid var(--border-color);
-   padding: .8rem;
+   padding: 0.5rem;
    text-align: left;
+   border-bottom: 1px solid #ddd;
+}
+
+.tracklist-table th {
+   background-color: #f4f4f4;
+   font-weight: bold;
 }
 
 .actions {
@@ -1261,6 +1267,11 @@ section{
    width: 100%;
 }
 
+/* Credits Styling */
+.credits {
+   margin-top: 2rem;
+}
+
 .credits ul {
    list-style-type: none;
    padding: 0;
@@ -1269,6 +1280,7 @@ section{
 .credits li {
    display: flex;
    align-items: center;
+   gap: 1rem;
    margin-bottom: 1.5rem;
 }
 
