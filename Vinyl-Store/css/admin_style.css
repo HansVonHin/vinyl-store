@@ -869,12 +869,12 @@ h1 {
    text-align: center;
 }
 
-#artistForm .btn.cancel, #tracklistForm .btn.cancel, #creditForm .btn.cancel {
+#artistForm .btn.cancel, #tracklistForm .btn.cancel, #creditForm .btn.cancel, #sidea-bForm .btn.cancel {
    background-color: #f44336;
    margin-left: 4%; /* Space between the two buttons */
 }
 
-#creditForm, #artistForm, #tracklistForm, #new_artistForm {
+#creditForm, #artistForm, #tracklistForm, #new_artistForm, #sidea-bForm {
    width: 0%;
 }
 
@@ -883,7 +883,8 @@ h1 {
 #creditsForm .form-container, 
 #new_artistForm .form-container, 
 #new_tracklistForm .form-container, 
-#new_creditsForm .form-container {
+#new_creditsForm .form-container,
+#sidea-bForm .form-container {
    margin: 20px 0;
    padding: 20px;
    border: 1px solid #ddd;
@@ -899,7 +900,8 @@ h1 {
 #creditsForm .form-container.open, 
 #new_artistForm .form-container.open, 
 #new_tracklistForm .form-container.open, 
-#new_creditsForm .form-container.open {
+#new_creditsForm .form-container.open,
+#sidea-bForm .form-container.open {
    display: block;
    opacity: 1;
    max-height: 500px; /* Adjust based on content */
@@ -910,7 +912,8 @@ h1 {
 #creditsForm form .inputBox,
 #new_artistForm form .inputBox, 
 #new_tracklistForm form .inputBox, 
-#new_creditsForm form .inputBox {
+#new_creditsForm form .inputBox,
+#sidea-bForm .inputBox {
    margin-bottom: 10px;
 }
 
@@ -919,7 +922,8 @@ h1 {
 #creditsForm form .inputBox span, 
 #new_artistForm form .inputBox span, 
 #new_tracklistForm form .inputBox span, 
-#new_creditsForm form .inputBox span {
+#new_creditsForm form .inputBox span,
+#sidea-bForm .inputBox span {
    display: block;
    font-size: 1.6rem;
 }
@@ -929,7 +933,8 @@ h1 {
 #creditsForm form .inputBox .box,
 #new_artistForm .inputBox .box, 
 #new_tracklistForm .inputBox .box, 
-#new_creditsForm .inputBox .box {
+#new_creditsForm .inputBox .box,
+#sidea-bForm .inputBox .box {
    width: auto; /* Full width */
    padding: 8px;
    margin-bottom: 10px;
@@ -956,7 +961,7 @@ h1 {
    width: 47%;
 }
 
-#new_artistForm .btn.cancel, #new_tracklistForm .btn.cancel, #new_creditsForm .btn.cancel {
+#new_artistForm .btn.cancel, #new_tracklistForm .btn.cancel, #new_creditsForm .btn.cancel, #sidea-bForm .btn.cancel {
    background-color: #f44336;
 }
 

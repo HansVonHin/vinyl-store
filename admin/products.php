@@ -145,6 +145,39 @@ if (isset($_POST['add_credits'])) {
     }
 }
 
+if (isset($_POST['sidea-b'])) {
+    
+    // Insert Side A tracks
+    $side_a_tracks = $_POST['side_a_track_title'];
+    $side_a_numbers = $_POST['side_a_track_number'];
+    $side_a_lengths = $_POST['side_a_track_length'];
+    
+    foreach ($side_a_tracks as $index => $title) {
+        if (!empty($title)) {
+            $track_number = $side_a_numbers[$index];
+            $track_length = $side_a_lengths[$index];
+            $conn->prepare("INSERT INTO vinyl_side_a_b (product_id, track_side, track_number, track_title, track_length) VALUES (?, 'A', ?, ?, ?)")
+                 ->execute([$product_id, $track_number, $title, $track_length]);
+        }
+    }
+    
+    // Insert Side B tracks
+    $side_b_tracks = $_POST['side_b_track_title'];
+    $side_b_numbers = $_POST['side_b_track_number'];
+    $side_b_lengths = $_POST['side_b_track_length'];
+    
+    foreach ($side_b_tracks as $index => $title) {
+        if (!empty($title)) {
+            $track_number = $side_b_numbers[$index];
+            $track_length = $side_b_lengths[$index];
+            $conn->prepare("INSERT INTO vinyl_side_a_b (product_id, track_side, track_number, track_title, track_length) VALUES (?, 'B', ?, ?, ?)")
+                 ->execute([$product_id, $track_number, $title, $track_length]);
+        }
+    }
+
+    echo "Side A & B added successfully!";
+}
+
 // Assign an artist to a product
 if (isset($_POST['assign_artist'])) {
     $product_id = filter_var($_POST['product_id'], FILTER_SANITIZE_NUMBER_INT);
@@ -747,7 +780,7 @@ $products_filtered = $filtered_products->fetchAll(PDO::FETCH_ASSOC);
     </div>
 
     <!-- Add tracklist form -->
-    <button id="toggleTracklistButton">Assign Tracklist to Product</button><button id="toggleNewTracklistButton">Add New Tracklist</button>
+    <button id="toggleTracklistButton">Assign Tracklist to Product</button><button id="toggleNewTracklistButton">Add New Tracklist</button><button id="toggleNewSideA-BButton">Add Side A & Side B</button>
     <div id="tracklistForm" class="form-container hidden">
         <form action="" method="POST">
         <label for="product">Select Product</label>
@@ -798,6 +831,64 @@ $products_filtered = $filtered_products->fetchAll(PDO::FETCH_ASSOC);
             </div>
         </form>
     </div>
+    <div class="sidea-bForm" class="form-container hidden">
+    <form action="" method="POST">
+        <div class="inputBox">
+            <label for="product_id">Select Product (Required)</label>
+            <select name="product_id" required>
+            <?php 
+                $products = $conn->query("SELECT id, name FROM products WHERE media_type_id = 1")->fetchAll(PDO::FETCH_ASSOC);
+                foreach($products as $product) {
+                echo "<option value='{$product['id']}'>{$product['name']}</option>";
+            }
+            ?>
+        </select>
+    </div>
+    <div class="inputBox">
+    <label for="sidea-b">Add Tracks (Required)</label>
+    <!-- Side A -->
+    <h3>Side A</h3>
+    <table class="tracklist-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Song Title</th>
+                <th>Length</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="number" name="side_a_track_number[]" min="1"></td>
+                <td><input type="text" name="side_a_track_title[]" placeholder="Track Title"></td>
+                <td><input type="text" name="side_a_track_length[]" placeholder="4:20"></td>
+            </tr>
+            <!-- Repeat rows as needed -->
+        </tbody>
+    </table>
+
+    <!-- Side B -->
+    <h3>Side B</h3>
+    <table class="tracklist-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Song Title</th>
+                <th>Length</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="number" name="side_b_track_number[]" min="1"></td>
+                <td><input type="text" name="side_b_track_title[]" placeholder="Track Title"></td>
+                <td><input type="text" name="side_b_track_length[]" placeholder="4:20"></td>
+            </tr>
+            <!-- Repeat rows as needed -->
+            </tbody>
+        </table>
+    </div>
+    <input type="submit" class="btn" value="Add Tracklist" name="add_sidea-b"></input>
+    </form>
+</div>
 </section>
 
 <!-- Section 4: Credits Management -->
@@ -1044,7 +1135,8 @@ function toggleForm(formId) {
             document.getElementById("tracklistForm"),
             document.getElementById("new_tracklistForm"),
             document.getElementById("creditForm"),
-            document.getElementById("new_creditsForm")
+            document.getElementById("new_creditsForm"),
+            document.getElementById("sidea-bForm")
         ];
         
         forms.forEach(function(f) {
@@ -1078,6 +1170,9 @@ document.getElementById("toggleCreditButton").onclick = function() {
 };
 document.getElementById("toggleNewCreditsButton").onclick = function() {
     toggleForm("new_creditsForm");
+};
+document.getElementById("toggleNewSideA-BButton").onclick = function() {
+    toggleForm("sidea-bForm");
 };
 
 function updateTracklistStyle(platform) {
