@@ -169,7 +169,7 @@ $media_credits = $conn->query("SELECT * FROM `media_credits` ORDER BY credit_id 
 <div class="credits">
    <h3>Credits:</h3>
    <ul>
-      <?php foreach (array_slice($product_credits, 0, 4) as $credit): ?>
+      <?php foreach (array_slice($media_credits, 0, 4) as $credit): ?>
          <li>
             <a href="credit_page.php?id=<?= $credit['credit_name']; ?>" class="credit-link">
                <img src="<?= $credit['image_url']; ?>" alt="Credit Image" class="credit-image">
