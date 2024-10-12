@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 09, 2024 at 05:52 PM
+-- Generation Time: Oct 12, 2024 at 05:36 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -309,6 +309,21 @@ CREATE TABLE `product_styles` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `reviews`
+--
+
+CREATE TABLE `reviews` (
+  `id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `rating` int(11) NOT NULL,
+  `review_text` text DEFAULT NULL,
+  `review_date` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `styles`
 --
 
@@ -471,6 +486,12 @@ ALTER TABLE `product_styles`
   ADD KEY `style_id` (`style_id`);
 
 --
+-- Indexes for table `reviews`
+--
+ALTER TABLE `reviews`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `styles`
 --
 ALTER TABLE `styles`
@@ -564,6 +585,12 @@ ALTER TABLE `orders`
 --
 ALTER TABLE `products`
   MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT for table `reviews`
+--
+ALTER TABLE `reviews`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `styles`
