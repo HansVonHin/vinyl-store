@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 12, 2024 at 05:36 PM
+-- Generation Time: Oct 14, 2024 at 02:36 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -175,7 +175,7 @@ CREATE TABLE `media_tracklists` (
 --
 
 INSERT INTO `media_tracklists` (`tracklist_id`, `product_id`, `platform`, `tracklist_url`, `tracklist_name`) VALUES
-(1, 1, 'Spotify', 'https://open.spotify.com/album/0ETFjACtuP2ADo6LFhL6HN', 'Abbey Road (Remastered)');
+(1, 1, 'Spotify', 'https://open.spotify.com/embed/album/0ETFjACtuP2ADo6LFhL6HN?utm_source=generator&theme=0', 'Abbey Road (Remastered)');
 
 -- --------------------------------------------------------
 
@@ -371,6 +371,21 @@ CREATE TABLE `users` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `vinyl_side_a_b`
+--
+
+CREATE TABLE `vinyl_side_a_b` (
+  `vinyl_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `track_side` enum('A','B') DEFAULT NULL,
+  `track_number` int(3) NOT NULL,
+  `track_title` varchar(255) NOT NULL,
+  `track_length` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `wishlist`
 --
 
@@ -505,6 +520,13 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `vinyl_side_a_b`
+--
+ALTER TABLE `vinyl_side_a_b`
+  ADD PRIMARY KEY (`vinyl_id`),
+  ADD KEY `product_id` (`product_id`);
+
+--
 -- Indexes for table `wishlist`
 --
 ALTER TABLE `wishlist`
@@ -605,6 +627,12 @@ ALTER TABLE `users`
   MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `vinyl_side_a_b`
+--
+ALTER TABLE `vinyl_side_a_b`
+  MODIFY `vinyl_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `wishlist`
 --
 ALTER TABLE `wishlist`
@@ -660,6 +688,12 @@ ALTER TABLE `product_styles`
 --
 ALTER TABLE `styles`
   ADD CONSTRAINT `styles_ibfk_1` FOREIGN KEY (`genre_id`) REFERENCES `genres` (`id`);
+
+--
+-- Constraints for table `vinyl_side_a_b`
+--
+ALTER TABLE `vinyl_side_a_b`
+  ADD CONSTRAINT `vinyl_side_a_b_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
