@@ -1013,7 +1013,9 @@ $products_filtered = $filtered_products->fetchAll(PDO::FETCH_ASSOC);
         <?php endif; ?>
             <div class="btn-container">
                     <input type="submit" class="btn" value="Add Credits" name="add_credits">
-            <!--button id="toggleNewCreditsButton" class="btn cancel">Close</button>-->
+            
+                <!--button id="toggleNewCreditsButton" class="btn cancel">Close</button>-->
+            
             </div>
         </form>
     </div>
