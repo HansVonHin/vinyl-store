@@ -801,7 +801,9 @@ $products_filtered = $filtered_products->fetchAll(PDO::FETCH_ASSOC);
 
         <div class="btn-container">
             <input type="submit" class="btn" value="Confirm" name="assign_tracklist">
+            
             <!--<button id="toggleTracklistButton" class="btn cancel">Close</button>-->
+        
         </div>
         </form>
     </div>
