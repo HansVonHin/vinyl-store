@@ -983,10 +983,8 @@ $products_filtered = $filtered_products->fetchAll(PDO::FETCH_ASSOC);
         </select>
 
         <div class="btn-container">
-            <input type="submit" class="btn" value="Confirm" name="assign_credit">
-            
+            <input type="submit" class="btn" value="Confirm" name="assign_credit"> 
             <!--<button id="toggleCreditButton" class="btn cancel">Close</button>-->
-        
         </div>
         </form>
     </div>
