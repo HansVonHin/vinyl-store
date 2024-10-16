@@ -831,7 +831,9 @@ $products_filtered = $filtered_products->fetchAll(PDO::FETCH_ASSOC);
         <?php endif; ?>
             <div class="btn-container">
                     <input type="submit" class="btn" value="Add Tracklist" name="add_tracklist"></input>
-                <!--<button id="toggleNewTracklistButton" class="btn cancel">Close</button>-->
+                
+                    <!--<button id="toggleNewTracklistButton" class="btn cancel">Close</button>-->
+            
             </div>
         </form>
     </div>
